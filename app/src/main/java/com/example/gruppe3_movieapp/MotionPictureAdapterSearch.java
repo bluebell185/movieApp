@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,28 +12,28 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class MotionPictureAdapter extends RecyclerView.Adapter<MotionPictureAdapter.MotionPictureViewHolder> {
+public class MotionPictureAdapterSearch extends RecyclerView.Adapter<MotionPictureAdapterSearch.MotionPictureViewHolder> {
     ArrayList<MotionPicture> motionPictureList = new ArrayList<>();
 
-    public MotionPictureAdapter(ArrayList<MotionPicture> motionPictureList){
+    public MotionPictureAdapterSearch(ArrayList<MotionPicture> motionPictureList){
         this.motionPictureList = motionPictureList;
     }
 
     @NonNull
     @Override
-    public MotionPictureAdapter.MotionPictureViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_motion_picture,
+    public MotionPictureAdapterSearch.MotionPictureViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_motion_picture_search,
                 parent, false);
         MotionPictureViewHolder vh = new MotionPictureViewHolder(v);
         return vh;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MotionPictureAdapter.MotionPictureViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MotionPictureAdapterSearch.MotionPictureViewHolder holder, int position) {
         MotionPicture p = motionPictureList.get(position);
         holder.tvTitleSearch.setText(p.getTitle());
         holder.tvDurationSearch.setText(String.valueOf(p.getDuration()));
-        holder.tvRatingSearch.setText(String.valueOf(p.getRating()));
+        holder.rbRatingSearch.setRating(p.getRating());
         holder.ivCoverSearch.setImageResource(p.getCover());
     }
 
@@ -44,14 +45,14 @@ public class MotionPictureAdapter extends RecyclerView.Adapter<MotionPictureAdap
     public static class MotionPictureViewHolder extends RecyclerView.ViewHolder{
         TextView tvTitleSearch;
         TextView tvDurationSearch;
-        TextView tvRatingSearch;
+        RatingBar rbRatingSearch;
         ImageView ivCoverSearch;
 
         public MotionPictureViewHolder(@NonNull View itemView) {
             super(itemView);
             tvTitleSearch = itemView.findViewById(R.id.tvTitleSearch);
             tvDurationSearch = itemView.findViewById(R.id.tvDurationSearch);
-            tvRatingSearch = itemView.findViewById(R.id.tvRatingSearch);
+            rbRatingSearch = itemView.findViewById(R.id.rbRatingSearch);
             ivCoverSearch = itemView.findViewById(R.id.ivCoverSearch);
         }
     }

@@ -7,10 +7,15 @@ public class MotionPicture implements Parcelable {
     //hier noch @SerializedName drüber und Attribute ergänzen @Mo
     String title;
     double duration;
-    double rating;
+    float rating;
     int cover;
 
-   public MotionPicture(String title, double duration, double rating, int cover) {
+    public MotionPicture(String title, int cover) {
+        this.title = title;
+        this.cover = cover;
+    }
+
+    public MotionPicture(String title, double duration, float rating, int cover) {
         this.title = title;
         this.duration = duration;
         this.rating = rating;
@@ -20,7 +25,7 @@ public class MotionPicture implements Parcelable {
     protected MotionPicture(Parcel in) {
        title = in.readString();
        duration = in.readDouble();
-       rating = in.readDouble();
+       rating = in.readFloat();
        cover = in.readInt();
     }
 
@@ -57,7 +62,7 @@ public class MotionPicture implements Parcelable {
         return duration;
     }
 
-    public double getRating() {
+    public float getRating() {
         return rating;
     }
 
