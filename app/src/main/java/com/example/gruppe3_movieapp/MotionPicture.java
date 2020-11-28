@@ -4,23 +4,55 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.lang.annotation.ElementType;
+import java.util.List;
 
 //Table names in SQLite are case-insensitive!
 @Entity
 public class MotionPicture implements Parcelable {
     @PrimaryKey @NonNull
     String imdbId;
-    //hier noch @SerializedName drüber und Attribute ergänzen @Mo
+    @SerializedName("Title")
     String title;
-    double duration;
-    float rating;
+    @SerializedName("Runtime")
+    double runtime;
+    @SerializedName("Ratings")
+    List<Rating>  rating;
+    @SerializedName("Poster")
     String cover;
+    @SerializedName("Year")
+    double year;
+    @SerializedName("Rated")
+    String rated;
+    @SerializedName("Released")
+    String released;
+    @SerializedName("Genre")
+    String genre;
+    @SerializedName("Director")
+    String director;
+    @SerializedName("Actors")
+    String actors;
+    @SerializedName("Plot")
+    String plot;
+    @SerializedName("Language")
+    String language;
+    @SerializedName("Country")
+    String country;
+    @SerializedName("Awards")
+    String awards;
+
+
+    @SerializedName("Type")
+    String type;
+    @SerializedName("total Seasions")
+    int total_Season;
     @Expose
     boolean markedAsFavorite = false;    //Nicht in JSON
     @Expose
@@ -33,12 +65,24 @@ public class MotionPicture implements Parcelable {
         this.cover = cover;
     }
 
-    public MotionPicture(String imdbId, String title, double duration, float rating, String cover) {
+    public MotionPicture(@NonNull String imdbId, String title, double runtime, List<Rating> rating, String cover, double year, String rated, String released, String genre, String director, String actors, String plot, String language, String country, String awards, String type, int total_Season) {
         this.imdbId = imdbId;
         this.title = title;
-        this.duration = duration;
+        this.runtime = runtime;
         this.rating = rating;
         this.cover = cover;
+        this.year = year;
+        this.rated = rated;
+        this.released = released;
+        this.genre = genre;
+        this.director = director;
+        this.actors = actors;
+        this.plot = plot;
+        this.language = language;
+        this.country = country;
+        this.awards = awards;
+        this.type = type;
+        this.total_Season = total_Season;
 
     }
 
@@ -46,9 +90,21 @@ public class MotionPicture implements Parcelable {
     protected MotionPicture(Parcel in) {
         imdbId = in.readString();
         title = in.readString();
-        duration = in.readDouble();
-        rating = in.readFloat();
+        runtime = in.readDouble();
+        in.readList(rating, ElementType.class.getClassLoader());
         cover = in.readString();
+        year = in.readDouble();
+        rated = in.readString();
+        released = in.readString();
+        genre = in.readString();
+        director = in.readString();
+        actors = in.readString();
+        plot = in.readString();
+        language = in.readString();
+        country = in.readString();
+        awards = in.readString();
+        type = in.readString();
+        total_Season = in.readInt();
     }
 
     public static final Creator<MotionPicture> CREATOR = new Creator<MotionPicture>() {
@@ -72,22 +128,37 @@ public class MotionPicture implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(imdbId);
         dest.writeString(title);
-        dest.writeDouble(duration);
-        dest.writeDouble(rating);
+        dest.writeDouble(runtime);
+        dest.writeList(rating);
         dest.writeString(cover);
+        dest.writeDouble(year);
+        dest.writeString(rated);
+        dest.writeString(released);
+        dest.writeString(genre);
+        dest.writeString(director);
+        dest.writeString(actors);
+        dest.writeString(plot);
+        dest.writeString(language);
+        dest.writeString(country);
+        dest.writeString(awards);
+        dest.writeString(type);
+        dest.writeInt(total_Season);
     }
 
-    public String getImdbId() { return imdbId; }
+    @NonNull
+    public String getImdbId() {
+        return imdbId;
+    }
 
     public String getTitle() {
         return title;
     }
 
-    public double getDuration() {
-        return duration;
+    public double getRuntime() {
+        return runtime;
     }
 
-    public float getRating() {
+    public List<Rating> getRating() {
         return rating;
     }
 
@@ -95,17 +166,67 @@ public class MotionPicture implements Parcelable {
         return cover;
     }
 
+    public double getYear() {
+        return year;
+    }
+
+    public String getRated() {
+        return rated;
+    }
+
+    public String getReleased() {
+        return released;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public String getDirector() {
+        return director;
+    }
+
+    public String getActors() {
+        return actors;
+    }
+
+    public String getPlot() {
+        return plot;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public String getAwards() {
+        return awards;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public int getTotal_Season() {
+        return total_Season;
+    }
+
     public boolean isMarkedAsFavorite() {
         return markedAsFavorite;
+    }
+
+    public boolean isMarkedAsSeen() {
+        return markedAsSeen;
     }
 
     public void setMarkedAsFavorite(boolean markedAsFavorite) {
         this.markedAsFavorite = markedAsFavorite;
     }
 
-    public boolean isMarkedAsSeen() {
-        return markedAsSeen;
-    }
+
 
     public void setMarkedAsSeen(boolean markedAsSeen) {
         this.markedAsSeen = markedAsSeen;
