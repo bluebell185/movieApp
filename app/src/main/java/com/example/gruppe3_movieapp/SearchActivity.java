@@ -26,11 +26,12 @@ public class SearchActivity extends AppCompatActivity {
         tvDurationSearch = findViewById(R.id.tvDurationSearch);
         rbRatingSearch = findViewById(R.id.rbRatingSearch);
         ivCoverSearch = findViewById(R.id.ivCoverSearch);
+
+        fillMotionPictureList();
     }
 
     protected void onStart(){
         super.onStart();
-        fillMotionPictureList();
 
         RecyclerView rvSearch = findViewById(R.id.rvSearch);
 
@@ -42,9 +43,9 @@ public class SearchActivity extends AppCompatActivity {
     private void fillMotionPictureList(){
         //später die Liste, die die API zurückgibt an motionPictureList übergeben ODER dierekt die zurückgegebne Liste in die RV
 
-        MotionPicture m1 = new MotionPicture("Titel", 300.1, (float) 9.8, R.drawable.ic_launcher_foreground);
-        MotionPicture m2 = new MotionPicture("Title", 300.1, (float) 3.2, R.drawable.ic_launcher_foreground);
-        MotionPicture m3 = new MotionPicture("Titel", 300.1, (float) 5.5, R.drawable.ic_launcher_foreground);
+        MotionPicture m1 = new MotionPicture("Titel", 300.1, (float) 9.8, "https://m.media-amazon.com/images/M/MV5BMzRmNjJhYTctMjY5My00ZWE4LWFiMTEtZGMzYzMxNmQ5OTllL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyOTc2Mzg5OQ@@._V1_SX300.jpg");
+        MotionPicture m2 = new MotionPicture("Title", 300.1, (float) 3.2, "https://m.media-amazon.com/images/M/MV5BMzRmNjJhYTctMjY5My00ZWE4LWFiMTEtZGMzYzMxNmQ5OTllL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyOTc2Mzg5OQ@@._V1_SX300.jpg");
+        MotionPicture m3 = new MotionPicture("Titel", 300.1, (float) 5.5, "https://m.media-amazon.com/images/M/MV5BMDhhN2QwNGUtODI1OC00NDRkLWJkMjgtZmM3MDY4MDI0NGE2XkEyXkFqcGdeQXVyNjE4MDMwMjk@._V1_SX300.jpg");
 
         motionPictureList.add(m1);
         motionPictureList.add(m2);

@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 public class MotionPictureAdapterMain extends RecyclerView.Adapter<MotionPictureAdapterMain.MotionPictureViewHolder> {
@@ -31,7 +33,8 @@ public class MotionPictureAdapterMain extends RecyclerView.Adapter<MotionPicture
     public void onBindViewHolder(@NonNull MotionPictureAdapterMain.MotionPictureViewHolder holder, int position) {
         MotionPicture p = motionPictureList.get(position);
         holder.tvTitleMain.setText(p.getTitle());
-        holder.ivCoverMain.setImageResource(p.getCover());
+        Picasso.get().load(p.getCover()).into(holder.ivCoverMain);
+        //holder.ivCoverMain.setImageResource(p.getCover());
     }
 
     @Override

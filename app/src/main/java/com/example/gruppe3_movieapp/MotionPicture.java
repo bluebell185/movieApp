@@ -8,14 +8,14 @@ public class MotionPicture implements Parcelable {
     String title;
     double duration;
     float rating;
-    int cover;
+    String cover;
 
-    public MotionPicture(String title, int cover) {
+    public MotionPicture(String title, String cover) {
         this.title = title;
         this.cover = cover;
     }
 
-    public MotionPicture(String title, double duration, float rating, int cover) {
+    public MotionPicture(String title, double duration, float rating, String cover) {
         this.title = title;
         this.duration = duration;
         this.rating = rating;
@@ -26,7 +26,7 @@ public class MotionPicture implements Parcelable {
        title = in.readString();
        duration = in.readDouble();
        rating = in.readFloat();
-       cover = in.readInt();
+       cover = in.readString();
     }
 
     public static final Creator<MotionPicture> CREATOR = new Creator<MotionPicture>() {
@@ -51,7 +51,7 @@ public class MotionPicture implements Parcelable {
         dest.writeString(title);
         dest.writeDouble(duration);
         dest.writeDouble(rating);
-        dest.writeInt(cover);
+        dest.writeString(cover);
     }
 
     public String getTitle() {
@@ -66,7 +66,7 @@ public class MotionPicture implements Parcelable {
         return rating;
     }
 
-    public int getCover() {
+    public String getCover() {
         return cover;
     }
 }

@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 public class MotionPictureAdapterSearch extends RecyclerView.Adapter<MotionPictureAdapterSearch.MotionPictureViewHolder> {
@@ -34,7 +36,8 @@ public class MotionPictureAdapterSearch extends RecyclerView.Adapter<MotionPictu
         holder.tvTitleSearch.setText(p.getTitle());
         holder.tvDurationSearch.setText(String.valueOf(p.getDuration()));
         holder.rbRatingSearch.setRating(p.getRating());
-        holder.ivCoverSearch.setImageResource(p.getCover());
+        Picasso.get().load(p.getCover()).into(holder.ivCoverSearch);
+        //holder.ivCoverSearch.setImageResource(p.getCover());
     }
 
     @Override
