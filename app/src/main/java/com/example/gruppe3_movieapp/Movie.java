@@ -23,7 +23,7 @@ public class Movie {
     String plot;
     @SerializedName("Language")
     String language;
-    //public ArrayList<Movie> language; weil es mehrere Sprachen gibt oder ist das egal?
+
     @SerializedName("Country")
     String country;
     @SerializedName("Awards")
@@ -126,8 +126,6 @@ public class Movie {
     public int getTotal_Season() {
         return total_Season;
     }
-    //@SerializedName("name") steht in Trello aber weiß nicht wo das in der API steht
-   // String Website;
 
 
 

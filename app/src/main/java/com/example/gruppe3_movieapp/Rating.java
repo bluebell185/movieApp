@@ -20,6 +20,6 @@ public class Rating {
     public String getValue() {
         return value;
     }
-    // double? wegen "/" string gewählt!
+
 
 }
