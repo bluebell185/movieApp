@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import static com.example.gruppe3_movieapp.MainActivity.db;
+import static com.example.gruppe3_movieapp.MainActivity.dbRepo;
+
 public class SearchActivity extends AppCompatActivity {
     ArrayList<MotionPicture> motionPictureList = new ArrayList<>();
     TextView tvTitleSearch;
@@ -43,12 +46,23 @@ public class SearchActivity extends AppCompatActivity {
     private void fillMotionPictureList(){
         //später die Liste, die die API zurückgibt an motionPictureList übergeben ODER dierekt die zurückgegebne Liste in die RV
 
-        MotionPicture m1 = new MotionPicture("Titel", 300.1, (float) 9.8, "https://m.media-amazon.com/images/M/MV5BMzRmNjJhYTctMjY5My00ZWE4LWFiMTEtZGMzYzMxNmQ5OTllL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyOTc2Mzg5OQ@@._V1_SX300.jpg");
-        MotionPicture m2 = new MotionPicture("Title", 300.1, (float) 3.2, "https://m.media-amazon.com/images/M/MV5BMzRmNjJhYTctMjY5My00ZWE4LWFiMTEtZGMzYzMxNmQ5OTllL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyOTc2Mzg5OQ@@._V1_SX300.jpg");
-        MotionPicture m3 = new MotionPicture("Titel", 300.1, (float) 5.5, "https://m.media-amazon.com/images/M/MV5BMDhhN2QwNGUtODI1OC00NDRkLWJkMjgtZmM3MDY4MDI0NGE2XkEyXkFqcGdeQXVyNjE4MDMwMjk@._V1_SX300.jpg");
+        MotionPicture m1 = new MotionPicture("1", "Titel", 300.1, (float) 9.8, "https://m.media-amazon.com/images/M/MV5BMzRmNjJhYTctMjY5My00ZWE4LWFiMTEtZGMzYzMxNmQ5OTllL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyOTc2Mzg5OQ@@._V1_SX300.jpg");
+        MotionPicture m2 = new MotionPicture("2","Title", 300.1, (float) 3.2, "https://m.media-amazon.com/images/M/MV5BMzRmNjJhYTctMjY5My00ZWE4LWFiMTEtZGMzYzMxNmQ5OTllL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyOTc2Mzg5OQ@@._V1_SX300.jpg");
+        MotionPicture m3 = new MotionPicture("3","Titel", 300.1, (float) 5.5, "https://m.media-amazon.com/images/M/MV5BMDhhN2QwNGUtODI1OC00NDRkLWJkMjgtZmM3MDY4MDI0NGE2XkEyXkFqcGdeQXVyNjE4MDMwMjk@._V1_SX300.jpg");
 
         motionPictureList.add(m1);
         motionPictureList.add(m2);
         motionPictureList.add(m3);
+
+        //START TEST
+        db.clearAllTables(); //Um Tabellen zu leeren, sonst gibts Fehler bei doppelter imdbId!
+        //Kurzer Test: Du hast 3 Objekte erstellt (m1,m2,m3). Diese in der DB speichern mit Insert,
+        dbRepo.insert(m1,m2,m3);
+
+        //und anschließend wieder holen mit getAll()
+        motionPictureList = (ArrayList<MotionPicture>) dbRepo.getAll();
+        //alternativ geht aber auch
+        motionPictureList = (ArrayList<MotionPicture>) dbRepo.getMotionPicture(m1.getImdbId(), m2.getImdbId(), m3.getImdbId());
+        //END
     }
 }

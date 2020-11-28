@@ -2,8 +2,8 @@ package com.example.gruppe3_movieapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.gruppe3_movieapp.room.AppDatabase;
+import com.example.gruppe3_movieapp.room.MotionPictureDao;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -19,11 +22,22 @@ public class MainActivity extends AppCompatActivity {
     TextView tvTitleMain;
     ImageView ivCoverMain;
     Button btnAddMotionPictureMain;
+    static MotionPictureDao dbRepo;
+    static AppDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Datenbank einmalig initialisieren...
+        db = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "MovieAppDB").
+                allowMainThreadQueries().
+                build();
+        dbRepo = db.motionPictureDao();
+        //Verwendung der Datenbank mit -> db.methode()
+
 
         tvTitleMain = findViewById(R.id.tvTitleMain);
         ivCoverMain = findViewById(R.id.ivCoverMain);
