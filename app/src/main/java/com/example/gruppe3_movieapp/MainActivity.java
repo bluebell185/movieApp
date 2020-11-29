@@ -1,21 +1,26 @@
 package com.example.gruppe3_movieapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
+
 import com.example.gruppe3_movieapp.room.AppDatabase;
 import com.example.gruppe3_movieapp.room.MotionPictureDao;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     ArrayList<MotionPicture> motionPictureList = new ArrayList<>();
@@ -24,11 +29,13 @@ public class MainActivity extends AppCompatActivity {
     Button btnAddMotionPictureMain;
     static MotionPictureDao dbRepo;
     static AppDatabase db;
+    MotionPictureRepo motionPictureRepo = new MotionPictureRepo();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+       // getMotionPicture;
 
         //Datenbank einmalig initialisieren...
         db = Room.databaseBuilder(getApplicationContext(),
@@ -80,5 +87,37 @@ public class MainActivity extends AppCompatActivity {
         motionPictureList.add(m1);
         motionPictureList.add(m2);
         motionPictureList.add(m3);
+    }
+
+ // Sobald die Daten und Inhalte fest sind, muss noch festegelegt werden wann was angezeigt wird und welche Errormessage angezeigt werden kann
+    private void getMotionPicture(){
+        motionPictureRepo.getMotionPicture(new Callback<MotionPictureApiResults>() {
+            @Override
+            public void onResponse(Call<MotionPictureApiResults> call, Response<MotionPictureApiResults> response) {
+                if (response.isSuccessful()){
+                    Log.d("MainActivity", "getMotionPicture: onResponse successfull");
+                    MotionPictureApiResults motionPictureApiResults = response.body();
+                    MotionPicture motionPicture = motionPictureApiResults.getMotionPicture().get(0);
+                    if (motionPicture != null){
+
+                        // Daten ausgeben!
+                    }
+                    else {
+                        // textview.setText(R.string.ErrorMessage);
+                    }
+                }
+                else {
+                    Log.d("MainActivity", "getMotionPicture: onResponse NOT successfull");
+                    // textview.setText(R.string.ErrorMessage);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MotionPictureApiResults> call, Throwable t) {
+                Log.d("MainActivity", "getMotionPicture: onFailure");
+                // textview.setText(R.string.ErrorMessage);
+
+            }
+        });
     }
 }
