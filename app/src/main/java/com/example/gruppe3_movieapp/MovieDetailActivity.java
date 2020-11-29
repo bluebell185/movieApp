@@ -41,8 +41,11 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
     protected void onStart() {
         super.onStart();
 
-        // Hier wird später die imdbId des angeklickten Filmes übergeben
-        motionPictureList = (ArrayList<MotionPicture>) dbRepo.getMotionPicture("1");
+        Intent intent = getIntent();
+        String imdbId = intent.getStringExtra(Intent.EXTRA_TEXT);
+
+        // Datenbankeintrag wird anhand der imdbId hergeholt
+        motionPictureList = (ArrayList<MotionPicture>) dbRepo.getMotionPicture(imdbId);
 
         ivMovieImage = findViewById(R.id.ivMovieImage);
 

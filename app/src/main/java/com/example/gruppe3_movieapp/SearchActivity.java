@@ -1,6 +1,8 @@
 package com.example.gruppe3_movieapp;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -20,6 +22,7 @@ public class SearchActivity extends AppCompatActivity {
     TextView tvDurationSearch;
     RatingBar rbRatingSearch;
     ImageView ivCoverSearch;
+    MotionPictureAdapterSearch adapterSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,24 @@ public class SearchActivity extends AppCompatActivity {
         final MotionPictureAdapterSearch pa = new MotionPictureAdapterSearch(motionPictureList);
         rvSearch.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         rvSearch.setAdapter(pa);
+
+        adapterSearch = new MotionPictureAdapterSearch(motionPictureList);
+        rvSearch.addOnItemTouchListener(
+                new RecyclerItemClickListener(this, rvSearch, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Intent iMovieDetailView = new Intent(getApplicationContext(), MovieDetailActivity.class);
+                        // getItem holt die imdbId her, diese wird an das Intent übergeben
+                        iMovieDetailView.putExtra(Intent.EXTRA_TEXT, adapterSearch.getItem(position));
+                        SearchActivity.this.startActivity(iMovieDetailView);
+                    }
+
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+                        // Kann man noch überlegen was sinnvolles einzufügen.
+                    }
+                })
+        );
     }
 
     private void fillMotionPictureList(){

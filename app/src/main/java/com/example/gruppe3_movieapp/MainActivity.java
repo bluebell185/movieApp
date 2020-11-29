@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnAddMotionPictureMain;
     static MotionPictureDao dbRepo;
     static AppDatabase db;
+    MotionPictureAdapterMain adapterMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,24 @@ public class MainActivity extends AppCompatActivity {
         final MotionPictureAdapterMain pa = new MotionPictureAdapterMain(motionPictureList);
         rvMain.setLayoutManager(new GridLayoutManager(this, 3));
         rvMain.setAdapter(pa);
+
+        adapterMain = new MotionPictureAdapterMain(motionPictureList);
+        rvMain.addOnItemTouchListener(
+                new RecyclerItemClickListener(this, rvMain, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Intent iMovieDetailView = new Intent(getApplicationContext(), MovieDetailActivity.class);
+                        // getItem holt die imdbId her, diese wird an das Intent übergeben
+                        iMovieDetailView.putExtra(Intent.EXTRA_TEXT, adapterMain.getItem(position));
+                        MainActivity.this.startActivity(iMovieDetailView);
+                    }
+
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+                        // Kann man noch überlegen was sinnvolles einzufügen.
+                    }
+                })
+        );
 
         btnAddMotionPictureMain.setOnClickListener(new View.OnClickListener() {
             @Override
