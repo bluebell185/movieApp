@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class MovieDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView tvTitle, tvDescription, tvRating;
-    ImageView ivMovieImage;
+    ImageView ivCover;
     ImageButton ibtnFavorite, ibtnWatched, ibtnShare;
     ArrayList<MotionPicture> motionPictureList = new ArrayList<>();
 
@@ -49,9 +49,9 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
 
         ivCover = findViewById(R.id.ivCover);
 
-        tvMovieTitle = findViewById(R.id.tvTitle);
-        tvMovieRating = findViewById(R.id.tvRating);
-        tvMovieDescription = findViewById(R.id.tvDescription);
+        tvTitle = findViewById(R.id.tvTitle);
+        tvRating = findViewById(R.id.tvRating);
+        tvDescription = findViewById(R.id.tvDescription);
 
         ibtnFavorite = findViewById(R.id.ibtnFavorite);
         ibtnShare = findViewById(R.id.ibtnShare);
