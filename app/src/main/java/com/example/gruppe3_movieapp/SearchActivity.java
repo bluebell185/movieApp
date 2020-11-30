@@ -76,9 +76,9 @@ public class SearchActivity extends AppCompatActivity {
         motionPictureList.add(m3);
 
         //START TEST
-        db.clearAllTables(); //Um Tabellen zu leeren, sonst gibts Fehler bei doppelter imdbId!
+        //db.clearAllTables(); //Um Tabellen zu leeren, sonst gibts Fehler bei doppelter imdbId!
         //Kurzer Test: Du hast 3 Objekte erstellt (m1,m2,m3). Diese in der DB speichern mit Insert,
-        dbRepo.insert(m1,m2,m3);
+        //dbRepo.insert(m1,m2,m3);
 
         //und anschließend wieder holen mit getAll()
         motionPictureList = (ArrayList<MotionPicture>) dbRepo.getAll();

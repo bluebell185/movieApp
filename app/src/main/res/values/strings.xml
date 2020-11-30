@@ -1,7 +1,14 @@
 <resources>
     <string name="app_name">Gruppe3_MovieApp</string>
 
-    <string name="iv_search_description"></string>
+    <string name="iv_search_description">Image of motion picture</string>
+    <string name="menu_item_show_all_main">Show all motion pictures</string>
+    <string name="menu_item_favorite_main">Show favorite movies</string>
+    <string name="menu_item_watched_main">Show seen movies</string>
+    <string name="tv_main_show_all">My Favored and Seen Movies</string>
+    <string name="tv_main_show_favorite">Watchlist</string>
+    <string name="tv_main_show_seen">Seen Movies</string>
+    <string name="tv_main_empty_rv">Welcome!\nThere are no favorite movies yet. Start looking for them!</string>
 
     <string name="tvMovieRating">Rating %1.1f</string>
     <string name="shareMovie">I watched the move %1$s today.</string>

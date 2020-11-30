@@ -1,5 +1,6 @@
 package com.example.gruppe3_movieapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -7,6 +8,9 @@ import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -16,15 +20,17 @@ import com.example.gruppe3_movieapp.room.AppDatabase;
 import com.example.gruppe3_movieapp.room.MotionPictureDao;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class MainActivity extends AppCompatActivity {
     ArrayList<MotionPicture> motionPictureList = new ArrayList<>();
     TextView tvTitleMain;
+    TextView tvMain;
     ImageView ivCoverMain;
     Button btnAddMotionPictureMain;
     static MotionPictureDao dbRepo;
     static AppDatabase db;
-    MotionPictureAdapterMain adapterMain;
+    MotionPictureAdapterMain pa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +47,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         tvTitleMain = findViewById(R.id.tvTitleMain);
+        tvMain = findViewById(R.id.tvMain);
         ivCoverMain = findViewById(R.id.ivCoverMain);
         btnAddMotionPictureMain = findViewById(R.id.btnAddMotionPictureMain);
 
-        fillMotionPictureList();
+        fillMotionPictureList();    //hier später die favorisierten, aber noch nicht gesehenen Filme anzeigen als erste Sicht des Users
     }
 
     protected void onStart(){
@@ -52,18 +59,24 @@ public class MainActivity extends AppCompatActivity {
 
         RecyclerView rvMain = findViewById(R.id.rvMain);
 
-        final MotionPictureAdapterMain pa = new MotionPictureAdapterMain(motionPictureList);
+        pa = new MotionPictureAdapterMain(motionPictureList);
         rvMain.setLayoutManager(new GridLayoutManager(this, 3));
         rvMain.setAdapter(pa);
 
-        adapterMain = new MotionPictureAdapterMain(motionPictureList);
+        if(motionPictureList.isEmpty()){
+            tvMain.setText(getString(R.string.tv_main_empty_rv));
+        }
+        else{
+            tvMain.setText(getString(R.string.tv_main_show_favorite));
+        }
+
         rvMain.addOnItemTouchListener(
                 new RecyclerItemClickListener(this, rvMain, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
                         Intent iMovieDetailView = new Intent(getApplicationContext(), MovieDetailActivity.class);
                         // getItem holt die imdbId her, diese wird an das Intent übergeben
-                        iMovieDetailView.putExtra(Intent.EXTRA_TEXT, adapterMain.getItem(position));
+                        iMovieDetailView.putExtra(Intent.EXTRA_TEXT, pa.getItem(position));
                         MainActivity.this.startActivity(iMovieDetailView);
                     }
 
@@ -84,20 +97,55 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fillMotionPictureList(){
-        //später die Attribute aus der DB als Objekte in Liste geben oder so
+        motionPictureList.addAll((ArrayList<MotionPicture>) dbRepo.getAll().stream().filter(c -> c.isMarkedAsFavorite()).collect(Collectors.toList()));
 
-        MotionPicture m1 = new MotionPicture("Titel", "https://m.media-amazon.com/images/M/MV5BN2RhMTcxNDQtM2NiZC00OTc0LWFhNGMtNWI4YjMwOWRlOGZhXkEyXkFqcGdeQXVyNTM4NDU4NDA@._V1_SX300.jpg");
-        MotionPicture m2 = new MotionPicture("Title", "https://m.media-amazon.com/images/M/MV5BMGJjMzViZjktYmE3NC00M2YwLTk2YWEtZWMzZWZmNGNhNTI1XkEyXkFqcGdeQXVyMjYwNDA2MDE@._V1_SX300.jpg");
-        MotionPicture m3 = new MotionPicture("Titel", "https://m.media-amazon.com/images/M/MV5BYzlhMDg2YTItNmRjNS00MDdjLTlhMTItMWQ4M2FiMjgwYjM2XkEyXkFqcGdeQXVyMjYwNDA2MDE@._V1_SX300.jpg");
+        //das hier löschen, wenn der Rest funktioniert:
+        MotionPicture m1 = new MotionPicture("Titel", "https://m.media-amazon.com/images/M/MV5BN2RhMTcxNDQtM2NiZC00OTc0LWFhNGMtNWI4YjMwOWRlOGZhXkEyXkFqcGdeQXVyNTM4NDU4NDA@._V1_SX300.jpg", "1", true, true);
+        MotionPicture m2 = new MotionPicture("Title", "https://m.media-amazon.com/images/M/MV5BMGJjMzViZjktYmE3NC00M2YwLTk2YWEtZWMzZWZmNGNhNTI1XkEyXkFqcGdeQXVyMjYwNDA2MDE@._V1_SX300.jpg", "2",true, false);
+        MotionPicture m3 = new MotionPicture("Titel", "https://m.media-amazon.com/images/M/MV5BYzlhMDg2YTItNmRjNS00MDdjLTlhMTItMWQ4M2FiMjgwYjM2XkEyXkFqcGdeQXVyMjYwNDA2MDE@._V1_SX300.jpg", "3",false, true);
+        MotionPicture m4 = new MotionPicture("Titel", "https://m.media-amazon.com/images/M/MV5BN2RhMTcxNDQtM2NiZC00OTc0LWFhNGMtNWI4YjMwOWRlOGZhXkEyXkFqcGdeQXVyNTM4NDU4NDA@._V1_SX300.jpg","4", true, false);
+        MotionPicture m5 = new MotionPicture("Title", "https://m.media-amazon.com/images/M/MV5BMGJjMzViZjktYmE3NC00M2YwLTk2YWEtZWMzZWZmNGNhNTI1XkEyXkFqcGdeQXVyMjYwNDA2MDE@._V1_SX300.jpg", "5", false, true);
+        MotionPicture m6 = new MotionPicture("Titel", "https://m.media-amazon.com/images/M/MV5BYzlhMDg2YTItNmRjNS00MDdjLTlhMTItMWQ4M2FiMjgwYjM2XkEyXkFqcGdeQXVyMjYwNDA2MDE@._V1_SX300.jpg", "6", true, true);
+        MotionPicture m7 = new MotionPicture("Titel", "https://m.media-amazon.com/images/M/MV5BN2RhMTcxNDQtM2NiZC00OTc0LWFhNGMtNWI4YjMwOWRlOGZhXkEyXkFqcGdeQXVyNTM4NDU4NDA@._V1_SX300.jpg", "7", false, true);
+        MotionPicture m8 = new MotionPicture("Title", "https://m.media-amazon.com/images/M/MV5BMGJjMzViZjktYmE3NC00M2YwLTk2YWEtZWMzZWZmNGNhNTI1XkEyXkFqcGdeQXVyMjYwNDA2MDE@._V1_SX300.jpg", "8", true, true);
+        MotionPicture m9 = new MotionPicture("Titel", "https://m.media-amazon.com/images/M/MV5BYzlhMDg2YTItNmRjNS00MDdjLTlhMTItMWQ4M2FiMjgwYjM2XkEyXkFqcGdeQXVyMjYwNDA2MDE@._V1_SX300.jpg", "9", true, false);
 
-        motionPictureList.add(m1);
-        motionPictureList.add(m2);
-        motionPictureList.add(m3);
-        motionPictureList.add(m1);
-        motionPictureList.add(m2);
-        motionPictureList.add(m3);
-        motionPictureList.add(m1);
-        motionPictureList.add(m2);
-        motionPictureList.add(m3);
+        //START TEST
+        db.clearAllTables(); //Um Tabellen zu leeren, sonst gibts Fehler bei doppelter imdbId!
+        //Kurzer Test: Du hast 3 Objekte erstellt (m1,m2,m3). Diese in der DB speichern mit Insert,
+        dbRepo.insert(m1,m2,m3,m4,m5,m6,m7,m8,m9);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        motionPictureList.clear();
+        switch(item.getItemId()) {
+            case R.id.menu_item_show_all_main:{
+                // alle Filme/Serien anzeigen, die favorisiert und/oder angesehen wurden
+                tvMain.setText(getString(R.string.tv_main_show_all));
+                motionPictureList.addAll((ArrayList<MotionPicture>) dbRepo.getAll());
+                break;
+            }
+            case R.id.menu_item_favorite_main:{
+                // alle favorisierten Filme/Serien anzeigen
+                tvMain.setText(getString(R.string.tv_main_show_favorite));
+                motionPictureList.addAll((ArrayList<MotionPicture>) dbRepo.getAll().stream().filter(c -> c.isMarkedAsFavorite()).collect(Collectors.toList()));
+                break;
+            }
+            case R.id.menu_item_watched_main:{
+                // alle angesehenen Filme/Serien anzeigen
+                tvMain.setText(getString(R.string.tv_main_show_seen));
+                motionPictureList.addAll((ArrayList<MotionPicture>) dbRepo.getAll().stream().filter(c -> c.isMarkedAsSeen()).collect(Collectors.toList()));
+                break;
+            }
+        }
+        pa.notifyDataSetChanged();
+        return true;
     }
 }
