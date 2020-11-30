@@ -24,7 +24,7 @@ public class MotionPicture implements Parcelable {
     @SerializedName("Runtime")
     double runtime;
     @SerializedName("Ratings")
-    List<Rating>  rating;
+    List<Rating> ratings;
     @SerializedName("Poster")
     String cover;
     @SerializedName("Year")
@@ -47,7 +47,10 @@ public class MotionPicture implements Parcelable {
     String country;
     @SerializedName("Awards")
     String awards;
-
+    @SerializedName("imdbRating")
+    String imdbRating;
+    @SerializedName("imdbVotes")
+    String imdbVotes;
 
     @SerializedName("Type")
     String type;
@@ -68,11 +71,11 @@ public class MotionPicture implements Parcelable {
         this.markedAsFavorite = markedAsFavorite;
     }
 
-    public MotionPicture(@NonNull String imdbId, String title, double runtime, List<Rating> rating, String cover, double year, String rated, String released, String genre, String director, String actors, String plot, String language, String country, String awards, String type, int total_Season) {
+    public MotionPicture(@NonNull String imdbId, String title, double runtime, List<Rating> ratings, String cover, double year, String rated, String released, String genre, String director, String actors, String plot, String language, String country, String awards, String type, int total_Season) {
         this.imdbId = imdbId;
         this.title = title;
         this.runtime = runtime;
-        this.rating = rating;
+        this.ratings = ratings;
         this.cover = cover;
         this.year = year;
         this.rated = rated;
@@ -94,7 +97,7 @@ public class MotionPicture implements Parcelable {
         imdbId = in.readString();
         title = in.readString();
         runtime = in.readDouble();
-        in.readList(rating, ElementType.class.getClassLoader());
+        in.readList(ratings, ElementType.class.getClassLoader());
         cover = in.readString();
         year = in.readDouble();
         rated = in.readString();
@@ -122,6 +125,11 @@ public class MotionPicture implements Parcelable {
         }
     };
 
+    public MotionPicture(String imdbRating, String imdbVotes) {
+        this.imdbRating = imdbRating;
+        this.imdbVotes = imdbVotes;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -132,7 +140,7 @@ public class MotionPicture implements Parcelable {
         dest.writeString(imdbId);
         dest.writeString(title);
         dest.writeDouble(runtime);
-        dest.writeList(rating);
+        dest.writeList(ratings);
         dest.writeString(cover);
         dest.writeDouble(year);
         dest.writeString(rated);
@@ -161,8 +169,8 @@ public class MotionPicture implements Parcelable {
         return runtime;
     }
 
-    public List<Rating> getRating() {
-        return rating;
+    public List<Rating> getRatings() {
+        return ratings;
     }
 
     public String getCover() {
@@ -233,5 +241,13 @@ public class MotionPicture implements Parcelable {
 
     public void setMarkedAsSeen(boolean markedAsSeen) {
         this.markedAsSeen = markedAsSeen;
+    }
+
+    public String getImdbRating() {
+        return imdbRating;
+    }
+
+    public String getImdbVotes() {
+        return imdbVotes;
     }
 }

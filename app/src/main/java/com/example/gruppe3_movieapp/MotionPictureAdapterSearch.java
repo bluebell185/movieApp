@@ -35,7 +35,7 @@ public class MotionPictureAdapterSearch extends RecyclerView.Adapter<MotionPictu
         MotionPicture p = motionPictureList.get(position);
         holder.tvTitleSearch.setText(p.getTitle());
         holder.tvDurationSearch.setText(String.valueOf(p.getDuration()));
-        holder.rbRatingSearch.setRating(p.getRating());
+        holder.rbRatingSearch.setRating(p.getRatings());
         Picasso.get().load(p.getCover()).into(holder.ivCoverSearch);
         //holder.ivCoverSearch.setImageResource(p.getCover());
     }
