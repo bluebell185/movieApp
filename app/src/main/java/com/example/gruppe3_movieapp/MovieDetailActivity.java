@@ -47,7 +47,7 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         // Datenbankeintrag wird anhand der imdbId hergeholt
         motionPictureList = (ArrayList<MotionPicture>) dbRepo.getMotionPicture(imdbId);
 
-        ivMovieImage = findViewById(R.id.ivMovieImage);
+        ivCover = findViewById(R.id.ivCover);
 
         tvMovieTitle = findViewById(R.id.tvMovieTitle);
         tvMovieRating = findViewById(R.id.tvMovieRating);

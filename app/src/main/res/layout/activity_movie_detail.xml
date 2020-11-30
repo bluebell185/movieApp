@@ -19,7 +19,7 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/ivMovieImage"
+                android:id="@+id/ivCover"
                 android:layout_width="100dp"
                 android:layout_height="150dp"
                 tools:srcCompat="@tools:sample/avatars"
@@ -28,22 +28,50 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tvMovieTitle"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    tools:text="Das Schweigen der Lämmer" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:textStyle="bold"
+                        tools:text="Das Schweigen der Lämmer" />
+
+                    <ImageView
+                        android:id="@+id/ivWatched"
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:srcCompat="@drawable/ic_watched" />
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/tvMovieRating"
+                    android:id="@+id/tvRating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    tools:text="Bewertung: 8,3" />
+                    android:layout_marginStart="10dp"
+                    tools:text="Rating: 8,3" />
+
+                <TextView
+                    android:id="@+id/tvDuration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    tools:text="156 min" />
+
+                <TextView
+                    android:id="@+id/tvGenre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    tools:text="Krimi, Drama, Thriller, Horror" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -75,7 +103,19 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tvMovieDescription"
+            android:id="@+id/tvActors"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/llTop"
+            app:layout_constraintBottom_toTopOf="@+id/tvDescription"
+            tools:text="Actors: Anthony Hopkins, Jodie Foster, Scott Glenn, Ted Levine, Anthony Heald, Brooke Smith"/>
+
+        <TextView
+            android:id="@+id/tvDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -85,7 +125,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/llTop"
+            app:layout_constraintTop_toBottomOf="@id/tvActors"
             tools:text="Clarice Starling, Auszubildende beim FBI, bekommt von einem ihrer Lehrer den Auftrag, sich im Gefängnis mit Dr. Hannibal Lecter, einem Massenmörder und Psychiater, zu befassen. Durch ihre Unbefangenheit hoffen sie, daß Lecter ihnen bei der Suche nach einem anderen Serienkiller hilft, aber es ist nicht leicht, an Lecter heranzukommen." />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
