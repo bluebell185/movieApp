@@ -59,10 +59,13 @@ public class MotionPicture implements Parcelable {
     boolean markedAsSeen = false;       //Nicht in JSON
 
     @Ignore
-    public MotionPicture(String title, String cover) {
+    public MotionPicture(String title, String cover, String imdbId, boolean markedAsSeen, boolean markedAsFavorite) {
         //Für Testzwecke?
         this.title = title;
         this.cover = cover;
+        this.imdbId = imdbId;
+        this.markedAsSeen = markedAsSeen;
+        this.markedAsFavorite = markedAsFavorite;
     }
 
     public MotionPicture(@NonNull String imdbId, String title, double runtime, List<Rating> rating, String cover, double year, String rated, String released, String genre, String director, String actors, String plot, String language, String country, String awards, String type, int total_Season) {

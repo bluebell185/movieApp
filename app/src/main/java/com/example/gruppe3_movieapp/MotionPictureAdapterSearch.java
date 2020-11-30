@@ -59,4 +59,8 @@ public class MotionPictureAdapterSearch extends RecyclerView.Adapter<MotionPictu
             ivCoverSearch = itemView.findViewById(R.id.ivCoverSearch);
         }
     }
+
+    public String getItem(int id){
+        return motionPictureList.get(id).imdbId;
+    }
 }
