@@ -58,7 +58,7 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         ibtnWatched = findViewById(R.id.ibtnWatched);
 
         // Felder werden aus der Datenbank / API gesetz
-        Picasso.get().load(motionPictureList.get(0).cover).into(ivMovieImage);
+        Picasso.get().load(motionPictureList.get(0).cover).into(ivCover);
 
         tvTitle.setText(motionPictureList.get(0).title);
         tvRating.setText(getString(R.string.tvMovieRating, motionPictureList.get(0).rating));
@@ -86,7 +86,7 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
 
     public void shareMovie(){
         // Das Cover aus ivMovieImage wird gesendet
-        BitmapDrawable bitmapDrawable = ((BitmapDrawable) ivMovieImage.getDrawable());
+        BitmapDrawable bitmapDrawable = ((BitmapDrawable) ivCover.getDrawable());
         Bitmap bitmap = bitmapDrawable.getBitmap();
         String bitmapPath = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, motionPictureList.get(0).title, "Cover from the Movie " + motionPictureList.get(0).title);
         Uri bitmapUri = Uri.parse(bitmapPath);
