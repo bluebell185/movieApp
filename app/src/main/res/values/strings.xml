@@ -3,7 +3,8 @@
 
     <string name="iv_search_description"></string>
 
-    <string name="tvMovieRating">Rating %1.1f</string>
+    <string name="tvMovieRating">Rating: %1.1f</string>
     <string name="shareMovie">I watched the move %1$s today.</string>
+    <string name="tvActor">Actors: %1$s</string>
 
 </resources>
