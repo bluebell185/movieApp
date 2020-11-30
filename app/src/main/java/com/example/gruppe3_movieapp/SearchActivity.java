@@ -2,6 +2,7 @@ package com.example.gruppe3_movieapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -13,7 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import static com.example.gruppe3_movieapp.MainActivity.db;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 import static com.example.gruppe3_movieapp.MainActivity.dbRepo;
 
 public class SearchActivity extends AppCompatActivity {
@@ -23,6 +27,7 @@ public class SearchActivity extends AppCompatActivity {
     RatingBar rbRatingSearch;
     ImageView ivCoverSearch;
     MotionPictureAdapterSearch adapterSearch;
+    MotionPictureRepo motionPictureRepo = new MotionPictureRepo();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,5 +90,37 @@ public class SearchActivity extends AppCompatActivity {
         //und anschließend wieder holen mit getAll()
         motionPictureList = (ArrayList<MotionPicture>) dbRepo.getAll();
         //END
+    }
+
+    // Sobald die Daten und Inhalte fest sind, muss noch festegelegt werden wann was angezeigt wird und welche Errormessage angezeigt werden kann
+    private void getMotionPicture(){
+        motionPictureRepo.getMotionPicture(new Callback<MotionPictureApiResults>() {
+            @Override
+            public void onResponse(Call<MotionPictureApiResults> call, Response<MotionPictureApiResults> response) {
+                if (response.isSuccessful()){
+                    Log.d("MainActivity", "getMotionPicture: onResponse successfull");
+                    MotionPictureApiResults motionPictureApiResults = response.body();
+                    MotionPicture motionPicture = motionPictureApiResults.getMotionPicture().get(0);
+                    if (motionPicture != null){
+
+                        // Daten ausgeben!
+                    }
+                    else {
+                        // textview.setText(R.string.ErrorMessage);
+                    }
+                }
+                else {
+                    Log.d("MainActivity", "getMotionPicture: onResponse NOT successfull");
+                    // textview.setText(R.string.ErrorMessage);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MotionPictureApiResults> call, Throwable t) {
+                Log.d("MainActivity", "getMotionPicture: onFailure");
+                // textview.setText(R.string.ErrorMessage);
+
+            }
+        });
     }
 }
