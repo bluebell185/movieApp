@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class MovieDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
-    TextView tvMovieTitle, tvMovieDescription, tvMovieRating;
+    TextView tvTitle, tvDescription, tvRating;
     ImageView ivMovieImage;
     ImageButton ibtnFavorite, ibtnWatched, ibtnShare;
     ArrayList<MotionPicture> motionPictureList = new ArrayList<>();
@@ -49,9 +49,9 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
 
         ivCover = findViewById(R.id.ivCover);
 
-        tvMovieTitle = findViewById(R.id.tvMovieTitle);
-        tvMovieRating = findViewById(R.id.tvMovieRating);
-        tvMovieDescription = findViewById(R.id.tvMovieDescription);
+        tvMovieTitle = findViewById(R.id.tvTitle);
+        tvMovieRating = findViewById(R.id.tvRating);
+        tvMovieDescription = findViewById(R.id.tvDescription);
 
         ibtnFavorite = findViewById(R.id.ibtnFavorite);
         ibtnShare = findViewById(R.id.ibtnShare);
@@ -60,9 +60,9 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         // Felder werden aus der Datenbank / API gesetz
         Picasso.get().load(motionPictureList.get(0).cover).into(ivMovieImage);
 
-        tvMovieTitle.setText(motionPictureList.get(0).title);
-        tvMovieRating.setText(getString(R.string.tvMovieRating, motionPictureList.get(0).rating));
-        tvMovieDescription.setText("");
+        tvTitle.setText(motionPictureList.get(0).title);
+        tvRating.setText(getString(R.string.tvMovieRating, motionPictureList.get(0).rating));
+        tvDescription.setText("");
 
         // Überprüft ob der Film in der Favoritenliste ist
         // Je nach dem wird der Button gesetzt
