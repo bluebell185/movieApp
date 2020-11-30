@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -28,7 +29,7 @@ public interface MotionPictureDao {
      Speichert mehrere Objekte in der Datenbank
      @param motionPictures Liste der einzufügenden Objekte
      */
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(MotionPicture... motionPictures);
 
     /**

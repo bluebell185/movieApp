@@ -52,10 +52,9 @@ public class MainActivity extends AppCompatActivity {
         db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "MovieAppDB").
                 allowMainThreadQueries().
+                fallbackToDestructiveMigration().
                 build();
         dbRepo = db.motionPictureDao();
-        //Verwendung der Datenbank mit -> db.methode()
-
 
         tvTitleMain = findViewById(R.id.tvTitleMain);
         tvMain = findViewById(R.id.tvMain);

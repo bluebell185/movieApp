@@ -14,6 +14,10 @@ import com.google.gson.annotations.SerializedName;
 import java.lang.annotation.ElementType;
 import java.util.List;
 
+import java.lang.annotation.ElementType;
+import java.util.ArrayList;
+import java.util.List;
+
 //Table names in SQLite are case-insensitive!
 @Entity
 public class MotionPicture implements Parcelable {
@@ -48,7 +52,7 @@ public class MotionPicture implements Parcelable {
     @SerializedName("Awards")
     String awards;
     @SerializedName("imdbRating")
-    String imdbRating;
+    float imdbRating;
     @SerializedName("imdbVotes")
     String imdbVotes;
 
@@ -71,7 +75,17 @@ public class MotionPicture implements Parcelable {
         this.markedAsFavorite = markedAsFavorite;
     }
 
-    public MotionPicture(@NonNull String imdbId, String title, double runtime, List<Rating> ratings, String cover, double year, String rated, String released, String genre, String director, String actors, String plot, String language, String country, String awards, String type, int total_Season) {
+    @Ignore
+    public MotionPicture(String imdbId, String title, double duration, float imdbRating, String cover) {
+        this.imdbId = imdbId;
+        this.title = title;
+        this.runtime = runtime;
+        this.cover = cover;
+        this.imdbRating = imdbRating;
+        this.ratings = new ArrayList<>();
+    }
+
+    public MotionPicture(@NonNull String imdbId, String title, double runtime, List<Rating> ratings, String cover, double year, String rated, String released, String genre, String director, String actors, String plot, String language, String country, String awards, String type, int total_Season, float imdbRating, String imdbVotes) {
         this.imdbId = imdbId;
         this.title = title;
         this.runtime = runtime;
@@ -89,7 +103,8 @@ public class MotionPicture implements Parcelable {
         this.awards = awards;
         this.type = type;
         this.total_Season = total_Season;
-
+        this.imdbRating = imdbRating;
+        this.imdbVotes = imdbVotes;
     }
 
     @Ignore
@@ -124,11 +139,6 @@ public class MotionPicture implements Parcelable {
             return new MotionPicture[size];
         }
     };
-
-    public MotionPicture(String imdbRating, String imdbVotes) {
-        this.imdbRating = imdbRating;
-        this.imdbVotes = imdbVotes;
-    }
 
     @Override
     public int describeContents() {
@@ -243,7 +253,7 @@ public class MotionPicture implements Parcelable {
         this.markedAsSeen = markedAsSeen;
     }
 
-    public String getImdbRating() {
+    public float getImdbRating() {
         return imdbRating;
     }
 
