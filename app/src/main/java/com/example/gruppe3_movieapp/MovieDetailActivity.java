@@ -3,6 +3,7 @@ package com.example.gruppe3_movieapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -107,7 +109,15 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
                 setFavoriteMovie();
                 break;
             case R.id.ibtnShare:
-                shareMovie();
+                try{
+                    shareMovie();
+                }
+                catch (Exception ex){
+                    Context context = getApplicationContext();
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText(context, "No messenger found!", duration);
+                    toast.show();
+                }
                 break;
         }
     }

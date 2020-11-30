@@ -11,7 +11,7 @@
     <string name="tv_main_empty_rv">Welcome!\nThere are no favorite movies yet. Start looking for them!</string>
 
     <string name="tvMovieRating">Rating: %1.1f</string>
-    <string name="shareMovie">I watched the move %1$s today.</string>
+    <string name="shareMovie">I watched the movie %1$s today.</string>
     <string name="tvActor">Actors: %1$s</string>
 
 </resources>
