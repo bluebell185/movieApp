@@ -21,7 +21,7 @@ import java.util.List;
 //Table names in SQLite are case-insensitive!
 @Entity
 public class MotionPicture implements Parcelable {
-    @PrimaryKey @NonNull
+    @PrimaryKey @NonNull @SerializedName("imdbID")
     String imdbId;
     @SerializedName("Title")
     String title;
@@ -58,7 +58,7 @@ public class MotionPicture implements Parcelable {
 
     @SerializedName("Type")
     String type;
-    @SerializedName("total Seasions")
+    @SerializedName("totalSeasons")
     int total_Season;
     @Expose
     boolean markedAsFavorite = false;    //Nicht in JSON
