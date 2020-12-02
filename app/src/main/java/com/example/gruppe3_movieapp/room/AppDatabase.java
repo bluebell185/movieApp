@@ -8,7 +8,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.gruppe3_movieapp.MotionPicture;
 
-@Database(entities = MotionPicture.class, version = 4)
+@Database(entities = MotionPicture.class, version = 5)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
     public abstract MotionPictureDao motionPictureDao();
