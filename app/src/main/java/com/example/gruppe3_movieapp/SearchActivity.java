@@ -1,6 +1,8 @@
 package com.example.gruppe3_movieapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,6 +29,8 @@ public class SearchActivity extends AppCompatActivity {
     MotionPictureAdapterSearch adapterSearch;
     MotionPictureAdapterSearch pa;
     MotionPictureRepo motionPictureRepo = new MotionPictureRepo();
+    SharedPreferences sp;
+    String lastSearchExpression = "";
 
 
     @Override
@@ -37,7 +41,18 @@ public class SearchActivity extends AppCompatActivity {
         tvDurationSearch = findViewById(R.id.tvDurationSearch);
         rbRatingSearch = findViewById(R.id.rbRatingSearch);
         ivCoverSearch = findViewById(R.id.ivCoverSearch);
-         getfilteredMotionPictureTitle("welcome");
+
+        sp  = getPreferences(Context.MODE_PRIVATE);
+        lastSearchExpression = sp.getString("lastSearchExpression", "welcome");
+
+        /*
+        //TODO: SOBALD EINGABEFELD FÜR SUCHBEGRIFF VORHANDEN...
+        SharedPreferences.Editor spe = sp.edit();
+        spe.putString("lastSearchExpression", "Inhalt vom EINGABEFELD");
+        spe.apply();
+         */
+
+         getfilteredMotionPictureTitle(lastSearchExpression);
         //fillMotionPictureList();
     }
 
