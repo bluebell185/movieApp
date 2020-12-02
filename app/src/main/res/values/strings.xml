@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Gruppe3_MovieApp</string>
+    <string name="app_name" translatable="false">Gruppe3_MovieApp</string>
 
     <string name="iv_search_description">Image of motion picture</string>
     <string name="menu_item_show_all_main">Show all motion pictures</string>

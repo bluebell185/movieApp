@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="iv_search_description">Bild des Titels</string>
+    <string name="menu_item_show_all_main">Zeige alle Titel</string>
+    <string name="menu_item_favorite_main">Zeige Favoriten</string>
+    <string name="menu_item_watched_main">Zeige gesehene Filme</string>
+    <string name="tv_main_show_all">Meine favorisierten und gesehene Filme</string>
+    <string name="tv_main_show_favorite">Watchlist</string>
+    <string name="tv_main_show_seen">Gesehene Filme</string>
+    <string name="tv_main_empty_rv">Willkommen!\nDu hast noch keine favorisierten Titel. Fang an nach ihnen zu suchen!</string>
+
+    <string name="tvMovieRating">Bewertung: %1,1f</string>
+    <string name="shareMovie">Ich habe heute den Titel %1$s gesehen.</string>
+    <string name="tvActor">Besetzung: %1$s</string>
+</resources>
