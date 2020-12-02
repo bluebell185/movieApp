@@ -37,7 +37,7 @@ public class SearchActivity extends AppCompatActivity {
         tvDurationSearch = findViewById(R.id.tvDurationSearch);
         rbRatingSearch = findViewById(R.id.rbRatingSearch);
         ivCoverSearch = findViewById(R.id.ivCoverSearch);
-         getMotionPicture();
+         getfilteredMotionPictureTitle("welcome");
         //fillMotionPictureList();
     }
 
@@ -93,8 +93,8 @@ public class SearchActivity extends AppCompatActivity {
     } */
 
     // Sobald die Daten und Inhalte fest sind, muss noch festegelegt werden wann was angezeigt wird und welche Errormessage angezeigt werden kann
-    private void getMotionPicture(){
-        motionPictureRepo.getMotionPicture(new Callback<MotionPictureApiResults>() {
+    private void getfilteredMotionPictureTitle(String title){
+        motionPictureRepo.getFilteredMotionPictureTitle( title, new Callback<MotionPictureApiResults>() {
             @Override
             public void onResponse(Call<MotionPictureApiResults> call, Response<MotionPictureApiResults> response) {
                 if (response.isSuccessful()){
@@ -102,6 +102,7 @@ public class SearchActivity extends AppCompatActivity {
                     MotionPictureApiResults motionPictureApiResults = response.body();
                     motionPictureList.addAll( motionPictureApiResults.getMotionPicture());
                     pa.notifyDataSetChanged();
+
                   /*  MotionPicture motionPicture = motionPictureApiResults.getMotionPicture();
                     if (motionPicture != null){
 

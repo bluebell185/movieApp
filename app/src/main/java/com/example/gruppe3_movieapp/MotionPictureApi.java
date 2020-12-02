@@ -11,8 +11,8 @@ public interface MotionPictureApi {
     @GET("api")
     Call<MotionPictureApiResults> randomMotionPicture();
 
-    @GET("api") // Title
-    Call<MotionPictureApiResults> filteredMotionPictureTitle(@Query("t") String title);
+    @GET("?apikey=dd6c1031") // Title
+    Call<MotionPictureApiResults> filteredMotionPictureTitle(@Query("s") String title);  // @Query("apikey") String apikey,
 
     @GET("api") // Imdb
     Call<MotionPictureApiResults> filteredMotionPictureImdb(@Query("i") String imdb);
