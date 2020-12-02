@@ -12,9 +12,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.lang.annotation.ElementType;
-import java.util.List;
-
-import java.lang.annotation.ElementType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +29,7 @@ public class MotionPicture implements Parcelable {
     @SerializedName("Poster")
     String cover;
     @SerializedName("Year")
-    double year;
+    String year;
     @SerializedName("Rated")
     String rated;
     @SerializedName("Released")
@@ -85,7 +82,7 @@ public class MotionPicture implements Parcelable {
         this.ratings = new ArrayList<>();
     }
 
-    public MotionPicture(@NonNull String imdbId, String title, double runtime, List<Rating> ratings, String cover, double year, String rated, String released, String genre, String director, String actors, String plot, String language, String country, String awards, String type, int total_Season, float imdbRating, String imdbVotes) {
+    public MotionPicture(@NonNull String imdbId, String title, double runtime, List<Rating> ratings, String cover, String year, String rated, String released, String genre, String director, String actors, String plot, String language, String country, String awards, String type, int total_Season, float imdbRating, String imdbVotes) {
         this.imdbId = imdbId;
         this.title = title;
         this.runtime = runtime;
@@ -114,7 +111,7 @@ public class MotionPicture implements Parcelable {
         runtime = in.readDouble();
         in.readList(ratings, ElementType.class.getClassLoader());
         cover = in.readString();
-        year = in.readDouble();
+        year = in.readString();
         rated = in.readString();
         released = in.readString();
         genre = in.readString();
@@ -152,7 +149,7 @@ public class MotionPicture implements Parcelable {
         dest.writeDouble(runtime);
         dest.writeList(ratings);
         dest.writeString(cover);
-        dest.writeDouble(year);
+        dest.writeString(year);
         dest.writeString(rated);
         dest.writeString(released);
         dest.writeString(genre);
@@ -187,7 +184,7 @@ public class MotionPicture implements Parcelable {
         return cover;
     }
 
-    public double getYear() {
+    public String getYear() {
         return year;
     }
 

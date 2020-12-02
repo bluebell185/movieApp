@@ -120,7 +120,7 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<MotionPictureApiResults> call, Throwable t) {
-                Log.d("MainActivity", "getMotionPicture: onFailure");
+                Log.d("MainActivity", "getMotionPicture: onFailure " + t.getMessage());
                 // textview.setText(R.string.ErrorMessage);
 
             }
