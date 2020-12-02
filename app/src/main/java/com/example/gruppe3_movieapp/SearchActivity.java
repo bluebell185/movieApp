@@ -18,8 +18,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.example.gruppe3_movieapp.MainActivity.dbRepo;
-
 public class SearchActivity extends AppCompatActivity {
     ArrayList<MotionPicture> motionPictureList = new ArrayList<>();
     TextView tvTitleSearch;
@@ -27,7 +25,9 @@ public class SearchActivity extends AppCompatActivity {
     RatingBar rbRatingSearch;
     ImageView ivCoverSearch;
     MotionPictureAdapterSearch adapterSearch;
+    MotionPictureAdapterSearch pa;
     MotionPictureRepo motionPictureRepo = new MotionPictureRepo();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +37,8 @@ public class SearchActivity extends AppCompatActivity {
         tvDurationSearch = findViewById(R.id.tvDurationSearch);
         rbRatingSearch = findViewById(R.id.rbRatingSearch);
         ivCoverSearch = findViewById(R.id.ivCoverSearch);
-
-        fillMotionPictureList();
+         getMotionPicture();
+        //fillMotionPictureList();
     }
 
     protected void onStart(){
@@ -46,7 +46,7 @@ public class SearchActivity extends AppCompatActivity {
 
         RecyclerView rvSearch = findViewById(R.id.rvSearch);
 
-        final MotionPictureAdapterSearch pa = new MotionPictureAdapterSearch(motionPictureList);
+        pa = new MotionPictureAdapterSearch(motionPictureList);
         rvSearch.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         rvSearch.setAdapter(pa);
 
@@ -69,7 +69,7 @@ public class SearchActivity extends AppCompatActivity {
         );
     }
 
-    private void fillMotionPictureList(){
+  /*  private void fillMotionPictureList(){
         //später die Liste, die die API zurückgibt an motionPictureList übergeben ODER dierekt die zurückgegebne Liste in die RV
 
         MotionPicture m1 = new MotionPicture("1", "Titel", 300, (float) 9.8, "https://m.media-amazon.com/images/M/MV5BMzRmNjJhYTctMjY5My00ZWE4LWFiMTEtZGMzYzMxNmQ5OTllL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyOTc2Mzg5OQ@@._V1_SX300.jpg");
@@ -90,7 +90,7 @@ public class SearchActivity extends AppCompatActivity {
         //und anschließend wieder holen mit getAll()
         motionPictureList = (ArrayList<MotionPicture>) dbRepo.getAll();
         //END
-    }
+    } */
 
     // Sobald die Daten und Inhalte fest sind, muss noch festegelegt werden wann was angezeigt wird und welche Errormessage angezeigt werden kann
     private void getMotionPicture(){
@@ -100,14 +100,16 @@ public class SearchActivity extends AppCompatActivity {
                 if (response.isSuccessful()){
                     Log.d("MainActivity", "getMotionPicture: onResponse successfull");
                     MotionPictureApiResults motionPictureApiResults = response.body();
-                    MotionPicture motionPicture = motionPictureApiResults.getMotionPicture().get(0);
+                    motionPictureList.addAll( motionPictureApiResults.getMotionPicture());
+                    pa.notifyDataSetChanged();
+                  /*  MotionPicture motionPicture = motionPictureApiResults.getMotionPicture();
                     if (motionPicture != null){
 
                         // Daten ausgeben!
                     }
                     else {
                         // textview.setText(R.string.ErrorMessage);
-                    }
+                    } */
                 }
                 else {
                     Log.d("MainActivity", "getMotionPicture: onResponse NOT successfull");
