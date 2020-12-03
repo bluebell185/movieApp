@@ -9,6 +9,7 @@
     <string name="tv_main_show_favorite">Watchlist</string>
     <string name="tv_main_show_seen">Seen Movies</string>
     <string name="tv_main_empty_rv">Welcome!\nThere are no favorite movies yet. Start looking for them!</string>
+    <string name="search_title">Search</string>
 
     <string name="tvMovieRating">Rating: %1.1f</string>
     <string name="shareMovie">I watched the movie %1$s today.</string>

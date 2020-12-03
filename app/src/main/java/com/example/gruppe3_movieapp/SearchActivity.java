@@ -1,20 +1,26 @@
 package com.example.gruppe3_movieapp;
 
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,7 +32,6 @@ public class SearchActivity extends AppCompatActivity {
     TextView tvDurationSearch;
     RatingBar rbRatingSearch;
     ImageView ivCoverSearch;
-    MotionPictureAdapterSearch adapterSearch;
     MotionPictureAdapterSearch pa;
     MotionPictureRepo motionPictureRepo = new MotionPictureRepo();
     SharedPreferences sp;
@@ -45,13 +50,6 @@ public class SearchActivity extends AppCompatActivity {
         sp  = getPreferences(Context.MODE_PRIVATE);
         lastSearchExpression = sp.getString("lastSearchExpression", "welcome");
 
-        /*
-        //TODO: SOBALD EINGABEFELD FÜR SUCHBEGRIFF VORHANDEN...
-        SharedPreferences.Editor spe = sp.edit();
-        spe.putString("lastSearchExpression", "Inhalt vom EINGABEFELD");
-        spe.apply();
-         */
-
          getfilteredMotionPictureTitle(lastSearchExpression);
         //fillMotionPictureList();
     }
@@ -65,14 +63,13 @@ public class SearchActivity extends AppCompatActivity {
         rvSearch.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         rvSearch.setAdapter(pa);
 
-        adapterSearch = new MotionPictureAdapterSearch(motionPictureList);
         rvSearch.addOnItemTouchListener(
                 new RecyclerItemClickListener(this, rvSearch, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
                         Intent iMovieDetailView = new Intent(getApplicationContext(), MovieDetailActivity.class);
                         // getItem holt die imdbId her, diese wird an das Intent übergeben
-                        iMovieDetailView.putExtra(Intent.EXTRA_TEXT, adapterSearch.getItem(position));
+                        iMovieDetailView.putExtra(Intent.EXTRA_TEXT, pa.getItem(position));
                         SearchActivity.this.startActivity(iMovieDetailView);
                     }
 
@@ -140,5 +137,48 @@ public class SearchActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_search, menu);
+        MenuItem item = menu.findItem(R.id.search);
+        SearchView sv = (SearchView) item.getActionView();
+        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                //setzen der Shared Preferences
+                SharedPreferences.Editor spe = sp.edit();
+                spe.putString("lastSearchExpression", query);
+                spe.apply();
+
+                motionPictureList.clear();
+                //API-Aufruf mit Titelfilterung
+                getfilteredMotionPictureTitle(query);
+                //Aktualisieren des Adapters
+                pa.notifyDataSetChanged();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //keine Funktion hier, da sonst bei jedem Buchstaben eine neue API-Anfrage gestellt werden muss
+                return false;
+            }
+        });
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.search:{
+                // Suchfeld aufklappen oder so
+                //Wird vermutlich nicht benötigt, das hier -> TODO entfernen u.U.
+                break;
+            }
+        }
+        pa.notifyDataSetChanged();
+        return true;
     }
 }

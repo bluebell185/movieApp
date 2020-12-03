@@ -8,6 +8,7 @@
     <string name="tv_main_show_favorite">Watchlist</string>
     <string name="tv_main_show_seen">Gesehene Filme</string>
     <string name="tv_main_empty_rv">Willkommen!\nDu hast noch keine favorisierten Titel. Fang an nach ihnen zu suchen!</string>
+    <string name="search_title">Suche</string>
 
     <string name="tvMovieRating">Bewertung: %1,1f</string>
     <string name="shareMovie">Ich habe heute den Titel %1$s gesehen.</string>
