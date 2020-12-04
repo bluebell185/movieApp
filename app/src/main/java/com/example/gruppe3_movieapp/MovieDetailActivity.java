@@ -38,7 +38,7 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_movie_detail);
     }
 
-    @SuppressLint("StringFormatMatches")
+    @SuppressLint({"StringFormatMatches", "StringFormatInvalid"})
     @Override
     protected void onStart() {
         super.onStart();
@@ -98,7 +98,12 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         // Übergeben des Bildes an das share Intent
         shareIntent.putExtra(Intent.EXTRA_STREAM, bitmapUri);
         // Zusätzlich kommt noch der Titel des Filmes als Text hinzu
-        shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.shareMovie, motionPictureList.get(0).title));
+        if (motionPictureList.get(0).type == "movie"){
+            shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.shareMovie, motionPictureList.get(0).title));
+        }
+        else {
+            shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.shareSeries, motionPictureList.get(0).title));
+        }
         startActivity(Intent.createChooser(shareIntent, "Share Movie"));
     }
 
@@ -113,9 +118,10 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
                     shareMovie();
                 }
                 catch (Exception ex){
+                    // Wenn auf dem Gerät keine Messenger App installiert wird eine Meldung ausgegeben
                     Context context = getApplicationContext();
                     int duration = Toast.LENGTH_SHORT;
-                    Toast toast = Toast.makeText(context, "No messenger found!", duration);
+                    Toast toast = Toast.makeText(context, R.string.errorMessageShare, duration);
                     toast.show();
                 }
                 break;

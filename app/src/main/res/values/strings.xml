@@ -14,5 +14,7 @@
     <string name="tvMovieRating">Rating: %1.1f</string>
     <string name="shareMovie">I watched the movie %1$s today.</string>
     <string name="tvActor">Actors: %1$s</string>
+    <string name="errorMessageShare">No messenger found!</string>
+    <string name="shareSeries">I watched the series %1$s today.</string>
 
 </resources>
