@@ -15,4 +15,6 @@
     <string name="tvActor">Besetzung: %1$s</string>
     <string name="errorMessageShare">Kein Messenger zum versenden gefunden!</string>
     <string name="shareSeries">Ich habe heute die Serie %1$s angeschaut.</string>
+    <string name="tabFavorites">Lieblingsfilme</string>
+    <string name="tabSearch">Suche</string>
 </resources>

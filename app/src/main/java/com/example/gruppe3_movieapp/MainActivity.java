@@ -14,14 +14,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.gruppe3_movieapp.room.AppDatabase;
 import com.example.gruppe3_movieapp.room.MotionPictureDao;
+import com.google.android.material.tabs.TabItem;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class MainActivity extends AppCompatActivity {
+    // Dieser Teil muss in das Fragment FavoritesFragment übernommen werden
     ArrayList<MotionPicture> motionPictureList = new ArrayList<>();
     TextView tvTitleMain;
     TextView tvMain;
@@ -149,6 +154,51 @@ public class MainActivity extends AppCompatActivity {
         pa.notifyDataSetChanged();
         return true;
     }
+// Wenn das FavoritesFragement funktioniert diesen Teil einkommentieren
+//    private TabLayout tabLayout;
+//    private ViewPager viewPager;
+//    private TabItem tabFavorites, tabSearch;
+//    public PagerAdapter pagerAdapter;
+//
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_main);
+//
+//        tabLayout = findViewById(R.id.tabLayout);
+//        tabFavorites = findViewById(R.id.tabFavorites);
+//        tabSearch = findViewById(R.id.tabSearch);
+//        viewPager = findViewById(R.id.viewPager);
+//
+//        pagerAdapter = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+//        viewPager.setAdapter(pagerAdapter);
+//
+//        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//                viewPager.setCurrentItem(tab.getPosition());
+//                if (tab.getPosition() == 0){
+//                    pagerAdapter.notifyDataSetChanged();
+//                }
+//                else if (tab.getPosition() == 1){
+//                    pagerAdapter.notifyDataSetChanged();
+//                }
+//                else if (tab.getPosition() == 2);
+//            }
+//
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) {
+//
+//            }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {
+//
+//            }
+//        });
+//
+//        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+//    }
 
 
 }
