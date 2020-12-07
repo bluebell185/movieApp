@@ -10,9 +10,10 @@
     <string name="tv_main_show_seen">Gesehene Filme</string>
     <string name="tv_main_empty_rv">Willkommen!\nDu hast noch keine favorisierten Titel. Fang an nach ihnen zu suchen!</string>
     <string name="search_title">Suche</string>
-    <string name="sort_year">Sortiere nach Jahre</string>
+    <string name="sort_year">Sortiere nach Jahren</string>
     <string name="filter_type_movie">Zeige nur Filme</string>
     <string name="filter_type_series">Zeige nur Serien</string>
+    <string name="hint_title_search">Suche Titel</string>
 
     <string name="tvMovieRating">Bewertung: %1,1f</string>
     <string name="tvMovieRatingNull">Bewertung: -</string>

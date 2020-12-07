@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.gruppe3_movieapp.room.AppDatabase;
 import com.example.gruppe3_movieapp.room.MotionPictureDao;
@@ -145,6 +146,13 @@ public class FavoritesFragment extends Fragment {
                 pa.notifyDataSetChanged();
             }
         });
+        btnShowAll.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                makeToast(getText(R.string.menu_item_show_all_main).toString());
+                return true;
+            }
+        });
 
         btnShowFavorites.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,6 +164,13 @@ public class FavoritesFragment extends Fragment {
                 pa.notifyDataSetChanged();
             }
         });
+        btnShowFavorites.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                makeToast(getText(R.string.menu_item_favorite_main).toString());
+                return true;
+            }
+        });
 
         btnShowSeen.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,6 +180,13 @@ public class FavoritesFragment extends Fragment {
                 tvMain.setText(getString(R.string.tv_main_show_seen));
                 motionPictureList.addAll((ArrayList<MotionPicture>) dbRepo.getAll().stream().filter(c -> c.isMarkedAsSeen()).collect(Collectors.toList()));
                 pa.notifyDataSetChanged();
+            }
+        });
+        btnShowSeen.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                makeToast(getText(R.string.menu_item_watched_main).toString());
+                return true;
             }
         });
 
@@ -213,5 +235,9 @@ public class FavoritesFragment extends Fragment {
         }
         pa.notifyDataSetChanged();
         return true;
+    }
+
+    private void makeToast(String message){
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 }

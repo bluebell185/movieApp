@@ -14,6 +14,7 @@
     <string name="sort_year">Sort after Year</string>
     <string name="filter_type_movie">Only show movies</string>
     <string name="filter_type_series">Only show series</string>
+    <string name="hint_title_search">Search Title</string>
 
     <string name="tvMovieRating">Rating: %1.1f</string>
     <string name="tvMovieRatingNull">Rating: -</string>

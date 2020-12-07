@@ -4,27 +4,36 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.text.Editable;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.SearchView;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import androidx.appcompat.widget.SearchView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,10 +42,16 @@ import retrofit2.Response;
  */
 public class SearchFragment extends Fragment {
     ArrayList<MotionPicture> motionPictureList = new ArrayList<>();
+    List<MotionPicture> initialTitleSearchList = new ArrayList<>();
     TextView tvTitleSearch;
     TextView tvYearSearch;
     ImageView ivTypeSearch;
     ImageView ivCoverSearch;
+    Button btnSearch;
+    Button btnFilterTypeMovie;
+    Button btnFilterTypeSeries;
+    Button btnSortYear;
+    EditText etSearch;
     TextView tvApiErrorMessage;
     TextView tvOutputApiObject;
     RecyclerView rvSearch;
@@ -83,8 +98,6 @@ public class SearchFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-
     }
 
     @Override
@@ -97,6 +110,11 @@ public class SearchFragment extends Fragment {
         tvYearSearch = view.findViewById(R.id.tvYearSearch);
         ivTypeSearch = view.findViewById(R.id.ivTypeSearch);
         ivCoverSearch = view.findViewById(R.id.ivCoverSearch);
+        btnSearch = view.findViewById(R.id.btnSearch);
+        btnFilterTypeMovie = view.findViewById(R.id.btnFilterTypeMovie);
+        btnFilterTypeSeries = view.findViewById(R.id.btnFilterTypeSeries);
+        btnSortYear = view.findViewById(R.id.btnSortYear);
+        etSearch = view.findViewById(R.id.etSearch);
 
         tvApiErrorMessage = view.findViewById(R.id.tvApiErrorMessage);
         tvOutputApiObject = view.findViewById(R.id.tvOutputApiObject);
@@ -112,6 +130,8 @@ public class SearchFragment extends Fragment {
         pa = new MotionPictureAdapterSearch(motionPictureList);
         rvSearch.setLayoutManager(new LinearLayoutManager(view.getContext(), RecyclerView.VERTICAL, false));
         rvSearch.setAdapter(pa);
+
+        initialTitleSearchList.addAll(motionPictureList);
 
         rvSearch.addOnItemTouchListener(
                 new RecyclerItemClickListener(view.getContext(), rvSearch, new RecyclerItemClickListener.OnItemClickListener() {
@@ -130,6 +150,113 @@ public class SearchFragment extends Fragment {
                 })
         );
 
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String title = etSearch.getText().toString();
+                if (title.equals("")){
+                    //cursor soll aktiviert werden im Feld
+                    etSearch.requestFocus();
+                }
+                else{
+                    motionPictureList.clear();
+                    getfilteredMotionPictureTitle(title);
+                }
+            }
+        });
+        btnSearch.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                makeToast(getText(R.string.search_title).toString());
+                return true;
+            }
+        });
+
+        btnFilterTypeMovie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (btnFilterTypeMovie.isSelected()){
+                    motionPictureList.clear();
+                    motionPictureList.addAll(initialTitleSearchList);
+                    pa.notifyDataSetChanged();
+                    btnFilterTypeMovie.setSelected(false);
+                }
+                else {
+                    motionPictureList.clear();
+                    motionPictureList.addAll(initialTitleSearchList.stream().filter(c -> c.getType().equals("movie")).collect(Collectors.toList()));
+                    pa.notifyDataSetChanged();
+                    btnFilterTypeMovie.setSelected(true);
+                    btnFilterTypeSeries.setSelected(false);
+                }
+            }
+        });
+        btnFilterTypeMovie.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                makeToast(getText(R.string.filter_type_movie).toString());
+                return true;
+            }
+        });
+
+        btnFilterTypeSeries.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (btnFilterTypeSeries.isSelected()){
+                    motionPictureList.clear();
+                    motionPictureList.addAll(initialTitleSearchList);
+                    pa.notifyDataSetChanged();
+                    btnFilterTypeSeries.setSelected(false);
+                }
+                else{
+                    motionPictureList.clear();
+                    motionPictureList.addAll(initialTitleSearchList.stream().filter(c -> c.getType().equals("series")).collect(Collectors.toList()));
+                    pa.notifyDataSetChanged();
+                    btnFilterTypeSeries.setSelected(true);
+                    btnFilterTypeMovie.setSelected(false);
+                }
+
+            }
+        });
+        btnFilterTypeSeries.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                makeToast(getText(R.string.filter_type_series).toString());
+                return true;
+            }
+        });
+
+        btnSortYear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //sortiert Inhalte nach Jahr absteigend
+                motionPictureList.clear();
+                motionPictureList.addAll((ArrayList<MotionPicture>) initialTitleSearchList.stream().sorted((v1, v2)-> v2.getYear().compareTo(v1.getYear())).collect(Collectors.toList()));
+                pa.notifyDataSetChanged();
+            }
+        });
+        btnSortYear.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                makeToast(getText(R.string.sort_year).toString());
+                return true;
+            }
+        });
+
+        etSearch.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                // If the event is a key-down event on the "enter" button
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    // Perform action on key press
+                    motionPictureList.clear();
+                    getfilteredMotionPictureTitle(etSearch.getText().toString());
+                    return true;
+                }
+                return false;
+            }
+        });
+
         return view;
     }
 
@@ -145,6 +272,7 @@ public class SearchFragment extends Fragment {
                     if (motionPictureApiResults.getMotionPicture() != null) {
 
                         showData(motionPictureApiResults);
+
 
                     } else {
 
@@ -171,7 +299,9 @@ public class SearchFragment extends Fragment {
         rvSearch.setVisibility(View.VISIBLE);
         tvOutputApiObject.setVisibility(View.INVISIBLE);
         //output ausblenden
-        motionPictureList.addAll(motionPictureApiResults.getMotionPicture());
+        initialTitleSearchList.clear();
+        motionPictureList.addAll(motionPictureApiResults.getMotionPicture().stream().filter(c-> c.getType().equals("movie") || c.getType().equals("series")).collect(Collectors.toList()));
+        initialTitleSearchList.addAll(motionPictureList);
         pa.notifyDataSetChanged();
         tvApiErrorMessage.setVisibility(View.INVISIBLE);
     }
@@ -222,5 +352,10 @@ public class SearchFragment extends Fragment {
         }
         pa.notifyDataSetChanged();
         return true;
+    }
+
+
+    private void makeToast(String message){
+        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
     }
 }
