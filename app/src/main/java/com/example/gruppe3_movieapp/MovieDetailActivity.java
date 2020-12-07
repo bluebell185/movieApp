@@ -36,6 +36,15 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
+        ivCover = findViewById(R.id.ivCover);
+
+        tvTitle = findViewById(R.id.tvTitle);
+        tvRating = findViewById(R.id.tvRating);
+        tvDescription = findViewById(R.id.tvDescription);
+
+        ibtnFavorite = findViewById(R.id.ibtnFavorite);
+        ibtnShare = findViewById(R.id.ibtnShare);
+        ibtnWatched = findViewById(R.id.ibtnWatched);
     }
 
     @SuppressLint({"StringFormatMatches", "StringFormatInvalid"})
@@ -49,15 +58,7 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         // Datenbankeintrag wird anhand der imdbId hergeholt
         motionPictureList = (ArrayList<MotionPicture>) dbRepo.getMotionPicture(imdbId);
 
-        ivCover = findViewById(R.id.ivCover);
 
-        tvTitle = findViewById(R.id.tvTitle);
-        tvRating = findViewById(R.id.tvRating);
-        tvDescription = findViewById(R.id.tvDescription);
-
-        ibtnFavorite = findViewById(R.id.ibtnFavorite);
-        ibtnShare = findViewById(R.id.ibtnShare);
-        ibtnWatched = findViewById(R.id.ibtnWatched);
 
         // Felder werden aus der Datenbank / API gesetz
         Picasso.get().load(motionPictureList.get(0).cover).into(ivCover);
