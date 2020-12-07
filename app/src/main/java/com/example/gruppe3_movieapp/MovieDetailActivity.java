@@ -64,7 +64,13 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         Picasso.get().load(motionPictureList.get(0).cover).into(ivCover);
 
         tvTitle.setText(motionPictureList.get(0).title);
-        tvRating.setText(getString(R.string.tvMovieRating, motionPictureList.get(0).ratings));
+        if (motionPictureList.get(0).ratings != null){
+            tvRating.setText(getString(R.string.tvMovieRating, motionPictureList.get(0).ratings));
+        }
+        else {
+            tvRating.setText(getString(R.string.tvMovieRatingNull, motionPictureList.get(0).ratings));
+        }
+
         tvDescription.setText("");
 
         // Überprüft ob der Film in der Favoritenliste ist

@@ -16,12 +16,11 @@
     <string name="filter_type_series">Only show series</string>
 
     <string name="tvMovieRating">Rating: %1.1f</string>
+    <string name="tvMovieRatingNull">Rating: -</string>
     <string name="shareMovie">I watched the movie %1$s today.</string>
     <string name="tvActor">Actors: %1$s</string>
     <string name="errorMessageShare">No messenger found!</string>
     <string name="shareSeries">I watched the series %1$s today.</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tabFavorites">Favorites Movies</string>
     <string name="tabSearch">Search</string>
 

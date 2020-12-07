@@ -15,6 +15,7 @@
     <string name="filter_type_series">Zeige nur Serien</string>
 
     <string name="tvMovieRating">Bewertung: %1,1f</string>
+    <string name="tvMovieRatingNull">Bewertung: -</string>
     <string name="shareMovie">Ich habe heute den Titel %1$s gesehen.</string>
     <string name="tvActor">Besetzung: %1$s</string>
     <string name="errorMessageShare">Kein Messenger zum versenden gefunden!</string>
