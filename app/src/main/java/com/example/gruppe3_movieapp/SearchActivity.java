@@ -1,6 +1,5 @@
 package com.example.gruppe3_movieapp;
 
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,7 +19,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,6 +30,13 @@ public class SearchActivity extends AppCompatActivity {
     TextView tvTitleSearch;
     TextView tvYearSearch;
     ImageView ivTypeSearch;
+    TextView tvDurationSearch;
+
+    TextView tvApiErrorMessage;
+    TextView tvOutputApiObject;
+    RecyclerView rvSearch;
+
+    RatingBar rbRatingSearch;
     ImageView ivCoverSearch;
     MotionPictureAdapterSearch pa;
     MotionPictureRepo motionPictureRepo = new MotionPictureRepo();
@@ -47,6 +52,11 @@ public class SearchActivity extends AppCompatActivity {
         tvYearSearch = findViewById(R.id.tvYearSearch);
         ivTypeSearch = findViewById(R.id.ivTypeSearch);
         ivCoverSearch = findViewById(R.id.ivCoverSearch);
+
+        tvApiErrorMessage = findViewById(R.id.tvApiErrorMessage);
+        tvOutputApiObject = findViewById(R.id.tvOutputApiObject);
+        rvSearch = findViewById(R.id.rvSearch);
+
 
         sp  = getPreferences(Context.MODE_PRIVATE);
         lastSearchExpression = sp.getString("lastSearchExpression", "welcome");
@@ -91,36 +101,60 @@ public class SearchActivity extends AppCompatActivity {
 
                         MotionPictureApiResults motionPictureApiResults = response.body();
                         if (motionPictureApiResults.getMotionPicture() != null) {
-                            motionPictureList.addAll(motionPictureApiResults.getMotionPicture());
-                            pa.notifyDataSetChanged();
+
+                            showData(motionPictureApiResults);
+
                         } else {
-                            //Fehlermeldung einbauen wie "Keine Filme gefunden, suche nach einem anderen Titel" oder so
-                            // wenn das Programm hierher kommt, ist die motionPictureList leer
+
+                            tvOutputApiObject.setText(R.string.outputApiObject);
                         }
 
-                  /*  MotionPicture motionPicture = motionPictureApiResults.getMotionPicture();
+                  /*  MotionPicture motionPicture = motionPictureApiResults.getMotionPicture().get(0); -- muss in die DetailActivity rein das alles auskommenntierte
                     if (motionPicture != null){
 
                         // Daten ausgeben!
                     }
                     else {
-                        // textview.setText(R.string.ErrorMessage);
+                        // outputApiObject.setText(R.string.outputApiObject); // hier kommt aber eine andere TextView rein extra für die DetailView
                     } */
                 }
                 else {
                     Log.d("MainActivity", "getMotionPicture: onResponse NOT successfull");
-                    // textview.setText(R.string.ErrorMessage);
+                    showErrorMessage(getString(R.string.motionPicture_error_NOT_succsessfull));
+
                 }
             }
 
             @Override
             public void onFailure(Call<MotionPictureApiResults> call, Throwable t) {
                 Log.d("MainActivity", "getMotionPicture: onFailure " + t.getMessage());
-                // textview.setText(R.string.ErrorMessage);
+
+                showErrorMessage(getString(R.string.motionPicture_error_on_failure));
+
 
             }
         });
     }
+
+    private void showData(MotionPictureApiResults motionPictureApiResults){
+        rvSearch.setVisibility(View.VISIBLE);
+        tvOutputApiObject.setVisibility(View.INVISIBLE);
+        //output ausblenden
+        motionPictureList.addAll(motionPictureApiResults.getMotionPicture());
+        pa.notifyDataSetChanged();
+        tvApiErrorMessage.setVisibility(View.INVISIBLE);
+    }
+
+    private void showErrorMessage(String failure){
+        tvApiErrorMessage.setVisibility(View.VISIBLE);
+        tvApiErrorMessage.setText(failure);
+        tvOutputApiObject.setVisibility(View.INVISIBLE);
+        rvSearch.setVisibility(View.INVISIBLE);
+    }
+
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){

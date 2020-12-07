@@ -24,4 +24,12 @@
     <string name="tabFavorites">Favorites Movies</string>
     <string name="tabSearch">Search</string>
 
+
+    <string name="motionPicture_error_on_failure"> No network is connected reload the App later!</string>
+    <string name="motionPicture_error_NOT_succsessfull"> API is not available or false reload the App later!</string>
+    <string name="outputApiObject"> No Data exist! </string>
+
+
+
+
 </resources>

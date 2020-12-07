@@ -4,12 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,13 +14,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import androidx.appcompat.widget.SearchView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,6 +37,9 @@ public class SearchFragment extends Fragment {
     TextView tvYearSearch;
     ImageView ivTypeSearch;
     ImageView ivCoverSearch;
+    TextView tvApiErrorMessage;
+    TextView tvOutputApiObject;
+    RecyclerView rvSearch;
     MotionPictureAdapterSearch pa;
     MotionPictureRepo motionPictureRepo = new MotionPictureRepo();
     SharedPreferences sp;
@@ -97,6 +98,10 @@ public class SearchFragment extends Fragment {
         ivTypeSearch = view.findViewById(R.id.ivTypeSearch);
         ivCoverSearch = view.findViewById(R.id.ivCoverSearch);
 
+        tvApiErrorMessage = view.findViewById(R.id.tvApiErrorMessage);
+        tvOutputApiObject = view.findViewById(R.id.tvOutputApiObject);
+        rvSearch = view.findViewById(R.id.rvSearch);
+
         sp  = getActivity().getPreferences(Context.MODE_PRIVATE);
         lastSearchExpression = sp.getString("lastSearchExpression", "welcome");
 
@@ -138,37 +143,45 @@ public class SearchFragment extends Fragment {
 
                     MotionPictureApiResults motionPictureApiResults = response.body();
                     if (motionPictureApiResults.getMotionPicture() != null) {
-                        motionPictureList.addAll(motionPictureApiResults.getMotionPicture());
-                        pa.notifyDataSetChanged();
+
+                        showData(motionPictureApiResults);
+
                     } else {
-                        //Fehlermeldung einbauen wie "Keine Filme gefunden, suche nach einem anderen Titel" oder so
-                        // wenn das Programm hierher kommt, ist die motionPictureList leer
+
+                        tvOutputApiObject.setText(R.string.outputApiObject);
                     }
 
-                  /*  MotionPicture motionPicture = motionPictureApiResults.getMotionPicture();
-                    if (motionPicture != null){
-
-                        // Daten ausgeben!
-                    }
-                    else {
-                        // textview.setText(R.string.ErrorMessage);
-                    } */
                 }
                 else {
                     Log.d("MainActivity", "getMotionPicture: onResponse NOT successfull");
-                    // textview.setText(R.string.ErrorMessage);
+                    showErrorMessage(getString(R.string.motionPicture_error_NOT_succsessfull));
                 }
             }
 
             @Override
             public void onFailure(Call<MotionPictureApiResults> call, Throwable t) {
                 Log.d("MainActivity", "getMotionPicture: onFailure " + t.getMessage());
-                // textview.setText(R.string.ErrorMessage);
+                showErrorMessage(getString(R.string.motionPicture_error_on_failure));
 
             }
         });
     }
 
+    private void showData(MotionPictureApiResults motionPictureApiResults){
+        rvSearch.setVisibility(View.VISIBLE);
+        tvOutputApiObject.setVisibility(View.INVISIBLE);
+        //output ausblenden
+        motionPictureList.addAll(motionPictureApiResults.getMotionPicture());
+        pa.notifyDataSetChanged();
+        tvApiErrorMessage.setVisibility(View.INVISIBLE);
+    }
+
+    private void showErrorMessage(String failure){
+        tvApiErrorMessage.setVisibility(View.VISIBLE);
+        tvApiErrorMessage.setText(failure);
+        tvOutputApiObject.setVisibility(View.INVISIBLE);
+        rvSearch.setVisibility(View.INVISIBLE);
+    }
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
         inflater.inflate(R.menu.menu_search, menu);

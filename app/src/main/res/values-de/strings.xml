@@ -22,4 +22,8 @@
     <string name="shareSeries">Ich habe heute die Serie %1$s angeschaut.</string>
     <string name="tabFavorites">Lieblingsfilme</string>
     <string name="tabSearch">Suche</string>
+
+    <string name="motionPicture_error_on_failure"> Keine Netzwerkverbindung lade die App später neu!</string>
+    <string name="motionPicture_error_NOT_succsessfull"> API vorrübergehend nicht erreichbar oder falsche Antwort Lade die App später neu!</string>
+    <string name="outputApiObject"> Keine Daten vorhanden!</string>
 </resources>

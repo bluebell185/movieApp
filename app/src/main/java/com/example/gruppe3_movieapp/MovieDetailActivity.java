@@ -1,7 +1,5 @@
 package com.example.gruppe3_movieapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -16,11 +14,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.squareup.picasso.Picasso;
 
-import static com.example.gruppe3_movieapp.MainActivity.dbRepo;
-
 import java.util.ArrayList;
+
+import static com.example.gruppe3_movieapp.MainActivity.dbRepo;
 
 public class MovieDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -28,6 +28,9 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
     ImageView ivCover;
     ImageButton ibtnFavorite, ibtnWatched, ibtnShare;
     ArrayList<MotionPicture> motionPictureList = new ArrayList<>();
+    //TextView tvApiErrorMessage;
+    //    TextView tvOutputApiObject;
+    //    RecyclerView rvSearch;
 
     boolean favorite = false;
     private Bitmap mBitmap;
@@ -45,6 +48,8 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         ibtnFavorite = findViewById(R.id.ibtnFavorite);
         ibtnShare = findViewById(R.id.ibtnShare);
         ibtnWatched = findViewById(R.id.ibtnWatched);
+
+
     }
 
     @SuppressLint({"StringFormatMatches", "StringFormatInvalid"})
