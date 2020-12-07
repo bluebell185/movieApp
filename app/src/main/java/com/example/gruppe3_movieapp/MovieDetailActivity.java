@@ -8,6 +8,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -15,10 +16,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.Group;
 
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.example.gruppe3_movieapp.MainActivity.dbRepo;
 
@@ -28,9 +34,11 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
     ImageView ivCover;
     ImageButton ibtnFavorite, ibtnWatched, ibtnShare;
     ArrayList<MotionPicture> motionPictureList = new ArrayList<>();
-    //TextView tvApiErrorMessage;
-    //    TextView tvOutputApiObject;
-    //    RecyclerView rvSearch;
+
+
+    TextView  tvErrorAPI;
+    MotionPictureRepo motionPictureRepo = new MotionPictureRepo();
+    Group group;
 
     boolean favorite = false;
     private Bitmap mBitmap;
@@ -48,6 +56,13 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         ibtnFavorite = findViewById(R.id.ibtnFavorite);
         ibtnShare = findViewById(R.id.ibtnShare);
         ibtnWatched = findViewById(R.id.ibtnWatched);
+
+        tvErrorAPI = findViewById(R.id. tvErrorAPI);
+        group = findViewById(R.id.groupMovieData);
+
+
+
+
 
 
     }
@@ -117,6 +132,54 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
             shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.shareSeries, motionPictureList.get(0).title));
         }
         startActivity(Intent.createChooser(shareIntent, "Share Movie"));
+    }
+
+    private void getfilteredMotionPictureImdb(String imdb){
+        motionPictureRepo.filteredMotionPictureImdb(imdb, new Callback<MotionPictureApiResults>() {
+            @Override
+            public void onResponse(Call<MotionPictureApiResults> call, Response<MotionPictureApiResults> response) {
+                if(response.isSuccessful()){
+                    Log.d("DetailActivity", "getMotionPicture: onResponse successfull");
+                    MotionPictureApiResults motionPictureApiResults = response.body();
+                    MotionPicture motionPicture = motionPictureApiResults.getMotionPicture().get(0);
+                    if (motionPicture != null){
+
+                         showData(motionPicture);
+                    }
+                    else {
+                        tvErrorAPI.setText(R.string.outputApiObject);
+
+                    }
+                }
+                else {
+                    Log.d("DetailAcitivity", "getMotionPicture: onResponse NOT successfull");
+                    showErrorMessage(getString(R.string.motionPicture_error_NOT_succsessfull));
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<MotionPictureApiResults> call, Throwable t) {
+                Log.d("DetailActivity", "getMotionPicture: onFailure " + t.getMessage());
+                showErrorMessage(getString(R.string.motionPicture_error_on_failure));
+
+            }
+        });
+
+    }
+
+    private void showData(MotionPicture motionPicture){
+        group.setVisibility(View.VISIBLE);
+        tvErrorAPI.setVisibility(View.INVISIBLE);
+        // Daten füllen @Elena
+        tvErrorAPI.setVisibility(View.INVISIBLE);
+    }
+
+    private void showErrorMessage(String failure){
+        tvErrorAPI.setVisibility(View.VISIBLE);
+        tvErrorAPI.setText(failure);
+        tvErrorAPI.setVisibility(View.INVISIBLE);
+        group.setVisibility(View.INVISIBLE);
     }
 
     @Override
