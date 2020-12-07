@@ -180,18 +180,6 @@ public class FavoritesFragment extends Fragment {
                 motionPictureList.addAll((ArrayList<MotionPicture>) dbRepo.getAll());
                 break;
             }
-            case R.id.menu_item_favorite_main:{
-                // alle favorisierten Filme/Serien anzeigen
-                tvMain.setText(getString(R.string.tv_main_show_favorite));
-                motionPictureList.addAll((ArrayList<MotionPicture>) dbRepo.getAll().stream().filter(c -> c.isMarkedAsFavorite()).collect(Collectors.toList()));
-                break;
-            }
-            case R.id.menu_item_watched_main:{
-                // alle angesehenen Filme/Serien anzeigen
-                tvMain.setText(getString(R.string.tv_main_show_seen));
-                motionPictureList.addAll((ArrayList<MotionPicture>) dbRepo.getAll().stream().filter(c -> c.isMarkedAsSeen()).collect(Collectors.toList()));
-                break;
-            }
         }
         pa.notifyDataSetChanged();
         return true;
