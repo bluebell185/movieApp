@@ -4,14 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="250dp">
+    android:layout_height="220dp">
 
     <ImageView
         android:id="@+id/ivCoverMain"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        app:layout_constraintHeight_max="165dp"
+        app:layout_constraintHeight_max="145dp"
         app:layout_constraintWidth_max="130dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.222"
         tools:srcCompat="@tools:sample/avatars" />
-    <!-- 165 uhnd 100 ca-->
+
     <TextView
         android:id="@+id/tvTitleMain"
         android:layout_width="0dp"
@@ -38,11 +38,10 @@
         android:id="@+id/ivSeenMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/ivCoverMain"
         app:layout_constraintTop_toBottomOf="@+id/ivCoverMain"
-        app:layout_constraintVertical_bias="0.05"
+        app:layout_constraintVertical_bias="0.0"
         tools:srcCompat="@drawable/ic_watched" />
 
     <ImageView

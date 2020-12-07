@@ -37,6 +37,9 @@ public class MotionPictureAdapterMain extends RecyclerView.Adapter<MotionPicture
         if (p.isMarkedAsSeen()){
             holder.ivSeenMain.setImageResource(R.drawable.ic_watched);
         }
+        else{
+           holder.ivSeenMain.setImageResource(R.drawable.ic_not_seen);
+        }
         if(p.isMarkedAsFavorite()){
             holder.ivFavoriteMain.setImageResource(R.drawable.ic_star_favorite);
         }

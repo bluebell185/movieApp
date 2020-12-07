@@ -35,7 +35,9 @@ public class FavoritesFragment extends Fragment {
     TextView tvTitleMain;
     TextView tvMain;
     ImageView ivCoverMain;
-    Button btnAddMotionPictureMain;
+    Button btnShowAll;
+    Button btnShowFavorites;
+    Button btnShowSeen;
     static MotionPictureDao dbRepo;
     static AppDatabase db;
     MotionPictureAdapterMain pa;
@@ -97,7 +99,9 @@ public class FavoritesFragment extends Fragment {
         tvTitleMain = view.findViewById(R.id.tvTitleMain);
         tvMain = view.findViewById(R.id.tvMain);
         ivCoverMain = view.findViewById(R.id.ivCoverMain);
-        btnAddMotionPictureMain = view.findViewById(R.id.btnAddMotionPictureMain);
+        btnShowAll = view.findViewById(R.id.btnShowAll);
+        btnShowFavorites = view.findViewById(R.id.btnShowFavorites);;
+        btnShowSeen = view.findViewById(R.id.btnShowSeen);;
 
         fillMotionPictureList();    //hier später die favorisierten, aber noch nicht gesehenen Filme anzeigen als erste Sicht des Users
 
@@ -131,13 +135,39 @@ public class FavoritesFragment extends Fragment {
                 })
         );
 
-        btnAddMotionPictureMain.setOnClickListener(new View.OnClickListener() {
+        btnShowAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent changeActivity = new Intent(getActivity().getApplicationContext(), SearchActivity.class);
-                startActivity(changeActivity);
+                // alle Filme/Serien anzeigen, die favorisiert und/oder angesehen wurden
+                motionPictureList.clear();
+                tvMain.setText(getString(R.string.tv_main_show_all));
+                motionPictureList.addAll((ArrayList<MotionPicture>) dbRepo.getAll());
+                pa.notifyDataSetChanged();
             }
         });
+
+        btnShowFavorites.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                motionPictureList.clear();
+                 // alle favorisierten Filme/Serien anzeigen, die noch nicht gesehen wurden
+                tvMain.setText(getString(R.string.tv_main_show_favorite));
+                motionPictureList.addAll((ArrayList<MotionPicture>) dbRepo.getAll().stream().filter(c -> !c.isMarkedAsSeen() && c.isMarkedAsFavorite()).collect(Collectors.toList()));
+                pa.notifyDataSetChanged();
+            }
+        });
+
+        btnShowSeen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // alle angesehenen Filme/Serien anzeigen
+                motionPictureList.clear();
+                tvMain.setText(getString(R.string.tv_main_show_seen));
+                motionPictureList.addAll((ArrayList<MotionPicture>) dbRepo.getAll().stream().filter(c -> c.isMarkedAsSeen()).collect(Collectors.toList()));
+                pa.notifyDataSetChanged();
+            }
+        });
+
 
         return view;
     }

@@ -5,7 +5,7 @@
     <string name="menu_item_show_all_main">Zeige alle Titel</string>
     <string name="menu_item_favorite_main">Zeige Favoriten</string>
     <string name="menu_item_watched_main">Zeige gesehene Filme</string>
-    <string name="tv_main_show_all">Meine favorisierten und gesehene Filme</string>
+    <string name="tv_main_show_all">Favorisierte und gesehene Filme</string>
     <string name="tv_main_show_favorite">Watchlist</string>
     <string name="tv_main_show_seen">Gesehene Filme</string>
     <string name="tv_main_empty_rv">Willkommen!\nDu hast noch keine favorisierten Titel. Fang an nach ihnen zu suchen!</string>
