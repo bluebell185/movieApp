@@ -34,10 +34,20 @@ public class MotionPictureAdapterSearch extends RecyclerView.Adapter<MotionPictu
     public void onBindViewHolder(@NonNull MotionPictureAdapterSearch.MotionPictureViewHolder holder, int position) {
         MotionPicture p = motionPictureList.get(position);
         holder.tvTitleSearch.setText(p.getTitle());
-        holder.tvDurationSearch.setText(String.valueOf(p.getRuntime()));
-        holder.rbRatingSearch.setRating(p.getImdbRating());
-        Picasso.get().load(p.getCover()).into(holder.ivCoverSearch);
-        //holder.ivCoverSearch.setImageResource(p.getCover());
+        holder.tvYearSearch.setText(String.valueOf(p.getYear().substring(0,4)));
+        if (p.getType().equals("movie")){
+            holder.ivTypeSearch.setImageResource(R.drawable.ic_movie);
+        }
+        else if(p.getType().equals("series")){
+            holder.ivTypeSearch.setImageResource(R.drawable.ic_series);
+        }
+        if (p.getCover().equals("N/A")){
+            //falls kein Cover mitgeliefert wird
+            holder.ivCoverSearch.setImageResource(R.drawable.nomoviepicture);
+        }
+        else {
+            Picasso.get().load(p.getCover()).into(holder.ivCoverSearch);
+        }
     }
 
     @Override
@@ -47,15 +57,15 @@ public class MotionPictureAdapterSearch extends RecyclerView.Adapter<MotionPictu
 
     public static class MotionPictureViewHolder extends RecyclerView.ViewHolder{
         TextView tvTitleSearch;
-        TextView tvDurationSearch;
-        RatingBar rbRatingSearch;
+        TextView tvYearSearch;
+        ImageView ivTypeSearch;
         ImageView ivCoverSearch;
 
         public MotionPictureViewHolder(@NonNull View itemView) {
             super(itemView);
             tvTitleSearch = itemView.findViewById(R.id.tvTitleSearch);
-            tvDurationSearch = itemView.findViewById(R.id.tvDurationSearch);
-            rbRatingSearch = itemView.findViewById(R.id.rbRatingSearch);
+            tvYearSearch = itemView.findViewById(R.id.tvYearSearch);
+            ivTypeSearch = itemView.findViewById(R.id.ivTypeSearch);
             ivCoverSearch = itemView.findViewById(R.id.ivCoverSearch);
         }
     }

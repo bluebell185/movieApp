@@ -30,8 +30,8 @@ import retrofit2.Response;
 public class SearchActivity extends AppCompatActivity {
     ArrayList<MotionPicture> motionPictureList = new ArrayList<>();
     TextView tvTitleSearch;
-    TextView tvDurationSearch;
-    RatingBar rbRatingSearch;
+    TextView tvYearSearch;
+    ImageView ivTypeSearch;
     ImageView ivCoverSearch;
     MotionPictureAdapterSearch pa;
     MotionPictureRepo motionPictureRepo = new MotionPictureRepo();
@@ -44,15 +44,14 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         tvTitleSearch = findViewById(R.id.tvTitleSearch);
-        tvDurationSearch = findViewById(R.id.tvDurationSearch);
-        rbRatingSearch = findViewById(R.id.rbRatingSearch);
+        tvYearSearch = findViewById(R.id.tvYearSearch);
+        ivTypeSearch = findViewById(R.id.ivTypeSearch);
         ivCoverSearch = findViewById(R.id.ivCoverSearch);
 
         sp  = getPreferences(Context.MODE_PRIVATE);
         lastSearchExpression = sp.getString("lastSearchExpression", "welcome");
 
          getfilteredMotionPictureTitle(lastSearchExpression);
-        //fillMotionPictureList();
     }
 
     protected void onStart(){
@@ -82,29 +81,6 @@ public class SearchActivity extends AppCompatActivity {
         );
     }
 
-  /*  private void fillMotionPictureList(){
-        //später die Liste, die die API zurückgibt an motionPictureList übergeben ODER dierekt die zurückgegebne Liste in die RV
-
-        MotionPicture m1 = new MotionPicture("1", "Titel", 300, (float) 9.8, "https://m.media-amazon.com/images/M/MV5BMzRmNjJhYTctMjY5My00ZWE4LWFiMTEtZGMzYzMxNmQ5OTllL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyOTc2Mzg5OQ@@._V1_SX300.jpg");
-        MotionPicture m2 = new MotionPicture("2","Title", 301, (float) 3.2, "https://m.media-amazon.com/images/M/MV5BMzRmNjJhYTctMjY5My00ZWE4LWFiMTEtZGMzYzMxNmQ5OTllL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyOTc2Mzg5OQ@@._V1_SX300.jpg");
-        MotionPicture m3 = new MotionPicture("3","Titel", 30, (float) 5.5, "https://m.media-amazon.com/images/M/MV5BMDhhN2QwNGUtODI1OC00NDRkLWJkMjgtZmM3MDY4MDI0NGE2XkEyXkFqcGdeQXVyNjE4MDMwMjk@._V1_SX300.jpg");
-
-
-        m1.getRatings().add(new Rating("IMDB", "2/10"));
-        motionPictureList.add(m1);
-        motionPictureList.add(m2);
-        motionPictureList.add(m3);
-
-        //START TEST
-        //db.clearAllTables(); //Um Tabellen zu leeren, sonst gibts Fehler bei doppelter imdbId!
-        //Kurzer Test: Du hast 3 Objekte erstellt (m1,m2,m3). Diese in der DB speichern mit Insert,
-        dbRepo.insert(m1,m2,m3);
-
-        //und anschließend wieder holen mit getAll()
-        motionPictureList = (ArrayList<MotionPicture>) dbRepo.getAll();
-        //END
-    } */
-
     // Sobald die Daten und Inhalte fest sind, muss noch festegelegt werden wann was angezeigt wird und welche Errormessage angezeigt werden kann
     private void getfilteredMotionPictureTitle(String title){
         motionPictureRepo.getFilteredMotionPictureTitle( title, new Callback<MotionPictureApiResults>() {
@@ -112,9 +88,15 @@ public class SearchActivity extends AppCompatActivity {
             public void onResponse(Call<MotionPictureApiResults> call, Response<MotionPictureApiResults> response) {
                 if (response.isSuccessful()){
                     Log.d("MainActivity", "getMotionPicture: onResponse successfull");
-                    MotionPictureApiResults motionPictureApiResults = response.body();
-                    motionPictureList.addAll( motionPictureApiResults.getMotionPicture());
-                    pa.notifyDataSetChanged();
+
+                        MotionPictureApiResults motionPictureApiResults = response.body();
+                        if (motionPictureApiResults.getMotionPicture() != null) {
+                            motionPictureList.addAll(motionPictureApiResults.getMotionPicture());
+                            pa.notifyDataSetChanged();
+                        } else {
+                            //Fehlermeldung einbauen wie "Keine Filme gefunden, suche nach einem anderen Titel" oder so
+                            // wenn das Programm hierher kommt, ist die motionPictureList leer
+                        }
 
                   /*  MotionPicture motionPicture = motionPictureApiResults.getMotionPicture();
                     if (motionPicture != null){

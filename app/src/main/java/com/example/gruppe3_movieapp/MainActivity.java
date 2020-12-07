@@ -14,13 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 
 import com.example.gruppe3_movieapp.room.AppDatabase;
 import com.example.gruppe3_movieapp.room.MotionPictureDao;
-import com.google.android.material.tabs.TabItem;
-import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -139,9 +135,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             }
             case R.id.menu_item_favorite_main:{
-                // alle favorisierten Filme/Serien anzeigen
+                // alle favorisierten Filme/Serien anzeigen, die noch nicht gesehen wurden
                 tvMain.setText(getString(R.string.tv_main_show_favorite));
-                motionPictureList.addAll((ArrayList<MotionPicture>) dbRepo.getAll().stream().filter(c -> c.isMarkedAsFavorite()).collect(Collectors.toList()));
+                motionPictureList.addAll((ArrayList<MotionPicture>) dbRepo.getAll().stream().filter(c -> c.isMarkedAsFavorite() &! c.isMarkedAsSeen()).collect(Collectors.toList()));
                 break;
             }
             case R.id.menu_item_watched_main:{

@@ -34,7 +34,15 @@ public class MotionPictureAdapterMain extends RecyclerView.Adapter<MotionPicture
         MotionPicture p = motionPictureList.get(position);
         holder.tvTitleMain.setText(p.getTitle());
         Picasso.get().load(p.getCover()).into(holder.ivCoverMain);
-        //holder.ivCoverMain.setImageResource(p.getCover());
+        if (p.isMarkedAsSeen()){
+            holder.ivSeenMain.setImageResource(R.drawable.ic_watched);
+        }
+        if(p.isMarkedAsFavorite()){
+            holder.ivFavoriteMain.setImageResource(R.drawable.ic_star_favorite);
+        }
+        else{
+            holder.ivFavoriteMain.setImageResource(R.drawable.ic_star_set_favorite);
+        }
     }
 
     @Override
@@ -45,11 +53,15 @@ public class MotionPictureAdapterMain extends RecyclerView.Adapter<MotionPicture
     public static class MotionPictureViewHolder extends RecyclerView.ViewHolder{
         TextView tvTitleMain;
         ImageView ivCoverMain;
+        ImageView ivSeenMain;
+        ImageView ivFavoriteMain;
 
         public MotionPictureViewHolder(@NonNull View itemView) {
             super(itemView);
             tvTitleMain = itemView.findViewById(R.id.tvTitleMain);
             ivCoverMain = itemView.findViewById(R.id.ivCoverMain);
+            ivSeenMain = itemView.findViewById(R.id.ivSeenMain);
+            ivFavoriteMain = itemView.findViewById(R.id.ivFavoriteMain);
         }
     }
 

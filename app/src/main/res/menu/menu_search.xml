@@ -6,4 +6,13 @@
         android:icon="@drawable/ic_search"
         app:showAsAction="collapseActionView|ifRoom"
         app:actionViewClass="androidx.appcompat.widget.SearchView" />
+    <item android:id="@+id/sortYear"
+        android:title="@string/sort_year"
+        app:showAsAction="never"/>
+    <item android:id="@+id/filterTypeMovie"
+        android:title="@string/filter_type_movie"
+        app:showAsAction="never"/>
+    <item android:id="@+id/filterTypeSeries"
+        android:title="@string/filter_type_series"
+        app:showAsAction="never"/>
 </menu>
