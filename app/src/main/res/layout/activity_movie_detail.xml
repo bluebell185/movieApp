@@ -128,6 +128,16 @@
             app:layout_constraintTop_toBottomOf="@id/tvActors"
             tools:text="Clarice Starling, Auszubildende beim FBI, bekommt von einem ihrer Lehrer den Auftrag, sich im Gefängnis mit Dr. Hannibal Lecter, einem Massenmörder und Psychiater, zu befassen. Durch ihre Unbefangenheit hoffen sie, daß Lecter ihnen bei der Suche nach einem anderen Serienkiller hilft, aber es ist nicht leicht, an Lecter heranzukommen." />
 
+        <TextView
+            android:id="@+id/tvErrorAPI"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
