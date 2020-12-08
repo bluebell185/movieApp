@@ -23,7 +23,7 @@ public class MotionPicture implements Parcelable {
     @SerializedName("Title")
     String title;
     @SerializedName("Runtime")
-    double runtime;
+    String runtime;
     @SerializedName("Ratings")
     List<Rating> ratings;
     @SerializedName("Poster")
@@ -83,7 +83,7 @@ public class MotionPicture implements Parcelable {
         this.ratings = new ArrayList<>();
     }
 
-    public MotionPicture(@NonNull String imdbId, String title, double runtime, List<Rating> ratings, String cover, String year, String rated, String released, String genre, String director, String actors, String plot, String language, String country, String awards, String type, int total_Season, float imdbRating, String imdbVotes) {
+    public MotionPicture(@NonNull String imdbId, String title, String runtime, List<Rating> ratings, String cover, String year, String rated, String released, String genre, String director, String actors, String plot, String language, String country, String awards, String type, int total_Season, float imdbRating, String imdbVotes) {
         this.imdbId = imdbId;
         this.title = title;
         this.runtime = runtime;
@@ -109,7 +109,7 @@ public class MotionPicture implements Parcelable {
     protected MotionPicture(Parcel in) {
         imdbId = in.readString();
         title = in.readString();
-        runtime = in.readDouble();
+        runtime = in.readString();
         in.readList(ratings, ElementType.class.getClassLoader());
         cover = in.readString();
         year = in.readString();
@@ -147,7 +147,7 @@ public class MotionPicture implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(imdbId);
         dest.writeString(title);
-        dest.writeDouble(runtime);
+        dest.writeString(runtime);
         dest.writeList(ratings);
         dest.writeString(cover);
         dest.writeString(year);
@@ -173,7 +173,7 @@ public class MotionPicture implements Parcelable {
         return title;
     }
 
-    public double getRuntime() {
+    public String getRuntime() {
         return runtime;
     }
 
