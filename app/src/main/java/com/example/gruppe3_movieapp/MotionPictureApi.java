@@ -14,6 +14,6 @@ public interface MotionPictureApi {
     @GET("?apikey=dd6c1031") // Title
     Call<MotionPictureApiResults> filteredMotionPictureTitle(@Query("s") String title);  // @Query("apikey") String apikey,
 
-    @GET("api") // Imdb
+    @GET("?apikey=dd6c1031&plot=full") // Imdb
     Call<MotionPictureApiResults> filteredMotionPictureImdb(@Query("i") String imdb);
 }

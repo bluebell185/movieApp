@@ -30,7 +30,7 @@ import static com.example.gruppe3_movieapp.MainActivity.dbRepo;
 
 public class MovieDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
-    TextView tvTitle, tvDescription, tvRating;
+    TextView tvTitle, tvDescription, tvRating, tvActor;
     ImageView ivCover;
     ImageButton ibtnFavorite, ibtnWatched, ibtnShare;
     ArrayList<MotionPicture> motionPictureList = new ArrayList<>();
@@ -52,6 +52,7 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         tvTitle = findViewById(R.id.tvTitle);
         tvRating = findViewById(R.id.tvRating);
         tvDescription = findViewById(R.id.tvDescription);
+        tvActor = findViewById(R.id.tvActors);
 
         ibtnFavorite = findViewById(R.id.ibtnFavorite);
         ibtnShare = findViewById(R.id.ibtnShare);
@@ -59,12 +60,6 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
 
         tvErrorAPI = findViewById(R.id. tvErrorAPI);
         group = findViewById(R.id.groupMovieData);
-
-
-
-
-
-
     }
 
     @SuppressLint({"StringFormatMatches", "StringFormatInvalid"})
@@ -78,29 +73,34 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         // Datenbankeintrag wird anhand der imdbId hergeholt
         motionPictureList = (ArrayList<MotionPicture>) dbRepo.getMotionPicture(imdbId);
 
-
-
-        // Felder werden aus der Datenbank / API gesetz
-        Picasso.get().load(motionPictureList.get(0).cover).into(ivCover);
-
-        tvTitle.setText(motionPictureList.get(0).title);
-        if (motionPictureList.get(0).ratings != null){
-            tvRating.setText(getString(R.string.tvMovieRating, motionPictureList.get(0).ratings));
+        if (motionPictureList.size() == 0){
+            getfilteredMotionPictureImdb(imdbId);
         }
         else {
-            tvRating.setText(getString(R.string.tvMovieRatingNull, motionPictureList.get(0).ratings));
+            // Felder werden aus der Datenbank / API gesetz
+            Picasso.get().load(motionPictureList.get(0).cover).into(ivCover);
+
+            tvTitle.setText(motionPictureList.get(0).title);
+            if (motionPictureList.get(0).ratings != null){
+                tvRating.setText(getString(R.string.tvMovieRating, motionPictureList.get(0).ratings));
+            }
+            else {
+                tvRating.setText(getString(R.string.tvMovieRatingNull, motionPictureList.get(0).ratings));
+            }
+
+            tvDescription.setText("");
+
+            // Überprüft ob der Film in der Favoritenliste ist
+            // Je nach dem wird der Button gesetzt
+            if (!favorite){
+                ibtnFavorite.setImageResource(R.drawable.ic_star_set_favorite);
+            }
+            else {
+                ibtnFavorite.setImageResource(R.drawable.ic_star_favorite);
+            }
         }
 
-        tvDescription.setText("");
 
-        // Überprüft ob der Film in der Favoritenliste ist
-        // Je nach dem wird der Button gesetzt
-        if (!favorite){
-            ibtnFavorite.setImageResource(R.drawable.ic_star_set_favorite);
-        }
-        else {
-            ibtnFavorite.setImageResource(R.drawable.ic_star_favorite);
-        }
 
         ibtnFavorite.setOnClickListener(this);
         ibtnWatched.setOnClickListener(this);
@@ -172,6 +172,18 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         group.setVisibility(View.VISIBLE);
         tvErrorAPI.setVisibility(View.INVISIBLE);
         // Daten füllen @Elena
+        Picasso.get().load(motionPicture.cover).into(ivCover);
+        tvTitle.setText(motionPicture.title);
+//        if (motionPicture.imdbRating ){
+//            tvRating.setText(getString(R.string.tvMovieRating, motionPicture.ratings));
+//        }
+//        else {
+//            tvRating.setText(getString(R.string.tvMovieRatingNull, motionPictureList.get(0).ratings));
+//        }
+        tvRating.setText(getString(R.string.tvMovieRating, motionPicture.imdbRating));
+        tvDescription.setText(motionPicture.plot);
+        tvActor.setText(motionPicture.actors);
+
         tvErrorAPI.setVisibility(View.INVISIBLE);
     }
 
@@ -180,6 +192,10 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         tvErrorAPI.setText(failure);
         tvErrorAPI.setVisibility(View.INVISIBLE);
         group.setVisibility(View.INVISIBLE);
+    }
+
+    public void setWatched(){
+
     }
 
     @Override
@@ -200,6 +216,8 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
                     toast.show();
                 }
                 break;
+            case R.id.ibtnWatched:
+                setWatched();
         }
     }
 }
