@@ -135,16 +135,16 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void getfilteredMotionPictureImdb(String imdb){
-        motionPictureRepo.filteredMotionPictureImdb(imdb, new Callback<MotionPictureApiResults>() {
+        motionPictureRepo.filteredMotionPictureImdb(imdb, new Callback<MotionPicture>() {
             @Override
-            public void onResponse(Call<MotionPictureApiResults> call, Response<MotionPictureApiResults> response) {
+            public void onResponse(Call<MotionPicture> call, Response<MotionPicture> response) {
                 if(response.isSuccessful()){
                     Log.d("DetailActivity", "getMotionPicture: onResponse successfull");
-                    MotionPictureApiResults motionPictureApiResults = response.body();
-                    MotionPicture motionPicture = motionPictureApiResults.getMotionPicture().get(0);
-                    if (motionPicture != null){
+                    MotionPicture motionPictureResult = response.body();
 
-                         showData(motionPicture);
+                    if (motionPictureResult != null){
+
+                         showData(motionPictureResult);
                     }
                     else {
                         tvErrorAPI.setText(R.string.outputApiObject);
@@ -159,7 +159,7 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
             }
 
             @Override
-            public void onFailure(Call<MotionPictureApiResults> call, Throwable t) {
+            public void onFailure(Call<MotionPicture> call, Throwable t) {
                 Log.d("DetailActivity", "getMotionPicture: onFailure " + t.getMessage());
                 showErrorMessage(getString(R.string.motionPicture_error_on_failure));
 

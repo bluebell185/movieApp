@@ -41,8 +41,8 @@ public class MotionPictureRepo {
     }
 
     // Show filtered MotionPicture - ImdB
-    public void filteredMotionPictureImdb( String imdb, Callback<MotionPictureApiResults> callback){
-        Call<MotionPictureApiResults> motionPictureApiResultsCall = motionPictureApi.filteredMotionPictureImdb(imdb);
+    public void filteredMotionPictureImdb( String imdb, Callback<MotionPicture> callback){
+        Call<MotionPicture> motionPictureApiResultsCall = motionPictureApi.filteredMotionPictureImdb(imdb);
         motionPictureApiResultsCall.enqueue(callback);
     }
 
