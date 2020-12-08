@@ -26,7 +26,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.example.gruppe3_movieapp.MainActivity.dbRepo;
+import static com.example.gruppe3_movieapp.AppConstFunctions.*;
 
 public class MovieDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -42,6 +42,13 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
 
     boolean favorite = false;
     private Bitmap mBitmap;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //ScrollView als oberstes Element übergeben...
+        applyBackgroundColor(this, this, R.id.scrollView);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,8 +106,6 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
                 ibtnFavorite.setImageResource(R.drawable.ic_star_favorite);
             }
         }
-
-
 
         ibtnFavorite.setOnClickListener(this);
         ibtnWatched.setOnClickListener(this);

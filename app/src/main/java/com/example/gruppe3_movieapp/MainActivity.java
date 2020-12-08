@@ -2,19 +2,13 @@ package com.example.gruppe3_movieapp;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.SubMenu;
-import android.view.View;
-import android.widget.PopupMenu;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.room.Room;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -23,8 +17,8 @@ import com.example.gruppe3_movieapp.room.AppDatabase;
 import com.example.gruppe3_movieapp.room.MotionPictureDao;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
+
+import static com.example.gruppe3_movieapp.AppConstFunctions.*;
 
 public class MainActivity extends AppCompatActivity {
     // Dieser Teil muss in das Fragment FavoritesFragment übernommen werden
@@ -161,14 +155,8 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private TabItem tabFavorites, tabSearch;
     public PagerAdapter pagerAdapter;
-    static MotionPictureDao dbRepo;
-    static AppDatabase db;
-    SharedPreferences sp;
-    final String APP_PREFERENCES = "appPreferences";
-    final String PREF_COLOR_LIGHT = "colorLight";
-    final String PREF_COLOR_DARK = "colorDark";
-    String currentColorPreference;
-    BiMap<Integer, Integer> mapColorToMenuItem;
+
+
     SubMenu colorPickItems;
 
     @Override
@@ -219,23 +207,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
-        //Bidirektionale Map um ColorID zu ItemID aufzulösen und rückwärts
-        mapColorToMenuItem = HashBiMap.create();
-        mapColorToMenuItem.put(R.color.colorPrimary, R.id.item_default_light);
-        mapColorToMenuItem.put(R.color.colorPrimaryDark, R.id.item_default_dark);
-        mapColorToMenuItem.put(R.color.colorRed, R.id.item_red);
-        mapColorToMenuItem.put(R.color.colorBlue, R.id.item_blue);
-        mapColorToMenuItem.put(R.color.colorPurple, R.id.item_purple);
-        mapColorToMenuItem.put(R.color.colorBlack, R.id.item_black);
-        mapColorToMenuItem.put(R.color.colorGrey, R.id.item_grey);
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        applyBackgroundColor(R.id.linLayout);
+        applyBackgroundColor(this, this, R.id.linLayout);
     }
 
     @Override
@@ -251,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onMenuOpened(int featureId, Menu menu) {
         //Je nach Setting werden nur bestimmte Farben angeboten...
-        if (isDarkmodeActive()) {
+        if (isDarkmodeActive(this)) {
             menu.setGroupVisible(R.id.group_light, false);
             currentColorPreference = PREF_COLOR_DARK;
         }
@@ -263,7 +240,7 @@ public class MainActivity extends AppCompatActivity {
         menu.findItem(
                 mapColorToMenuItem.get(
                         sp.getInt(currentColorPreference,
-                                isDarkmodeActive() ? R.color.colorPrimaryDark : R.color.colorPrimary)
+                                isDarkmodeActive(this) ? R.color.colorPrimaryDark : R.color.colorPrimary)
                 )
         ).setChecked(true);
 
@@ -272,13 +249,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
         //Sonderfall für alle Items des Submenus der Farbauswahl
         if (colorPickItems.findItem(item.getItemId())!= null) {
             SharedPreferences.Editor spe = sp.edit();
             spe.putInt(currentColorPreference, mapColorToMenuItem.inverse().get(item.getItemId()));
             spe.apply();
-            applyBackgroundColor(R.id.linLayout);
+            applyBackgroundColor(this, this, R.id.linLayout);
         }
         else {
             switch (item.getItemId()) {
@@ -286,42 +262,6 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
         }
-
-
         return true;
     }
-
-    boolean isDarkmodeActive() {
-        //Code (angepasst) aus https://stackoverflow.com/questions/44170028/android-how-to-detect-if-night-mode-is-on-when-using-appcompatdelegate-mode-ni
-        int nightModeFlags =
-                getResources().getConfiguration().uiMode &
-                        Configuration.UI_MODE_NIGHT_MASK;
-        switch (nightModeFlags) {
-            case Configuration.UI_MODE_NIGHT_YES:
-                return true;
-
-            case Configuration.UI_MODE_NIGHT_NO | Configuration.UI_MODE_NIGHT_UNDEFINED:
-                return false;
-            default:
-                return true;
-        }
-    }
-
-    /**
-     Reads the current color preference from Shared Preferences (depending on rather NightMode active or not), and applies it to the the given Layout of the activity
-     @param layoutViewId which the color should be applied to
-     */
-    void applyBackgroundColor(int layoutViewId) {
-        if (isDarkmodeActive()) {
-            currentColorPreference = PREF_COLOR_DARK;
-        }
-        else {
-            currentColorPreference = PREF_COLOR_LIGHT;
-        }
-        //Wenn SharedPref leer, wird Default Farbe für Light- bzw. Nightmode genommen
-        findViewById(layoutViewId).setBackgroundColor(ContextCompat.getColor(this, sp.getInt(currentColorPreference, isDarkmodeActive() ? R.color.colorPrimaryDark : R.color.colorPrimary)));
-    }
-
-
-
 }

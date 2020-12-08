@@ -1,6 +1,5 @@
 package com.example.gruppe3_movieapp;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,7 +9,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.text.Editable;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -34,6 +32,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import androidx.appcompat.widget.SearchView;
+import static com.example.gruppe3_movieapp.AppConstFunctions.*;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -57,7 +56,6 @@ public class SearchFragment extends Fragment {
     RecyclerView rvSearch;
     MotionPictureAdapterSearch pa;
     MotionPictureRepo motionPictureRepo = new MotionPictureRepo();
-    SharedPreferences sp;
     String lastSearchExpression = "";
 
     // TODO: Rename parameter arguments, choose names that match
@@ -120,8 +118,7 @@ public class SearchFragment extends Fragment {
         tvOutputApiObject = view.findViewById(R.id.tvOutputApiObject);
         rvSearch = view.findViewById(R.id.rvSearch);
 
-        sp  = getActivity().getPreferences(Context.MODE_PRIVATE);
-        lastSearchExpression = sp.getString("lastSearchExpression", "welcome");
+        lastSearchExpression = sp.getString(PREF_LAST_SEARCH_EXPRESSION, "welcome");
 
         getfilteredMotionPictureTitle(lastSearchExpression);
 
@@ -322,7 +319,7 @@ public class SearchFragment extends Fragment {
             public boolean onQueryTextSubmit(String query) {
                 //setzen der Shared Preferences
                 SharedPreferences.Editor spe = sp.edit();
-                spe.putString("lastSearchExpression", query);
+                spe.putString(PREF_LAST_SEARCH_EXPRESSION, query);
                 spe.apply();
 
                 motionPictureList.clear();
