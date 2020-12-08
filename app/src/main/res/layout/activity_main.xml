@@ -3,38 +3,39 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    android:orientation="vertical"
     app:layout_constraintBottom_toTopOf="parent"
-    android:orientation="vertical">
+    tools:context=".MainActivity">
 
 
     <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        app:tabTextColor="#000000"
-        android:id="@+id/tabLayout">
+        app:tabTextColor="#000000">
 
         <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabFavorites"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tabFavorites"
-            android:id="@+id/tabFavorites"/>
+            android:text="@string/tabFavorites" />
 
         <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tabSearch"
-            android:id="@+id/tabSearch"/>
+            android:text="@string/tabSearch" />
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </androidx.viewpager.widget.ViewPager>
+        android:layout_height="match_parent"
+        android:backgroundTint="#F80000"></androidx.viewpager.widget.ViewPager>
 </LinearLayout>
 
 <!--Dieser Teil muss in fragment_favorites.xml übernommen werden-->

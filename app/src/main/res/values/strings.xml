@@ -30,7 +30,11 @@
     <string name="motionPicture_error_NOT_succsessfull"> API is not available or false reload the App later!</string>
     <string name="outputApiObject"> No Data exist! </string>
 
-
-
-
+    <string name="color_default">Default</string>
+    <string name="color_black">Black</string>
+    <string name="color_grey">Grey</string>
+    <string name="color_red">Red</string>
+    <string name="color_blue">Blue</string>
+    <string name="color_purple">Purple</string>
+    <string name="menu_item_change_color">Change background color...</string>
 </resources>

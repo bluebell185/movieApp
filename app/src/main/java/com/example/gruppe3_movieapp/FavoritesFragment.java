@@ -226,7 +226,7 @@ public class FavoritesFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         motionPictureList.clear();
         switch(item.getItemId()) {
-            case R.id.menu_item_show_all_main:{
+            case R.id.menu_item_change_color:{
                 // alle Filme/Serien anzeigen, die favorisiert und/oder angesehen wurden
                 tvMain.setText(getString(R.string.tv_main_show_all));
                 motionPictureList.addAll((ArrayList<MotionPicture>) dbRepo.getAll());

@@ -47,4 +47,5 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'                                 //REST Logger
     implementation "androidx.room:room-runtime:2.2.5"                                               //DBMS
     annotationProcessor "androidx.room:room-compiler:2.2.5"                                         //DBMS
+    implementation 'com.google.guava:guava:23.0-android'                                            //Guava für BiMap
 }

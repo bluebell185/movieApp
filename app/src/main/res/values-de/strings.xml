@@ -27,4 +27,12 @@
     <string name="motionPicture_error_on_failure"> Keine Netzwerkverbindung lade die App später neu!</string>
     <string name="motionPicture_error_NOT_succsessfull"> API vorrübergehend nicht erreichbar oder falsche Antwort Lade die App später neu!</string>
     <string name="outputApiObject"> Keine Daten vorhanden!</string>
+
+    <string name="color_default">Standard</string>
+    <string name="color_black">Schwarz</string>
+    <string name="color_grey">Grau</string>
+    <string name="color_red">Rot</string>
+    <string name="color_blue">Blau</string>
+    <string name="color_purple">Lila</string>
+    <string name="menu_item_change_color">Hintergrundfarbe ändern...</string>
 </resources>
