@@ -125,7 +125,7 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         // Übergeben des Bildes an das share Intent
         shareIntent.putExtra(Intent.EXTRA_STREAM, bitmapUri);
         // Zusätzlich kommt noch der Titel des Filmes als Text hinzu
-        if (motionPictureList.get(0).type == "movie"){
+        if (motionPictureList.get(0).type.equals("movie")){
             shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.shareMovie, motionPictureList.get(0).title));
         }
         else {
