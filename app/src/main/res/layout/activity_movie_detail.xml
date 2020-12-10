@@ -45,12 +45,12 @@
                         android:textStyle="bold"
                         tools:text="Das Schweigen der Lämmer" />
 
-                    <ImageView
+                    <!--<ImageView
                         android:id="@+id/ivWatched"
                         android:layout_width="20dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        app:srcCompat="@drawable/ic_watched" />
+                        app:srcCompat="@drawable/ic_watched" />-->
                 </LinearLayout>
 
                 <TextView

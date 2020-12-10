@@ -31,7 +31,7 @@ import static com.example.gruppe3_movieapp.AppConstFunctions.*;
 
 public class MovieDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
-    TextView tvTitle, tvDescription, tvRating, tvActor;
+    TextView tvTitle, tvDescription, tvRating, tvActor, tvDuration, tvGenre;
     ImageView ivCover;
     ImageButton ibtnFavorite, ibtnWatched, ibtnShare;
     ArrayList<MotionPicture> motionPictureList = new ArrayList<>();
@@ -66,6 +66,8 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         tvRating = findViewById(R.id.tvRating);
         tvDescription = findViewById(R.id.tvDescription);
         tvActor = findViewById(R.id.tvActors);
+        tvGenre = findViewById(R.id.tvGenre);
+        tvDuration = findViewById(R.id.tvDuration);
 
         ibtnFavorite = findViewById(R.id.ibtnFavorite);
         ibtnShare = findViewById(R.id.ibtnShare);
@@ -97,27 +99,6 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         else {
             MotionPicture motionPictureDB = motionPictureList.get(0);
             currentMotionPicture = motionPictureDB;
-
-
-//            imdbId = movie.imdbId;
-//            title = movie.title;
-//            runtime = movie.runtime;
-//            cover = movie.cover;
-//            year = movie.year;
-//            rated = movie.rated;
-//            released = movie.released;
-//            genre = movie.genre;
-//            director = movie.director;
-//            actors = movie.actors;
-//            plot = movie.plot;
-//            language = movie.language;
-//            country = movie.country;
-//            awards = movie.awards;
-//            type = movie.type;
-//            imdbVotes = movie.imdbVotes;
-//            ratings = movie.ratings;
-//            total_Season = movie.total_Season;
-//            imdbRating = movie.imdbRating;
 
             // Überprüft ob der Film in der Favoritenliste ist
             // Je nach dem wird der Button gesetzt
@@ -159,6 +140,8 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         tvRating.setText(getString(R.string.tvMovieRating, currentMotionPicture.imdbRating));
         tvDescription.setText(currentMotionPicture.plot);
         tvActor.setText(currentMotionPicture.actors);
+        tvDuration.setText(currentMotionPicture.runtime);
+        tvGenre.setText(currentMotionPicture.genre);
     }
 
     public void setFavoriteMovie(){
