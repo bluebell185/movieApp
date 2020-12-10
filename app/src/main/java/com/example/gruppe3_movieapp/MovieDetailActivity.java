@@ -21,6 +21,7 @@ import androidx.constraintlayout.widget.Group;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,13 +35,18 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
     ImageView ivCover;
     ImageButton ibtnFavorite, ibtnWatched, ibtnShare;
     ArrayList<MotionPicture> motionPictureList = new ArrayList<>();
+    MotionPicture currentMotionPicture; // Auch zum setzen der Felder.
 
 
     TextView  tvErrorAPI;
     MotionPictureRepo motionPictureRepo = new MotionPictureRepo();
     Group group;
 
-    boolean favorite = false;
+    String imdbId, title, runtime, cover, year, rated, released, genre, director, actors, plot, language, country, awards, type, imdbVotes;
+    List<Rating> ratings;
+    int total_Season;
+    float imdbRating;
+
     private Bitmap mBitmap;
 
     @Override
@@ -81,30 +87,55 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         motionPictureList = (ArrayList<MotionPicture>) dbRepo.getMotionPicture(imdbId);
 
         if (motionPictureList.size() == 0){
+            // Ist der Film noch nicht in der Datenbank, deswegen kann der Film auf jedenfall
+            // kein Favorit und auch nicht gesehen sein
+            ibtnFavorite.setImageResource(R.drawable.ic_star_set_favorite);
+            //ibtnWatched.setImageResource(R.drawable.ic_not_seen);
             getfilteredMotionPictureImdb(imdbId);
+
         }
         else {
-            // Felder werden aus der Datenbank / API gesetz
-            Picasso.get().load(motionPictureList.get(0).cover).into(ivCover);
+            MotionPicture motionPictureDB = motionPictureList.get(0);
+            currentMotionPicture = motionPictureDB;
 
-            tvTitle.setText(motionPictureList.get(0).title);
-            if (motionPictureList.get(0).ratings != null){
-                tvRating.setText(getString(R.string.tvMovieRating, motionPictureList.get(0).ratings));
-            }
-            else {
-                tvRating.setText(getString(R.string.tvMovieRatingNull, motionPictureList.get(0).ratings));
-            }
 
-            tvDescription.setText("");
+//            imdbId = movie.imdbId;
+//            title = movie.title;
+//            runtime = movie.runtime;
+//            cover = movie.cover;
+//            year = movie.year;
+//            rated = movie.rated;
+//            released = movie.released;
+//            genre = movie.genre;
+//            director = movie.director;
+//            actors = movie.actors;
+//            plot = movie.plot;
+//            language = movie.language;
+//            country = movie.country;
+//            awards = movie.awards;
+//            type = movie.type;
+//            imdbVotes = movie.imdbVotes;
+//            ratings = movie.ratings;
+//            total_Season = movie.total_Season;
+//            imdbRating = movie.imdbRating;
 
             // Überprüft ob der Film in der Favoritenliste ist
             // Je nach dem wird der Button gesetzt
-            if (!favorite){
-                ibtnFavorite.setImageResource(R.drawable.ic_star_set_favorite);
-            }
-            else {
+            if (currentMotionPicture.markedAsFavorite){
                 ibtnFavorite.setImageResource(R.drawable.ic_star_favorite);
             }
+            else {
+                ibtnFavorite.setImageResource(R.drawable.ic_star_set_favorite);
+            }
+
+//            if (movie.markedAsSeen){
+//                ibtnWatched.setImageResource(R.drawable.ic_watched);
+//            }
+//            else {
+//                ibtnWatched.setImageResource(R.drawable.ic_not_seen);
+//            }
+
+            setFields();
         }
 
         ibtnFavorite.setOnClickListener(this);
@@ -113,8 +144,30 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
 
     }
 
+    public void setFields(){
+        // Felder werden aus der Datenbank / API gesetz
+        Picasso.get().load(currentMotionPicture.cover).into(ivCover);
+
+        tvTitle.setText(currentMotionPicture.title);
+//            if (movie.imdbRating != null){
+//                tvRating.setText(getString(R.string.tvMovieRating, motionPictureList.get(0).ratings));
+//            }
+//            else {
+//                tvRating.setText(getString(R.string.tvMovieRatingNull, motionPictureList.get(0).ratings));
+//            }
+
+        tvRating.setText(getString(R.string.tvMovieRating, currentMotionPicture.imdbRating));
+        tvDescription.setText(currentMotionPicture.plot);
+        tvActor.setText(currentMotionPicture.actors);
+    }
+
     public void setFavoriteMovie(){
-        favorite = true;
+        //motionPictureList = (ArrayList<MotionPicture>) dbRepo.getMotionPicture(imdbId);
+
+// Kein neues MotionPicture erstellen, sondern das von der Datenbank oder das von
+        //MotionPicture newFavorite = new MotionPicture(imdbId, title, runtime, ratings, cover, year, rated, released, genre, director, actors, plot, language, country, awards, type, total_Season, imdbRating, imdbVotes);
+        currentMotionPicture.setMarkedAsFavorite(true);
+        dbRepo.insert(currentMotionPicture);
         ibtnFavorite.setImageResource(R.drawable.ic_star_favorite);
     }
 
@@ -177,17 +230,10 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         group.setVisibility(View.VISIBLE);
         tvErrorAPI.setVisibility(View.INVISIBLE);
         // Daten füllen @Elena
-        Picasso.get().load(motionPicture.cover).into(ivCover);
-        tvTitle.setText(motionPicture.title);
-//        if (motionPicture.imdbRating ){
-//            tvRating.setText(getString(R.string.tvMovieRating, motionPicture.ratings));
-//        }
-//        else {
-//            tvRating.setText(getString(R.string.tvMovieRatingNull, motionPictureList.get(0).ratings));
-//        }
-        tvRating.setText(getString(R.string.tvMovieRating, motionPicture.imdbRating));
-        tvDescription.setText(motionPicture.plot);
-        tvActor.setText(motionPicture.actors);
+
+        currentMotionPicture = motionPicture;
+
+        setFields();
 
         tvErrorAPI.setVisibility(View.INVISIBLE);
     }
@@ -200,7 +246,9 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
     }
 
     public void setWatched(){
-
+        currentMotionPicture.setMarkedAsSeen(true);
+        dbRepo.insert(currentMotionPicture);
+        ibtnFavorite.setImageResource(R.drawable.ic_star_favorite);
     }
 
     @Override
