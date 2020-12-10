@@ -47,16 +47,8 @@ public class AppConstFunctions {
         int nightModeFlags =
                 context.getResources().getConfiguration().uiMode &
                         Configuration.UI_MODE_NIGHT_MASK;
-        switch (nightModeFlags) {
-            //Obsolet
-            //case Configuration.UI_MODE_NIGHT_YES:
-            //    return true;
-
-            case Configuration.UI_MODE_NIGHT_NO | Configuration.UI_MODE_NIGHT_UNDEFINED:
-                return false;
-            default:
-                return true;
-        }
+        return nightModeFlags != Configuration.UI_MODE_NIGHT_NO &&
+                nightModeFlags != Configuration.UI_MODE_NIGHT_UNDEFINED;
     }
 
     /**
