@@ -1,10 +1,26 @@
 <resources>
-    <!-- Base application theme. -->
+    <!-- Base application (LIGHT) theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    //ViewText
+    <style name="TextViewStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+    //EditText
+    <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+    //Button
+    <style name="ButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:background">@color/colorBtnBackGrey</item>
+        <!--TextColor nicht def., da bis dato innerhalb der App kein Button einen Text enthält-->
     </style>
 
 </resources>

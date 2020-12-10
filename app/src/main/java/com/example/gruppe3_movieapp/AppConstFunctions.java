@@ -27,11 +27,15 @@ public class AppConstFunctions {
     static {
         //Bidirektionale Map um ColorID zu ItemID aufzulösen und rückwärts
         mapColorToMenuItem = HashBiMap.create();
-        mapColorToMenuItem.put(R.color.colorPrimary, R.id.item_default_light);
-        mapColorToMenuItem.put(R.color.colorPrimaryDark, R.id.item_default_dark);
+
+
+        //Lightmode
+        mapColorToMenuItem.put(R.color.colorWhite, R.id.item_default_light);
         mapColorToMenuItem.put(R.color.colorRed, R.id.item_red);
         mapColorToMenuItem.put(R.color.colorBlue, R.id.item_blue);
         mapColorToMenuItem.put(R.color.colorPurple, R.id.item_purple);
+        //Darkmode
+        mapColorToMenuItem.put(R.color.colorDarkGrey, R.id.item_default_dark);
         mapColorToMenuItem.put(R.color.colorBlack, R.id.item_black);
         mapColorToMenuItem.put(R.color.colorGrey, R.id.item_grey);
 
