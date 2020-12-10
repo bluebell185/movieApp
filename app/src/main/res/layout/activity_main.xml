@@ -35,7 +35,7 @@
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:backgroundTint="#F80000"></androidx.viewpager.widget.ViewPager>
+        android:backgroundTint="#F80000" />
 </LinearLayout>
 
 <!--Dieser Teil muss in fragment_favorites.xml übernommen werden-->
