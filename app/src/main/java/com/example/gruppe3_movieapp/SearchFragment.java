@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -128,8 +129,6 @@ public class SearchFragment extends Fragment {
         rvSearch.setLayoutManager(new LinearLayoutManager(view.getContext(), RecyclerView.VERTICAL, false));
         rvSearch.setAdapter(pa);
 
-        initialTitleSearchList.addAll(motionPictureList);
-
         rvSearch.addOnItemTouchListener(
                 new RecyclerItemClickListener(view.getContext(), rvSearch, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
@@ -226,8 +225,9 @@ public class SearchFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //sortiert Inhalte nach Jahr absteigend
+                ArrayList<MotionPicture> sortedList = (ArrayList<MotionPicture>) motionPictureList.stream().sorted((v1, v2)-> v2.getYear().compareTo(v1.getYear())).collect(Collectors.toList());
                 motionPictureList.clear();
-                motionPictureList.addAll((ArrayList<MotionPicture>) initialTitleSearchList.stream().sorted((v1, v2)-> v2.getYear().compareTo(v1.getYear())).collect(Collectors.toList()));
+                motionPictureList.addAll(sortedList);
                 pa.notifyDataSetChanged();
             }
         });
@@ -267,15 +267,10 @@ public class SearchFragment extends Fragment {
 
                     MotionPictureApiResults motionPictureApiResults = response.body();
                     if (motionPictureApiResults.getMotionPicture() != null) {
-
                         showData(motionPictureApiResults);
-
-
                     } else {
-
                         tvOutputApiObject.setText(R.string.outputApiObject);
                     }
-
                 }
                 else {
                     Log.d("MainActivity", "getMotionPicture: onResponse NOT successfull");
@@ -297,6 +292,7 @@ public class SearchFragment extends Fragment {
         tvOutputApiObject.setVisibility(View.INVISIBLE);
         //output ausblenden
         initialTitleSearchList.clear();
+        motionPictureList.clear();
         motionPictureList.addAll(motionPictureApiResults.getMotionPicture().stream().filter(c-> c.getType().equals("movie") || c.getType().equals("series")).collect(Collectors.toList()));
         initialTitleSearchList.addAll(motionPictureList);
         pa.notifyDataSetChanged();

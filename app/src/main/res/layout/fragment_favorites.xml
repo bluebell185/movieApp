@@ -36,12 +36,10 @@
         android:id="@+id/btnShowAll"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginStart="308dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="5dp"
         android:background="@drawable/ic_show_all"
         app:layout_constraintRight_toLeftOf="@+id/btnShowFavorites"
-        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
