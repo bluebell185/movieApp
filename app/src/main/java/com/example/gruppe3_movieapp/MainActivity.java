@@ -237,10 +237,10 @@ public class MainActivity extends AppCompatActivity {
             currentColorPreference = PREF_COLOR_LIGHT;
         }
 
-        menu.findItem(
+        MenuItem menuItem = menu.findItem(
                 mapColorToMenuItem.get(
                         sp.getInt(currentColorPreference,
-                                isDarkmodeActive(this) ? R.color.colorPrimaryDark : R.color.colorPrimary)
+                                isDarkmodeActive(this) ? R.color.colorDarkGrey : R.color.colorWhite)
                 )
         ).setChecked(true);
 

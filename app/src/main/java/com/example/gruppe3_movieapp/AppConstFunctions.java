@@ -63,6 +63,6 @@ public class AppConstFunctions {
             currentColorPreference = PREF_COLOR_LIGHT;
         }
         //Wenn SharedPref leer, wird Default Farbe für Light- bzw. Nightmode genommen
-        activity.findViewById(layoutViewId).setBackgroundColor(ContextCompat.getColor(context, sp.getInt(currentColorPreference, isDarkmodeActive(context) ? R.color.colorPrimaryDark : R.color.colorPrimary)));
+        activity.findViewById(layoutViewId).setBackgroundColor(ContextCompat.getColor(context, sp.getInt(currentColorPreference, isDarkmodeActive(context) ? R.color.colorDarkGrey : R.color.colorWhite)));
     }
 }
