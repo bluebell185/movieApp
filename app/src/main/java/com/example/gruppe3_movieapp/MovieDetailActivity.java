@@ -29,6 +29,9 @@ import retrofit2.Response;
 
 import static com.example.gruppe3_movieapp.AppConstFunctions.*;
 
+/**
+ * @author Elena Ozsvald
+ */
 public class MovieDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView tvTitle, tvDescription, tvRating, tvActor, tvDuration, tvGenre;
@@ -41,11 +44,6 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
     TextView  tvErrorAPI;
     MotionPictureRepo motionPictureRepo = new MotionPictureRepo();
     Group group;
-
-    String imdbId, title, runtime, cover, year, rated, released, genre, director, actors, plot, language, country, awards, type, imdbVotes;
-    List<Rating> ratings;
-    int total_Season;
-    float imdbRating;
 
     private Bitmap mBitmap;
 
@@ -127,15 +125,23 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
 
     public void setFields(){
         // Felder werden aus der Datenbank / API gesetz
-        Picasso.get().load(currentMotionPicture.cover).into(ivCover);
+        if (currentMotionPicture.cover != null || !currentMotionPicture.cover.trim().isEmpty()){
+            Picasso.get().load(currentMotionPicture.cover).into(ivCover);
+        }
+        else {
+            // Falls die API kein Filmcover besitzt wird ein Standardbild gesetzt
+            Picasso.get().load(R.drawable.nomoviepicture).into(ivCover);
+        }
 
         tvTitle.setText(currentMotionPicture.title);
-//            if (movie.imdbRating != null){
-//                tvRating.setText(getString(R.string.tvMovieRating, motionPictureList.get(0).ratings));
-//            }
-//            else {
-//                tvRating.setText(getString(R.string.tvMovieRatingNull, motionPictureList.get(0).ratings));
-//            }
+
+        Float rating = currentMotionPicture.imdbRating;
+            if (rating != null){
+                tvRating.setText(getString(R.string.tvMovieRating, currentMotionPicture.imdbRating));
+            }
+            else {
+                tvRating.setText(getString(R.string.tvMovieRatingNull));
+            }
 
         tvRating.setText(getString(R.string.tvMovieRating, currentMotionPicture.imdbRating));
         tvDescription.setText(currentMotionPicture.plot);
@@ -145,10 +151,6 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
     }
 
     public void setFavoriteMovie(){
-        //motionPictureList = (ArrayList<MotionPicture>) dbRepo.getMotionPicture(imdbId);
-
-// Kein neues MotionPicture erstellen, sondern das von der Datenbank oder das von
-        //MotionPicture newFavorite = new MotionPicture(imdbId, title, runtime, ratings, cover, year, rated, released, genre, director, actors, plot, language, country, awards, type, total_Season, imdbRating, imdbVotes);
         currentMotionPicture.setMarkedAsFavorite(true);
         dbRepo.insert(currentMotionPicture);
         ibtnFavorite.setImageResource(R.drawable.ic_star_favorite);
@@ -212,12 +214,10 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
     private void showData(MotionPicture motionPicture){
         group.setVisibility(View.VISIBLE);
         tvErrorAPI.setVisibility(View.INVISIBLE);
-        // Daten füllen @Elena
-
+        // Daten aus der API werden an currentMotionPictuere übergeben
         currentMotionPicture = motionPicture;
-
+        // Methode um die Daten in die Views zuschreiben wird aufgerufen
         setFields();
-
         tvErrorAPI.setVisibility(View.INVISIBLE);
     }
 

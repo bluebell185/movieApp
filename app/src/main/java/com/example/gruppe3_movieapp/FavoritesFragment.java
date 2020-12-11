@@ -31,6 +31,9 @@ import java.util.stream.Collectors;
  * Use the {@link FavoritesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+/**
+ * @author Elena Ozsvald
+ */
 public class FavoritesFragment extends Fragment {
     ArrayList<MotionPicture> motionPictureList = new ArrayList<>();
     TextView tvTitleMain;

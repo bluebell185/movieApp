@@ -40,6 +40,9 @@ import static com.example.gruppe3_movieapp.AppConstFunctions.*;
  * Use the {@link SearchFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+/**
+ * @author Elena Ozsvald
+ */
 public class SearchFragment extends Fragment {
     ArrayList<MotionPicture> motionPictureList = new ArrayList<>();
     List<MotionPicture> initialTitleSearchList = new ArrayList<>();
