@@ -1,3 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    //ViewText
+    <style name="TextViewStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+    //EditText
+    <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+    //Button
+    <style name="ButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:backgroundTint">@color/colorBtnBackGreyDark</item>
+        <!--TextColor nicht def., da bis dato innerhalb der App kein Button einen Text enthält-->
+    </style>
 </resources>

@@ -19,7 +19,7 @@
 
     //Button
     <style name="ButtonStyle" parent="Widget.AppCompat.Button">
-        <item name="android:background">@color/colorBtnBackGrey</item>
+        <item name="android:backgroundTint">@color/colorBtnBackGrey</item>
         <!--TextColor nicht def., da bis dato innerhalb der App kein Button einen Text enthält-->
     </style>
 

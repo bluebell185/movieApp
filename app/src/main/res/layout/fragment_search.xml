@@ -17,6 +17,7 @@
 
    <EditText
        android:id="@+id/etSearch"
+       style="@style/EditTextStyle"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_marginLeft="10dp"
@@ -69,6 +70,7 @@
 
    <TextView
        android:id="@+id/tvApiErrorMessage"
+       style="@style/TextViewStyle"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        app:layout_constraintBottom_toBottomOf="@+id/rvSearch"
@@ -78,6 +80,7 @@
 
    <TextView
        android:id="@+id/tvOutputApiObject"
+       style="@style/TextViewStyle"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        app:layout_constraintBottom_toTopOf="@+id/tvApiErrorMessage"

@@ -13,4 +13,5 @@
     <color name="colorAccent">#4C248A</color>
     <color name="colorBtnBackGrey">#C5C5C5</color>
     <color name="colorIconsDark">#C5C5C5</color>
+    <color name="colorBtnBackGreyDark">#555555</color>
 </resources>

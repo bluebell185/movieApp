@@ -22,6 +22,7 @@
 
     <TextView
         android:id="@+id/tvTitleMain"
+        style="@style/TextViewStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
