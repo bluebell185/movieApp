@@ -35,31 +35,31 @@
 
     <Button
         android:id="@+id/btnShowAll"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="4dp"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
-        android:background="@drawable/ic_show_all"
+        android:background="@drawable/button_state_show_all"
         app:layout_constraintRight_toLeftOf="@+id/btnShowFavorites"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnShowFavorites"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="4dp"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
-        android:background="@drawable/ic_star_favorite"
+        android:background="@drawable/button_state_show_favorites"
         app:layout_constraintRight_toLeftOf="@+id/btnShowSeen"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnShowSeen"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
-        android:background="@drawable/ic_watched"
+        android:background="@drawable/button_state_show_seen"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

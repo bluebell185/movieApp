@@ -145,6 +145,7 @@ public class FavoritesFragment extends Fragment {
             tvMain.setText(getString(R.string.tv_main_show_all));
             motionPictureList.addAll(dbRepo.getAll());
             pa.notifyDataSetChanged();
+            setButtonSelected(true, false, false);
         });
         btnShowAll.setOnLongClickListener(v -> {
             makeToast(getText(R.string.menu_item_show_all_main).toString());
@@ -157,6 +158,7 @@ public class FavoritesFragment extends Fragment {
             tvMain.setText(getString(R.string.tv_main_show_favorite));
             motionPictureList.addAll(dbRepo.getAll().stream().filter(c -> !c.isMarkedAsSeen() && c.isMarkedAsFavorite()).collect(Collectors.toList()));
             pa.notifyDataSetChanged();
+            setButtonSelected(false, false, true);
         });
         btnShowFavorites.setOnLongClickListener(v -> {
             makeToast(getText(R.string.menu_item_favorite_main).toString());
@@ -169,6 +171,7 @@ public class FavoritesFragment extends Fragment {
             tvMain.setText(getString(R.string.tv_main_show_seen));
             motionPictureList.addAll(dbRepo.getAll().stream().filter(c -> c.isMarkedAsSeen()).collect(Collectors.toList()));
             pa.notifyDataSetChanged();
+            setButtonSelected(false, true, false);
         });
         btnShowSeen.setOnLongClickListener(v -> {
             makeToast(getText(R.string.menu_item_watched_main).toString());
@@ -182,9 +185,16 @@ public class FavoritesFragment extends Fragment {
     private void fillMotionPictureList(){
         motionPictureList.clear();
         motionPictureList.addAll(dbRepo.getAll().stream().filter(c -> !c.isMarkedAsSeen() && c.isMarkedAsFavorite()).collect(Collectors.toList()));
+        btnShowFavorites.setSelected(true);
     }
 
     private void makeToast(String message){
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void setButtonSelected(boolean all, boolean seen, boolean favorites){
+        btnShowAll.setSelected(all);
+        btnShowSeen.setSelected(seen);
+        btnShowFavorites.setSelected(favorites);
     }
 }

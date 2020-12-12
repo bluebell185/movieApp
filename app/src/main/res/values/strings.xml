@@ -22,7 +22,7 @@
     <string name="tvActor">Actors: %1$s</string>
     <string name="errorMessageShare">No messenger found!</string>
     <string name="shareSeries">I watched the series %1$s today.</string>
-    <string name="tabFavorites">Favorites Movies</string>
+    <string name="tabFavorites">Overview</string>
     <string name="tabSearch">Search</string>
 
 
