@@ -19,12 +19,13 @@
     <string name="tvMovieRating">Rating: %1.1f</string>
     <string name="tvMovieRatingNull">Rating: -</string>
     <string name="shareMovie">I watched the movie %1$s today.</string>
-    <string name="tvActor">Actors: %1$s</string>
+    <string name="tvActor">Actors:</string>
     <string name="errorMessageShare">No messenger found!</string>
     <string name="shareSeries">I watched the series %1$s today.</string>
     <string name="tabFavorites">Overview</string>
     <string name="tabSearch">Search</string>
-
+    <string name="tvSeasons">Seasons: %1$i</string>
+    <string name="tvYearSince">since %1$s</string>
 
     <string name="motionPicture_error_on_failure"> No network is connected reload the App later!</string>
     <string name="motionPicture_error_NOT_succsessfull"> API is not available or false reload the App later!</string>

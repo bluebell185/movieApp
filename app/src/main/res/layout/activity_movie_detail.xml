@@ -21,8 +21,9 @@
 
             <ImageView
                 android:id="@+id/ivCover"
-                android:layout_width="100dp"
-                android:layout_height="150dp"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
                 tools:srcCompat="@tools:sample/avatars"
                 android:layout_margin="10dp"
                 tools:ignore="Suspicious0dp" />
@@ -55,6 +56,14 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/tvYear"
+                    style="@style/TextViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    tools:text="1992" />
+
+                <TextView
                     android:id="@+id/tvRating"
                     style="@style/TextViewStyle"
                     android:layout_width="wrap_content"
@@ -77,6 +86,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     tools:text="Krimi, Drama, Thriller, Horror" />
+
+                <TextView
+                    android:id="@+id/tvSeasons"
+                    style="@style/TextViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:visibility="invisible"
+                    tools:text="18 Staffeln" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -128,7 +146,7 @@
             style="@style/TextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:layout_marginBottom="10dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"

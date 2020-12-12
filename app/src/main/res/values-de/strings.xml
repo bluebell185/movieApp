@@ -18,11 +18,13 @@
     <string name="tvMovieRating">Bewertung: %1.1f</string>
     <string name="tvMovieRatingNull">Bewertung: -</string>
     <string name="shareMovie">Ich habe heute den Titel %1$s gesehen.</string>
-    <string name="tvActor">Besetzung: %1$s</string>
+    <string name="tvActor">Besetzung:</string>
     <string name="errorMessageShare">Kein Messenger zum versenden gefunden!</string>
     <string name="shareSeries">Ich habe heute die Serie %1$s angeschaut.</string>
     <string name="tabFavorites">Übersicht</string>
     <string name="tabSearch">Suche</string>
+    <string name="tvSeasons">%1$d Staffeln</string>
+    <string name="tvYearSince">seit %1$s</string>
 
     <string name="motionPicture_error_on_failure"> Keine Netzwerkverbindung lade die App später neu!</string>
     <string name="motionPicture_error_NOT_succsessfull"> API vorrübergehend nicht erreichbar oder falsche Antwort Lade die App später neu!</string>

@@ -8,6 +8,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -34,7 +35,7 @@ import static com.example.gruppe3_movieapp.AppConstFunctions.*;
  */
 public class MovieDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
-    TextView tvTitle, tvDescription, tvRating, tvActor, tvDuration, tvGenre;
+    TextView tvTitle, tvDescription, tvRating, tvActor, tvDuration, tvGenre, tvYear, tvSeasons;
     ImageView ivCover;
     ImageButton ibtnFavorite, ibtnWatched, ibtnShare;
     ArrayList<MotionPicture> motionPictureList = new ArrayList<>();
@@ -65,6 +66,8 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         tvActor = findViewById(R.id.tvActors);
         tvGenre = findViewById(R.id.tvGenre);
         tvDuration = findViewById(R.id.tvDuration);
+        tvYear = findViewById(R.id.tvYear);
+        tvSeasons = findViewById(R.id.tvSeasons);
 
         ibtnFavorite = findViewById(R.id.ibtnFavorite);
         ibtnShare = findViewById(R.id.ibtnShare);
@@ -134,6 +137,7 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
 
         tvTitle.setText(currentMotionPicture.title);
 
+        // Falls kein Rating vorhanden wird ein anderer Text angezeigt
         Float rating = currentMotionPicture.imdbRating;
             if (rating != null){
                 tvRating.setText(getString(R.string.tvMovieRating, currentMotionPicture.imdbRating));
@@ -144,9 +148,34 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
 
         tvRating.setText(getString(R.string.tvMovieRating, currentMotionPicture.imdbRating));
         tvDescription.setText(currentMotionPicture.plot);
-        tvActor.setText(currentMotionPicture.actors);
+        //tvActor.setText(getString(R.string.tvActor, currentMotionPicture.actors));
+        String actors = "<b>" + getString(R.string.tvActor) +"</b> " + currentMotionPicture.actors;
+        tvActor.setText(Html.fromHtml(actors));
         tvDuration.setText(currentMotionPicture.runtime);
         tvGenre.setText(currentMotionPicture.genre);
+
+        String year = currentMotionPicture.year;
+        // Überprüft ob der das letzte Zeichen – ist,
+        // wenn ja wird der – gelöscht und es steht dran die Serie gibt es seit xxxx
+        String last = year.substring(year.length()-1);
+        if (last.equals("–")){
+            year = year.replace("–", "");
+            year = getString(R.string.tvYearSince, year);
+        }
+
+        // Bei einer Abgeschlossenen Serie wird vor- und nachdem Bindestrich
+        // ein Leerzeichen eingefügt
+        year = year.replace("–", " - ");
+
+        tvYear.setText(year);
+
+        if (currentMotionPicture.type.equals("series")){
+            tvSeasons.setVisibility(View.VISIBLE);
+            tvSeasons.setText(getString(R.string.tvSeasons, currentMotionPicture.total_Season));
+        }
+        else{
+            tvSeasons.setVisibility(View.INVISIBLE);
+        }
     }
 
     public void setFavoriteMovie(){
@@ -180,11 +209,11 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         // Übergeben des Bildes an das share Intent
         shareIntent.putExtra(Intent.EXTRA_STREAM, bitmapUri);
         // Zusätzlich kommt noch der Titel des Filmes als Text hinzu
-        if (motionPictureList.get(0).type.equals("movie")){
-            shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.shareMovie, motionPictureList.get(0).title));
+        if (currentMotionPicture.type.equals("movie")){
+            shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.shareMovie, currentMotionPicture.title));
         }
         else {
-            shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.shareSeries, motionPictureList.get(0).title));
+            shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.shareSeries, currentMotionPicture.title));
         }
         startActivity(Intent.createChooser(shareIntent, "Share Movie"));
     }
