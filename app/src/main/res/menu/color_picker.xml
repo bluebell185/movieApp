@@ -8,8 +8,8 @@
             android:title="@string/color_red" />
         <item android:id="@+id/item_blue"
             android:title="@string/color_blue" />
-        <item android:id="@+id/item_purple"
-            android:title="@string/color_purple" />
+        <item android:id="@+id/item_cyan"
+            android:title="@string/color_cyan" />
     </group>
     <!-- dark colors group -->
     <group android:id="@+id/group_dark" android:checkableBehavior="single">
@@ -19,6 +19,10 @@
             android:title="@string/color_black" />
         <item android:id="@+id/item_grey"
             android:title="@string/color_grey" />
+        <item android:id="@+id/item_dark_cyan"
+            android:title="@string/color_dark_cyan" />
+        <item android:id="@+id/item_dark_blue"
+            android:title="@string/color_dark_blue" />
     </group>
 
 </menu>

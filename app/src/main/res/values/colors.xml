@@ -3,10 +3,13 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorRed">#80C10000</color>
     <color name="colorBlue">#0067C1</color>
+    <color name="colorCyan">#00bcd4</color>
     <color name="colorPurple">#5000C1</color>
+    <color name="colorDarkBlue">#050032</color>
     <color name="colorDarkGrey">#373737</color>
     <color name="colorBlack">#000000</color>
     <color name="colorGrey">#555555</color>
+    <color name="colorDarkCyan">#006064</color>
 
     <color name="colorPrimary">#AC78DA</color>
     <color name="colorPrimaryDark">#3700B3</color>

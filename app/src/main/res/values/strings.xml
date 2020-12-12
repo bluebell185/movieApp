@@ -36,6 +36,9 @@
     <string name="color_grey">Grey</string>
     <string name="color_red">Red</string>
     <string name="color_blue">Blue</string>
+    <string name="color_cyan">Cyan</string>
+    <string name="color_dark_cyan">Dark Cyan</string>
     <string name="color_purple">Purple</string>
+    <string name="color_dark_blue">Dark Blue</string>
     <string name="menu_item_change_color">Change background color...</string>
 </resources>

@@ -35,6 +35,9 @@
     <string name="color_grey">Grau</string>
     <string name="color_red">Rot</string>
     <string name="color_blue">Blau</string>
+    <string name="color_cyan">Türkis</string>
+    <string name="color_dark_cyan">Dunkel Türkis</string>
     <string name="color_purple">Lila</string>
+    <string name="color_dark_blue">Dunkel Blau</string>
     <string name="menu_item_change_color">Hintergrundfarbe ändern...</string>
 </resources>

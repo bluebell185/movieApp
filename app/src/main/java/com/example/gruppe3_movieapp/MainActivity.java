@@ -225,8 +225,14 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * @author Mustafa
+     */
     @Override
     public boolean onMenuOpened(int featureId, Menu menu) {
+        Integer colorItemIdentifier;
+        Integer preferredColor;
+        MenuItem menuItem;
         //Je nach Setting werden nur bestimmte Farben angeboten...
         if (isDarkmodeActive(this)) {
             menu.setGroupVisible(R.id.group_light, false);
@@ -237,12 +243,20 @@ public class MainActivity extends AppCompatActivity {
             currentColorPreference = PREF_COLOR_LIGHT;
         }
 
-        MenuItem menuItem = menu.findItem(
-                mapColorToMenuItem.get(
-                        sp.getInt(currentColorPreference,
-                                isDarkmodeActive(this) ? R.color.colorDarkGrey : R.color.colorWhite)
-                )
-        ).setChecked(true);
+        /**
+         * Vorgehen:
+         * Es wird zunächst die gesetzte Farbe aus den SP ermittelt.
+         * Dann wird diese Farbe zu einem Identifier eines MenuItems aufgelöst (HashMap).
+         * Anschließend wird der Identifier als MenuItem gefunden und gechecked.
+         * Wenn die Farbe aus den SP unbekannt, wird das Default des aktuellen Modes genommen (DEFAULT_COLOR...)
+         */
+        preferredColor = sp.getInt(currentColorPreference, 0);
+        colorItemIdentifier = mapColorToMenuItem.get(preferredColor);
+        if (colorItemIdentifier == null) {
+            preferredColor = isDarkmodeActive(this) ? DEFAULT_COLOR_DARK : DEFAULT_COLOR_LIGHT;
+        }
+        menuItem = menu.findItem(mapColorToMenuItem.get(preferredColor));
+        menuItem.setChecked(true);
 
         return super.onMenuOpened(featureId, menu);
     }

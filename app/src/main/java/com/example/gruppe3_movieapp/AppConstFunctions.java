@@ -12,12 +12,17 @@ import com.example.gruppe3_movieapp.room.MotionPictureDao;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
+/**
+ * @author Mustafa
+ */
 public class AppConstFunctions {
     static MotionPictureDao dbRepo;
     static AppDatabase db;
     static SharedPreferences sp;
     static final String APP_PREFERENCES = "appPreferences";
     static final String PREF_COLOR_LIGHT = "colorLight";
+    static final int DEFAULT_COLOR_LIGHT = R.color.colorWhite;
+    static final int DEFAULT_COLOR_DARK = R.color.colorDarkGrey;
     static final String PREF_COLOR_DARK = "colorDark";
     static final String PREF_LAST_SEARCH_EXPRESSION = "lastSearchExpression";
     static String currentColorPreference;
@@ -33,12 +38,13 @@ public class AppConstFunctions {
         mapColorToMenuItem.put(R.color.colorWhite, R.id.item_default_light);
         mapColorToMenuItem.put(R.color.colorRed, R.id.item_red);
         mapColorToMenuItem.put(R.color.colorBlue, R.id.item_blue);
-        mapColorToMenuItem.put(R.color.colorPurple, R.id.item_purple);
+        mapColorToMenuItem.put(R.color.colorCyan, R.id.item_cyan);
         //Darkmode
         mapColorToMenuItem.put(R.color.colorDarkGrey, R.id.item_default_dark);
         mapColorToMenuItem.put(R.color.colorBlack, R.id.item_black);
         mapColorToMenuItem.put(R.color.colorGrey, R.id.item_grey);
-
+        mapColorToMenuItem.put(R.color.colorDarkCyan, R.id.item_dark_cyan);
+        mapColorToMenuItem.put(R.color.colorDarkBlue, R.id.item_dark_blue);
 
     }
 
@@ -53,7 +59,7 @@ public class AppConstFunctions {
 
     /**
      Reads the current color preference from Shared Preferences (depending on rather NightMode active or not), and applies it to the the given Layout of the activity
-     @param layoutViewId to which the color should be applied to
+     @param layoutViewId to which the color should be applied to (shall be a Top-layer view!)
      */
     public static void applyBackgroundColor(Activity activity, Context context, int layoutViewId) {
         if (isDarkmodeActive(context)) {
@@ -63,6 +69,12 @@ public class AppConstFunctions {
             currentColorPreference = PREF_COLOR_LIGHT;
         }
         //Wenn SharedPref leer, wird Default Farbe für Light- bzw. Nightmode genommen
-        activity.findViewById(layoutViewId).setBackgroundColor(ContextCompat.getColor(context, sp.getInt(currentColorPreference, isDarkmodeActive(context) ? R.color.colorDarkGrey : R.color.colorWhite)));
+        activity.findViewById(layoutViewId).setBackgroundColor(
+                ContextCompat.getColor(
+                        context, sp.getInt(
+                                currentColorPreference,
+                                isDarkmodeActive(context) ? DEFAULT_COLOR_DARK : DEFAULT_COLOR_LIGHT)
+                )
+        );
     }
 }
