@@ -38,8 +38,7 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
     ImageView ivCover;
     ImageButton ibtnFavorite, ibtnWatched, ibtnShare;
     ArrayList<MotionPicture> motionPictureList = new ArrayList<>();
-    MotionPicture currentMotionPicture; // Auch zum setzen der Felder.
-
+    MotionPicture currentMotionPicture;
 
     TextView  tvErrorAPI;
     MotionPictureRepo motionPictureRepo = new MotionPictureRepo();
@@ -107,12 +106,12 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
                 ibtnFavorite.setImageResource(R.drawable.ic_star_set_favorite);
             }
 
-//            if (movie.markedAsSeen){
-//                ibtnWatched.setImageResource(R.drawable.ic_watched);
-//            }
-//            else {
-//                ibtnWatched.setImageResource(R.drawable.ic_not_seen);
-//            }
+            if (currentMotionPicture.markedAsSeen){
+                ibtnWatched.setImageResource(R.drawable.ic_watched);
+            }
+            else {
+                ibtnWatched.setImageResource(R.drawable.ic_not_seen);
+            }
 
             setFields();
         }
@@ -125,7 +124,7 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
 
     public void setFields(){
         // Felder werden aus der Datenbank / API gesetz
-        if (currentMotionPicture.cover != null || !currentMotionPicture.cover.trim().isEmpty()){
+        if (!currentMotionPicture.cover.equals("N/A")){
             Picasso.get().load(currentMotionPicture.cover).into(ivCover);
         }
         else {
@@ -151,9 +150,22 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
     }
 
     public void setFavoriteMovie(){
-        currentMotionPicture.setMarkedAsFavorite(true);
-        dbRepo.insert(currentMotionPicture);
-        ibtnFavorite.setImageResource(R.drawable.ic_star_favorite);
+        if (!currentMotionPicture.markedAsFavorite){
+            currentMotionPicture.setMarkedAsFavorite(true);
+            dbRepo.insert(currentMotionPicture);
+            ibtnFavorite.setImageResource(R.drawable.ic_star_favorite);
+        }
+        else {
+            currentMotionPicture.setMarkedAsFavorite(false);
+            dbRepo.update(currentMotionPicture);
+            ibtnFavorite.setImageResource(R.drawable.ic_star_set_favorite);
+        }
+
+        // Wenn der Film kein Favorite und nicht mehr als gesehen makiert ist
+        // wird dieser aus der Datenbank gelöscht
+        if(!currentMotionPicture.markedAsSeen && !currentMotionPicture.markedAsFavorite){
+            dbRepo.delete(currentMotionPicture);
+        }
     }
 
     public void shareMovie(){
@@ -216,6 +228,13 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         tvErrorAPI.setVisibility(View.INVISIBLE);
         // Daten aus der API werden an currentMotionPictuere übergeben
         currentMotionPicture = motionPicture;
+
+        // Wenn die API kein Cover zurückgibt, wird das Standardbild geladen
+        if (motionPicture.cover.equals("N/A")){
+            Uri pathNoMovieImage = Uri.parse("android.resource://"+ R.class.getPackage().getName()+"/" + R.drawable.nomoviepicture);
+            currentMotionPicture.cover = pathNoMovieImage.toString();
+        }
+
         // Methode um die Daten in die Views zuschreiben wird aufgerufen
         setFields();
         tvErrorAPI.setVisibility(View.INVISIBLE);
@@ -229,9 +248,23 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
     }
 
     public void setWatched(){
-        currentMotionPicture.setMarkedAsSeen(true);
-        dbRepo.insert(currentMotionPicture);
-        ibtnFavorite.setImageResource(R.drawable.ic_star_favorite);
+        if (!currentMotionPicture.markedAsSeen){
+            currentMotionPicture.setMarkedAsSeen(true);
+            dbRepo.insert(currentMotionPicture);
+            ibtnWatched.setImageResource(R.drawable.ic_watched);
+        }
+        else {
+            currentMotionPicture.setMarkedAsSeen(false);
+            dbRepo.update(currentMotionPicture);
+            ibtnWatched.setImageResource(R.drawable.ic_not_seen);
+        }
+
+        // Wenn der Film kein Favorite und nicht mehr als gesehen makiert ist
+        // wird dieser aus der Datenbank gelöscht
+        if(!currentMotionPicture.markedAsSeen && !currentMotionPicture.markedAsFavorite){
+            dbRepo.delete(currentMotionPicture);
+        }
+
     }
 
     @Override
