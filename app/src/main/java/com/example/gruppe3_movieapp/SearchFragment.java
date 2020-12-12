@@ -123,6 +123,7 @@ public class SearchFragment extends Fragment {
         rvSearch = view.findViewById(R.id.rvSearch);
 
         lastSearchExpression = sp.getString(PREF_LAST_SEARCH_EXPRESSION, "welcome");
+        SharedPreferences.Editor spe = sp.edit();
 
         getfilteredMotionPictureTitle(lastSearchExpression);
 
@@ -159,6 +160,8 @@ public class SearchFragment extends Fragment {
                 }
                 else{
                     motionPictureList.clear();
+                    spe.putString(PREF_LAST_SEARCH_EXPRESSION, title);
+                    spe.apply();
                     getfilteredMotionPictureTitle(title);
                 }
             }
@@ -250,6 +253,8 @@ public class SearchFragment extends Fragment {
                         (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     // Perform action on key press
                     motionPictureList.clear();
+                    spe.putString(PREF_LAST_SEARCH_EXPRESSION, etSearch.getText().toString());
+                    spe.apply();
                     getfilteredMotionPictureTitle(etSearch.getText().toString());
                     return true;
                 }
@@ -308,48 +313,6 @@ public class SearchFragment extends Fragment {
         tvOutputApiObject.setVisibility(View.INVISIBLE);
         rvSearch.setVisibility(View.INVISIBLE);
     }
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
-        inflater.inflate(R.menu.menu_search, menu);
-        MenuItem item = menu.findItem(R.id.search);
-        SearchView sv = (SearchView) item.getActionView();
-        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                //setzen der Shared Preferences
-                SharedPreferences.Editor spe = sp.edit();
-                spe.putString(PREF_LAST_SEARCH_EXPRESSION, query);
-                spe.apply();
-
-                motionPictureList.clear();
-                //API-Aufruf mit Titelfilterung
-                getfilteredMotionPictureTitle(query);
-                //Aktualisieren des Adapters
-                pa.notifyDataSetChanged();
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                //keine Funktion hier, da sonst bei jedem Buchstaben eine neue API-Anfrage gestellt werden muss
-                return false;
-            }
-        });
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.search:{
-                // Suchfeld aufklappen oder so
-                //Wird vermutlich nicht benötigt, das hier -> TODO entfernen u.U.
-                break;
-            }
-        }
-        pa.notifyDataSetChanged();
-        return true;
-    }
-
 
     private void makeToast(String message){
         Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();

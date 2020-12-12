@@ -15,6 +15,7 @@
     //EditText
     <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
         <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textColorHint">@color/colorBlack</item>
     </style>
 
     //Button

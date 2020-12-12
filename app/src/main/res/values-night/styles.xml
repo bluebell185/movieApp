@@ -8,6 +8,7 @@
     //EditText
     <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
         <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textColorHint">@color/colorWhite</item>
     </style>
 
     //Button

@@ -184,26 +184,6 @@ public class FavoritesFragment extends Fragment {
         motionPictureList.addAll(dbRepo.getAll().stream().filter(c -> !c.isMarkedAsSeen() && c.isMarkedAsFavorite()).collect(Collectors.toList()));
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
-        inflater.inflate(R.menu.menu_main, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        motionPictureList.clear();
-        switch(item.getItemId()) {
-            case R.id.menu_item_change_color:{
-                // alle Filme/Serien anzeigen, die favorisiert und/oder angesehen wurden
-                tvMain.setText(getString(R.string.tv_main_show_all));
-                motionPictureList.addAll((ArrayList<MotionPicture>) dbRepo.getAll());
-                break;
-            }
-        }
-        pa.notifyDataSetChanged();
-        return true;
-    }
-
     private void makeToast(String message){
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
