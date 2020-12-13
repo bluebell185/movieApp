@@ -4,6 +4,10 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
+/**
+ * @author Mohamed Ali El-Maoula
+ */
+
 public class MotionPictureApiResults {
     @SerializedName("Search")
     ArrayList<MotionPicture> motionPicture;

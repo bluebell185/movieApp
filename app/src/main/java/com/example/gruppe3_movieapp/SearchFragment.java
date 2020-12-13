@@ -3,19 +3,9 @@ package com.example.gruppe3_movieapp;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintSet;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -23,6 +13,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +26,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import androidx.appcompat.widget.SearchView;
-import static com.example.gruppe3_movieapp.AppConstFunctions.*;
+import static com.example.gruppe3_movieapp.AppConstFunctions.PREF_LAST_SEARCH_EXPRESSION;
+import static com.example.gruppe3_movieapp.AppConstFunctions.sp;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -98,6 +92,7 @@ public class SearchFragment extends Fragment {
     /**
      * @author Kathrin Ulmer
      * @author Elena Oszvald
+     * @author Mohamed Ali El-Maoula
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -265,7 +260,9 @@ public class SearchFragment extends Fragment {
         return view;
     }
 
-
+    /**
+     * @author Mohamed Ali El-Maoula
+     */
     private void getfilteredMotionPictureTitle(String title){
         motionPictureRepo.getFilteredMotionPictureTitle( title, new Callback<MotionPictureApiResults>() {
             @Override
@@ -295,6 +292,10 @@ public class SearchFragment extends Fragment {
         });
     }
 
+    /**
+     * @author Mohamed Ali El-Maoula
+     */
+
     private void showData(MotionPictureApiResults motionPictureApiResults){
         rvSearch.setVisibility(View.VISIBLE);
         tvOutputApiObject.setVisibility(View.INVISIBLE);
@@ -306,6 +307,10 @@ public class SearchFragment extends Fragment {
         pa.notifyDataSetChanged();
         tvApiErrorMessage.setVisibility(View.INVISIBLE);
     }
+
+    /**
+     * @author Mohamed Ali El-Maoula
+     */
 
     private void showErrorMessage(String failure){
         tvApiErrorMessage.setVisibility(View.VISIBLE);

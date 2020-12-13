@@ -22,26 +22,24 @@ import androidx.constraintlayout.widget.Group;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.example.gruppe3_movieapp.AppConstFunctions.*;
+import static com.example.gruppe3_movieapp.AppConstFunctions.applyBackgroundColor;
+import static com.example.gruppe3_movieapp.AppConstFunctions.dbRepo;
 
 /**
  * @author Elena Ozsvald
  */
 public class MovieDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
-    TextView tvTitle, tvDescription, tvRating, tvActor, tvDuration, tvGenre, tvYear, tvSeasons;
+    TextView tvTitle, tvDescription, tvRating, tvActor, tvDuration, tvGenre, tvYear, tvSeasons, tvErrorAPI ;
     ImageView ivCover;
     ImageButton ibtnFavorite, ibtnWatched, ibtnShare;
     ArrayList<MotionPicture> motionPictureList = new ArrayList<>();
     MotionPicture currentMotionPicture;
-
-    TextView  tvErrorAPI;
     MotionPictureRepo motionPictureRepo = new MotionPictureRepo();
     Group group;
 
@@ -53,7 +51,10 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         //ScrollView als oberstes Element übergeben...
         applyBackgroundColor(this, this, R.id.scrollView);
     }
-
+    /**
+     * @author Mohamed Ali El-Maoula
+     * @author Elena Ozsvald
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -217,7 +218,9 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         }
         startActivity(Intent.createChooser(shareIntent, "Share Movie"));
     }
-
+    /**
+     * @author Mohamed Ali El-Maoula
+     */
     private void getfilteredMotionPictureImdb(String imdb){
         motionPictureRepo.filteredMotionPictureImdb(imdb, new Callback<MotionPicture>() {
             @Override
@@ -252,6 +255,10 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
 
     }
 
+    /**
+     * @author Mohamed Ali El-Maoula
+     */
+
     private void showData(MotionPicture motionPicture){
         group.setVisibility(View.VISIBLE);
         tvErrorAPI.setVisibility(View.INVISIBLE);
@@ -268,6 +275,10 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         setFields();
         tvErrorAPI.setVisibility(View.INVISIBLE);
     }
+
+    /**
+     * @author Mohamed Ali El-Maoula
+     */
 
     private void showErrorMessage(String failure){
         tvErrorAPI.setVisibility(View.VISIBLE);
