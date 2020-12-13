@@ -29,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
 
     SubMenu colorPickItems;
 
+    /**
+     * @author Elena Ozsvald
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
