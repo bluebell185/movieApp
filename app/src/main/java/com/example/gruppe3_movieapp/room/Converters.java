@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @author Mustafa
+ */
 public class Converters {
     final static String LINE_DELIMITER = "\r\n";
     final static String VALUE_DELIMITER = ";";

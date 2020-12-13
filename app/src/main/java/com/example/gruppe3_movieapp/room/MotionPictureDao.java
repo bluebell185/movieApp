@@ -12,6 +12,9 @@ import com.example.gruppe3_movieapp.MotionPicture;
 
 import java.util.List;
 
+/**
+ * @author Mustafa
+ */
 @Dao
 public interface MotionPictureDao {
     @Query("SELECT * FROM motionpicture")
@@ -26,7 +29,7 @@ public interface MotionPictureDao {
     List<MotionPicture> getMotionPicture(String... imdbId);
 
     /**
-     Speichert mehrere Objekte in der Datenbank
+     Speichert mehrere Objekte in der Datenbank. Wenn Datensaatz bereits vorhanden, wird ersetzt.
      @param motionPictures Liste der einzufügenden Objekte
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)

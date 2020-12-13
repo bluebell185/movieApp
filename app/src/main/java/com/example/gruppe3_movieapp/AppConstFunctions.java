@@ -30,7 +30,7 @@ public class AppConstFunctions {
 
     static BiMap<Integer, Integer> mapColorToMenuItem;
     static {
-        //Bidirektionale Map um ColorID zu ItemID aufzulösen und rückwärts
+        //Bidirektionale Map um ColorID zu ItemID aufzulösen und vice versa
         mapColorToMenuItem = HashBiMap.create();
 
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- @author Mustafa Soput-->
     <!-- light colors group -->
     <group android:id="@+id/group_light" android:checkableBehavior="single">
         <item android:id="@+id/item_default_light"
