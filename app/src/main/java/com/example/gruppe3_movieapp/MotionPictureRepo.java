@@ -33,11 +33,6 @@ public class MotionPictureRepo {
                 .build();
         motionPictureApi = retrofit.create(MotionPictureApi.class);
     }
-  // Show random MotionPicture
-   public void getMotionPicture(Callback<MotionPictureApiResults> callback){
-       Call<MotionPictureApiResults> motionPictureApiResultsCall = motionPictureApi.randomMotionPicture();
-       motionPictureApiResultsCall.enqueue(callback);
-    }
 
     // Show filtered MotionPicture - Title
     public void getFilteredMotionPictureTitle( String title, Callback<MotionPictureApiResults> callback){
