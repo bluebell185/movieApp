@@ -12,15 +12,15 @@
         style="@style/TextViewStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="20dp"
         android:textSize="22sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.111"
+        app:layout_constraintEnd_toStartOf="@+id/btnShowAll"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="WatchList/Schon gesehen etc" />
+        tools:text="Filme etc." />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvMain"
@@ -36,32 +36,49 @@
 
     <Button
         android:id="@+id/btnShowAll"
-        android:layout_width="33dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginRight="5dp"
         android:background="@drawable/button_state_show_all"
+        app:layout_constraintBottom_toBottomOf="@+id/tvMain"
         app:layout_constraintRight_toLeftOf="@+id/btnShowFavorites"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/tvMain" />
 
     <Button
         android:id="@+id/btnShowFavorites"
-        android:layout_width="33dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginRight="5dp"
         android:background="@drawable/button_state_show_favorites"
+        app:layout_constraintBottom_toBottomOf="@+id/tvMain"
         app:layout_constraintRight_toLeftOf="@+id/btnShowSeen"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/tvMain" />
 
     <Button
         android:id="@+id/btnShowSeen"
-        android:layout_width="33dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginRight="5dp"
         android:background="@drawable/button_state_show_seen"
+        app:layout_constraintBottom_toBottomOf="@+id/tvMain"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/btnShowFavorites" />
+
+    <TextView
+        android:id="@+id/tvWelcome"
+        style="@style/TextViewStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="20dp"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        tools:text="Welcome-Message for initial App-Start Test"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.033"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvMain"
+        app:layout_constraintVertical_bias="0.03" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

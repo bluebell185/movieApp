@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
  */
 public class FavoritesFragment extends Fragment {
     ArrayList<MotionPicture> motionPictureList = new ArrayList<>();
-    TextView tvTitleMain, tvMain;
+    TextView tvTitleMain, tvMain, tvWelcome;
     ImageView ivCoverMain;
     Button btnShowAll, btnShowFavorites, btnShowSeen;
     static MotionPictureDao dbRepo;
@@ -103,6 +103,7 @@ public class FavoritesFragment extends Fragment {
 
         tvTitleMain = view.findViewById(R.id.tvTitleMain);
         tvMain = view.findViewById(R.id.tvMain);
+        tvWelcome = view.findViewById(R.id.tvWelcome);
         ivCoverMain = view.findViewById(R.id.ivCoverMain);
         btnShowAll = view.findViewById(R.id.btnShowAll);
         btnShowFavorites = view.findViewById(R.id.btnShowFavorites);;
@@ -117,10 +118,13 @@ public class FavoritesFragment extends Fragment {
         rvMain.setAdapter(pa);
 
         if(motionPictureList.isEmpty()){
-            tvMain.setText(getString(R.string.tv_main_empty_rv));
+            tvMain.setText(getString(R.string.tv_main_empty_rv_welcome));
+            tvWelcome.setVisibility(View.VISIBLE);
+            tvWelcome.setText(getString(R.string.tv_main_empty_rv));
         }
         else{
             tvMain.setText(getString(R.string.tv_main_show_favorite));
+            tvWelcome.setVisibility(View.INVISIBLE);
         }
 
         rvMain.addOnItemTouchListener(

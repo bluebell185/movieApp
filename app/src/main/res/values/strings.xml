@@ -6,10 +6,11 @@
     <string name="menu_item_show_all_main">Show all motion pictures</string>
     <string name="menu_item_favorite_main">Show favorite movies</string>
     <string name="menu_item_watched_main">Show seen movies</string>
-    <string name="tv_main_show_all">Favored and Seen Movies</string>
+    <string name="tv_main_show_all">My Movies</string>
     <string name="tv_main_show_favorite">Watchlist</string>
     <string name="tv_main_show_seen">Seen Movies</string>
-    <string name="tv_main_empty_rv">Welcome!\nThere are no favorite movies yet. Start looking for them!</string>
+    <string name="tv_main_empty_rv_welcome">Welcome!</string>
+    <string name="tv_main_empty_rv">There are no favorite movies yet. Start looking for them!</string>
     <string name="search_title">Search</string>
     <string name="sort_year">Sort after Year</string>
     <string name="filter_type_movie">Only show movies</string>

@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-
+/**
+ * @author Kathrin Ulmer
+ */
 public class MotionPictureAdapterSearch extends RecyclerView.Adapter<MotionPictureAdapterSearch.MotionPictureViewHolder> {
     ArrayList<MotionPicture> motionPictureList = new ArrayList<>();
 
