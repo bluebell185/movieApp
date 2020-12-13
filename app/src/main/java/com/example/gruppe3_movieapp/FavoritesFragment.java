@@ -36,12 +36,9 @@ import java.util.stream.Collectors;
  */
 public class FavoritesFragment extends Fragment {
     ArrayList<MotionPicture> motionPictureList = new ArrayList<>();
-    TextView tvTitleMain;
-    TextView tvMain;
+    TextView tvTitleMain, tvMain;
     ImageView ivCoverMain;
-    Button btnShowAll;
-    Button btnShowFavorites;
-    Button btnShowSeen;
+    Button btnShowAll, btnShowFavorites, btnShowSeen;
     static MotionPictureDao dbRepo;
     static AppDatabase db;
     MotionPictureAdapterMain pa;
@@ -87,7 +84,8 @@ public class FavoritesFragment extends Fragment {
     }
 
     /**
-     * @author Kathrin Ulmer, Elena Oszvald
+     * @author Kathrin Ulmer
+     * @author Elena Oszvald
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

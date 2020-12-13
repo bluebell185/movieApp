@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- @author Kathrin Ulmer -->
+
     //ViewText
     <style name="TextViewStyle" parent="Widget.AppCompat.TextView">
         <item name="android:textColor">@color/colorWhite</item>

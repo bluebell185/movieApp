@@ -46,17 +46,10 @@ import static com.example.gruppe3_movieapp.AppConstFunctions.*;
 public class SearchFragment extends Fragment {
     ArrayList<MotionPicture> motionPictureList = new ArrayList<>();
     List<MotionPicture> initialTitleSearchList = new ArrayList<>();
-    TextView tvTitleSearch;
-    TextView tvYearSearch;
-    ImageView ivTypeSearch;
-    ImageView ivCoverSearch;
-    Button btnSearch;
-    Button btnFilterTypeMovie;
-    Button btnFilterTypeSeries;
-    Button btnSortYear;
+    TextView tvTitleSearch, tvYearSearch, tvApiErrorMessage, tvOutputApiObject;
+    ImageView ivTypeSearch, ivCoverSearch;
+    Button btnSearch, btnFilterTypeMovie, btnFilterTypeSeries, btnSortYear;
     EditText etSearch;
-    TextView tvApiErrorMessage;
-    TextView tvOutputApiObject;
     RecyclerView rvSearch;
     MotionPictureAdapterSearch pa;
     MotionPictureRepo motionPictureRepo = new MotionPictureRepo();
@@ -103,7 +96,8 @@ public class SearchFragment extends Fragment {
     }
 
     /**
-     * @author Kathrin Ulmer, Elena Oszvald
+     * @author Kathrin Ulmer
+     * @author Elena Oszvald
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
