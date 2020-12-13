@@ -25,7 +25,7 @@
     <string name="shareSeries">I watched the series %1$s today.</string>
     <string name="tabFavorites">Overview</string>
     <string name="tabSearch">Search</string>
-    <string name="tvSeasons">Seasons: %1$i</string>
+    <string name="tvSeasons">Seasons: %1$d</string>
     <string name="tvYearSince">since %1$s</string>
 
     <string name="motionPicture_error_on_failure"> No network is connected reload the App later!</string>

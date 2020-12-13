@@ -4,8 +4,11 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-public interface MotionPictureApi {
+/**
+ * @author Mohamed Ali El-Maoula
+ */
 
+public interface MotionPictureApi {
 
 
     @GET("api")

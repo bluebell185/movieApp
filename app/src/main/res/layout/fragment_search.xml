@@ -69,6 +69,7 @@
        app:layout_constraintEnd_toEndOf="parent"
        app:layout_constraintTop_toTopOf="@+id/etSearch" />
 
+   <!-- @author Mohamed Ali El-Maoula -->
    <TextView
        android:id="@+id/tvApiErrorMessage"
        style="@style/TextViewStyle"
@@ -79,6 +80,7 @@
        app:layout_constraintStart_toStartOf="parent"
        app:layout_constraintTop_toTopOf="parent" />
 
+   <!-- @author Mohamed Ali El-Maoula -->
    <TextView
        android:id="@+id/tvOutputApiObject"
        style="@style/TextViewStyle"
