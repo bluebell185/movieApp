@@ -102,6 +102,9 @@ public class SearchFragment extends Fragment {
         }
     }
 
+    /**
+     * @author Kathrin Ulmer, Elena Oszvald
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -150,6 +153,9 @@ public class SearchFragment extends Fragment {
                 })
         );
 
+        /**
+         * @author Kathrin Ulmer
+         */
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -265,7 +271,7 @@ public class SearchFragment extends Fragment {
         return view;
     }
 
-    // Sobald die Daten und Inhalte fest sind, muss noch festegelegt werden wann was angezeigt wird und welche Errormessage angezeigt werden kann
+
     private void getfilteredMotionPictureTitle(String title){
         motionPictureRepo.getFilteredMotionPictureTitle( title, new Callback<MotionPictureApiResults>() {
             @Override
@@ -314,6 +320,9 @@ public class SearchFragment extends Fragment {
         rvSearch.setVisibility(View.INVISIBLE);
     }
 
+    /**
+     * @author Kathrin Ulmer
+     */
     private void makeToast(String message){
         Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
     }

@@ -86,6 +86,9 @@ public class FavoritesFragment extends Fragment {
         }
     }
 
+    /**
+     * @author Kathrin Ulmer, Elena Oszvald
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -139,6 +142,9 @@ public class FavoritesFragment extends Fragment {
                 })
         );
 
+        /**
+         * @author Kathrin Ulmer
+         */
         btnShowAll.setOnClickListener(v -> {
             // alle Filme/Serien anzeigen, die favorisiert und/oder angesehen wurden
             motionPictureList.clear();
@@ -182,16 +188,25 @@ public class FavoritesFragment extends Fragment {
         return view;
     }
 
+    /**
+     * @author Kathrin Ulmer
+     */
     private void fillMotionPictureList(){
         motionPictureList.clear();
         motionPictureList.addAll(dbRepo.getAll().stream().filter(c -> !c.isMarkedAsSeen() && c.isMarkedAsFavorite()).collect(Collectors.toList()));
         btnShowFavorites.setSelected(true);
     }
 
+    /**
+     * @author Kathrin Ulmer
+     */
     private void makeToast(String message){
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * @author Kathrin Ulmer
+     */
     private void setButtonSelected(boolean all, boolean seen, boolean favorites){
         btnShowAll.setSelected(all);
         btnShowSeen.setSelected(seen);

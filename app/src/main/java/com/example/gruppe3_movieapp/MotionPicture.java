@@ -15,6 +15,10 @@ import java.lang.annotation.ElementType;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * @author  Mohamed Ali El-Maoula, Kathrin Ulmer
+ */
 //Table names in SQLite are case-insensitive!
 @Entity
 public class MotionPicture implements Parcelable {
