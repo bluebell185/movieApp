@@ -50,7 +50,7 @@ public class FavoritesFragment extends Fragment {
 
     /**
      * @author Kathrin Ulmer
-     * @author Elena Oszvald
+     * @author Elena Ozsvald
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

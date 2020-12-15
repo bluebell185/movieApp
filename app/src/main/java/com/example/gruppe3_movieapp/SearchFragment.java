@@ -56,7 +56,7 @@ public class SearchFragment extends Fragment {
 
     /**
      * @author Kathrin Ulmer
-     * @author Elena Oszvald
+     * @author Elena Ozsvald
      * @author Mohamed Ali El-Maoula
      */
     @Override
