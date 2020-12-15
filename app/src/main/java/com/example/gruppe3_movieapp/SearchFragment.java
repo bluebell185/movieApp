@@ -18,6 +18,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -202,7 +204,7 @@ public class SearchFragment extends Fragment {
     private void getfilteredMotionPictureTitle(String title){
         motionPictureRepo.getFilteredMotionPictureTitle( title, new Callback<MotionPictureApiResults>() {
             @Override
-            public void onResponse(Call<MotionPictureApiResults> call, Response<MotionPictureApiResults> response) {
+            public void onResponse(@NotNull Call<MotionPictureApiResults> call, @NotNull Response<MotionPictureApiResults> response) {
                 if (response.isSuccessful()){
                     Log.d("MainActivity", "getMotionPicture: onResponse successfull");
 
@@ -220,7 +222,7 @@ public class SearchFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<MotionPictureApiResults> call, Throwable t) {
+            public void onFailure(@NotNull Call<MotionPictureApiResults> call, @NotNull Throwable t) {
                 Log.d("MainActivity", "getMotionPicture: onFailure " + t.getMessage());
                 showErrorMessage(getString(R.string.motionPicture_error_on_failure));
 
@@ -231,7 +233,6 @@ public class SearchFragment extends Fragment {
     /**
      * @author Mohamed Ali El-Maoula
      */
-
     private void showData(MotionPictureApiResults motionPictureApiResults){
         rvSearch.setVisibility(View.VISIBLE);
         tvOutputApiObject.setVisibility(View.INVISIBLE);
@@ -247,7 +248,6 @@ public class SearchFragment extends Fragment {
     /**
      * @author Mohamed Ali El-Maoula
      */
-
     private void showErrorMessage(String failure){
         tvApiErrorMessage.setVisibility(View.VISIBLE);
         tvApiErrorMessage.setText(failure);

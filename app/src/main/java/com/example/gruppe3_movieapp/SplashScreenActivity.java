@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 /**
- * @author Mustafa
+ * @author Mustafa Soput
  */
 public class SplashScreenActivity extends AppCompatActivity {
     @Override

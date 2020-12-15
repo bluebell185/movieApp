@@ -9,6 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * @author Elena Ozsvald
+ */
 public class RecyclerItemClickListener implements RecyclerView.OnItemTouchListener{
     private final OnItemClickListener mListener;
 

@@ -80,6 +80,11 @@ public class MainActivity extends AppCompatActivity {
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
     }
 
+
+    /**
+     * @author Elena Ozsvald
+     * @author Mustafa
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -142,6 +147,9 @@ public class MainActivity extends AppCompatActivity {
         return super.onMenuOpened(featureId, menu);
     }
 
+    /**
+     * @author Mustafa
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         //Sonderfall für alle Items des Submenus der Farbauswahl

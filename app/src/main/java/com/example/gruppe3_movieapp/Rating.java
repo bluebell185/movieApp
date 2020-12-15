@@ -5,6 +5,9 @@ import androidx.room.PrimaryKey;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * @author Mohamed Ali El-Maoula
+ */
 //@Entity
 public class Rating {
     //@Expose
