@@ -118,6 +118,9 @@ public class SearchFragment extends Fragment {
                 spe.apply();
                 getfilteredMotionPictureTitle(title);
             }
+            // Filter rausnehmen, dass nicht ausversehen was Falsches in der Suche rauskommt(Bsp: Suche nach Serie, aber von davor noch nur Filmanzeige markiert -> würde nichts angezeigt werden)
+            btnFilterTypeMovie.setSelected(false);
+            btnFilterTypeSeries.setSelected(false);
         });
         btnSearch.setOnLongClickListener(v -> {
             makeToast(getText(R.string.search_title).toString());
@@ -190,6 +193,9 @@ public class SearchFragment extends Fragment {
                 else{
                     getfilteredMotionPictureTitle(etSearch.getText().toString());
                 }
+                // Filter rausnehmen, dass nicht ausversehen was Falsches in der Suche rauskommt(Bsp: Suche nach Serie, aber von davor noch nur Filmanzeige markiert -> würde nichts angezeigt werden)
+                btnFilterTypeMovie.setSelected(false);
+                btnFilterTypeSeries.setSelected(false);
                 return true;
             }
             return false;
