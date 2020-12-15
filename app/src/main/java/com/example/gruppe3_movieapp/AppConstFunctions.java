@@ -36,7 +36,7 @@ public class AppConstFunctions {
 
         //Lightmode
         mapColorToMenuItem.put(R.color.colorWhite, R.id.item_default_light);
-        mapColorToMenuItem.put(R.color.colorRed, R.id.item_red);
+        mapColorToMenuItem.put(R.color.colorLimeGreen, R.id.item_red);
         mapColorToMenuItem.put(R.color.colorBlue, R.id.item_blue);
         mapColorToMenuItem.put(R.color.colorCyan, R.id.item_cyan);
         //Darkmode
