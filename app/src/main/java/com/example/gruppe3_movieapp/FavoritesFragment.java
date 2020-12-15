@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
  * @author Elena Ozsvald
  */
 public class FavoritesFragment extends Fragment {
-    ArrayList<MotionPicture> motionPictureList = new ArrayList<>();
+    final ArrayList<MotionPicture> motionPictureList = new ArrayList<>();
     TextView tvTitleMain, tvMain, tvWelcome;
     ImageView ivCoverMain;
     Button btnShowAll, btnShowFavorites, btnShowSeen;
@@ -66,8 +66,8 @@ public class FavoritesFragment extends Fragment {
         tvWelcome = view.findViewById(R.id.tvWelcome);
         ivCoverMain = view.findViewById(R.id.ivCoverMain);
         btnShowAll = view.findViewById(R.id.btnShowAll);
-        btnShowFavorites = view.findViewById(R.id.btnShowFavorites);;
-        btnShowSeen = view.findViewById(R.id.btnShowSeen);;
+        btnShowFavorites = view.findViewById(R.id.btnShowFavorites);
+        btnShowSeen = view.findViewById(R.id.btnShowSeen);
 
         fillMotionPictureList();
 
@@ -136,7 +136,7 @@ public class FavoritesFragment extends Fragment {
             // alle angesehenen Filme/Serien anzeigen
             motionPictureList.clear();
             tvMain.setText(getString(R.string.tv_main_show_seen));
-            motionPictureList.addAll(dbRepo.getAll().stream().filter(c -> c.isMarkedAsSeen()).collect(Collectors.toList()));
+            motionPictureList.addAll(dbRepo.getAll().stream().filter(MotionPicture::isMarkedAsSeen).collect(Collectors.toList()));
             pa.notifyDataSetChanged();
             setButtonSelected(false, true, false);
         });

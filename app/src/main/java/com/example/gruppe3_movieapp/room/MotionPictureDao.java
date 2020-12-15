@@ -47,6 +47,6 @@ public interface MotionPictureDao {
      @param motionPictures Ein oder mehrere Objekte welche in der DB aktualisiert werden sollen.
      */
     @Update
-    public void update(MotionPicture... motionPictures);
+    void update(MotionPicture... motionPictures);
 
 }

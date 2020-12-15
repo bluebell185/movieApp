@@ -22,9 +22,7 @@ import static com.example.gruppe3_movieapp.AppConstFunctions.*;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TabLayout tabLayout;
     private ViewPager viewPager;
-    private TabItem tabFavorites, tabSearch;
     public PagerAdapter pagerAdapter;
     boolean firstOnResume = false;
 
@@ -48,15 +46,15 @@ public class MainActivity extends AppCompatActivity {
 
         sp  = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
 
-        tabLayout = findViewById(R.id.tabLayout);
-        tabFavorites = findViewById(R.id.tabFavorites);
-        tabSearch = findViewById(R.id.tabSearch);
+        TabLayout tabLayout = findViewById(R.id.tabLayout);
+        TabItem tabFavorites = findViewById(R.id.tabFavorites);
+        TabItem tabSearch = findViewById(R.id.tabSearch);
         viewPager = findViewById(R.id.viewPager);
 
         pagerAdapter = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
 
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
@@ -114,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onMenuOpened(int featureId, Menu menu) {
         Integer colorItemIdentifier;
-        Integer preferredColor;
+        int preferredColor;
         MenuItem menuItem;
         //Je nach Setting werden nur bestimmte Farben angeboten...
         if (isDarkmodeActive(this)) {
@@ -126,12 +124,12 @@ public class MainActivity extends AppCompatActivity {
             currentColorPreference = PREF_COLOR_LIGHT;
         }
 
-        /**
-         * Vorgehen:
-         * Es wird zunächst die gesetzte Farbe aus den SP ermittelt.
-         * Dann wird diese Farbe zu einem Identifier eines MenuItems aufgelöst (HashMap).
-         * Anschließend wird der Identifier als MenuItem gefunden und gechecked.
-         * Wenn die Farbe aus den SP unbekannt, wird das Default des aktuellen Modes genommen (DEFAULT_COLOR...)
+        /*
+          Vorgehen:
+          Es wird zunächst die gesetzte Farbe aus den SP ermittelt.
+          Dann wird diese Farbe zu einem Identifier eines MenuItems aufgelöst (HashMap).
+          Anschließend wird der Identifier als MenuItem gefunden und gechecked.
+          Wenn die Farbe aus den SP unbekannt, wird das Default des aktuellen Modes genommen (DEFAULT_COLOR...)
          */
         preferredColor = sp.getInt(currentColorPreference, 0);
         colorItemIdentifier = mapColorToMenuItem.get(preferredColor);
@@ -155,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             switch (item.getItemId()) {
+                //TODO: Option zur neuen Activity abfangen
                 default:
                     break;
             }

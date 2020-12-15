@@ -9,10 +9,10 @@ import androidx.fragment.app.FragmentPagerAdapter;
  * @author Elena Ozsvald
  */
 public class PageAdapter extends FragmentPagerAdapter {
-    private int numberOfTabs;
+    private final int numberOfTabs;
 
     public PageAdapter(@NonNull FragmentManager fm, int numberOfTabs) {
-        super(fm);
+        super(fm, numberOfTabs);
         this.numberOfTabs = numberOfTabs;
     }
 

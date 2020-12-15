@@ -28,8 +28,7 @@ public class MotionPictureAdapterSearch extends RecyclerView.Adapter<MotionPictu
     public MotionPictureAdapterSearch.MotionPictureViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_motion_picture_search,
                 parent, false);
-        MotionPictureViewHolder vh = new MotionPictureViewHolder(v);
-        return vh;
+        return new MotionPictureViewHolder(v);
     }
 
     @Override

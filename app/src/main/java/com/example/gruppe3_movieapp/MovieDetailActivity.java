@@ -22,6 +22,8 @@ import androidx.constraintlayout.widget.Group;
 
 import com.squareup.picasso.Picasso;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -101,8 +103,7 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
 
         }
         else {
-            MotionPicture motionPictureDB = motionPictureList.get(0);
-            currentMotionPicture = motionPictureDB;
+            currentMotionPicture = motionPictureList.get(0);
 
             // Überprüft ob der Film in der Favoritenliste ist
             // Je nach dem wird der Button gesetzt
@@ -154,7 +155,7 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         tvDescription.setText(currentMotionPicture.plot);
         //tvActor.setText(getString(R.string.tvActor, currentMotionPicture.actors));
         String actors = "<b>" + getString(R.string.tvActor) +"</b> " + currentMotionPicture.actors;
-        tvActor.setText(Html.fromHtml(actors));
+        tvActor.setText(Html.fromHtml(actors,Html.FROM_HTML_MODE_LEGACY));
         tvDuration.setText(currentMotionPicture.runtime);
         tvGenre.setText(currentMotionPicture.genre);
 
@@ -232,7 +233,7 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
     private void getfilteredMotionPictureImdb(String imdb){
         motionPictureRepo.filteredMotionPictureImdb(imdb, new Callback<MotionPicture>() {
             @Override
-            public void onResponse(Call<MotionPicture> call, Response<MotionPicture> response) {
+            public void onResponse(@NotNull Call<MotionPicture> call, @NotNull Response<MotionPicture> response) {
                 if(response.isSuccessful()){
                     Log.d("DetailActivity", "getMotionPicture: onResponse successfull");
                     MotionPicture motionPictureResult = response.body();
@@ -254,7 +255,7 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
             }
 
             @Override
-            public void onFailure(Call<MotionPicture> call, Throwable t) {
+            public void onFailure(@NotNull Call<MotionPicture> call, @NotNull Throwable t) {
                 Log.d("DetailActivity", "getMotionPicture: onFailure " + t.getMessage());
                 showErrorMessage(getString(R.string.motionPicture_error_on_failure));
 
@@ -316,6 +317,7 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
 
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -336,6 +338,9 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.ibtnWatched:
                 setWatched();
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + v.getId());
         }
     }
 }
