@@ -3,6 +3,7 @@ package com.example.gruppe3_movieapp;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -29,6 +30,8 @@ import retrofit2.Response;
 
 import static com.example.gruppe3_movieapp.AppConstFunctions.applyBackgroundColor;
 import static com.example.gruppe3_movieapp.AppConstFunctions.dbRepo;
+import static com.example.gruppe3_movieapp.AppConstFunctions.delete;
+import static com.example.gruppe3_movieapp.AppConstFunctions.sp;
 
 /**
  * @author Elena Ozsvald
@@ -195,6 +198,10 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         // wird dieser aus der Datenbank gelöscht
         if(!currentMotionPicture.markedAsSeen && !currentMotionPicture.markedAsFavorite){
             dbRepo.delete(currentMotionPicture);
+
+            // Wenn diese Variable true ist wird die MainActivity beim aufrufen aktualisiert
+            // dadurch wird der gelöschte Film nicht erneut angezeigt
+            delete = true;
         }
     }
 
@@ -202,7 +209,7 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         // Das Cover aus ivMovieImage wird gesendet
         BitmapDrawable bitmapDrawable = ((BitmapDrawable) ivCover.getDrawable());
         Bitmap bitmap = bitmapDrawable.getBitmap();
-        String bitmapPath = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, motionPictureList.get(0).title, "Cover from the Movie " + motionPictureList.get(0).title);
+        String bitmapPath = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, currentMotionPicture.title, "Cover from the Movie " + currentMotionPicture.title);
         Uri bitmapUri = Uri.parse(bitmapPath);
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setAction(Intent.ACTION_SEND);
@@ -218,6 +225,7 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         }
         startActivity(Intent.createChooser(shareIntent, "Share Movie"));
     }
+
     /**
      * @author Mohamed Ali El-Maoula
      */
@@ -279,7 +287,6 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
     /**
      * @author Mohamed Ali El-Maoula
      */
-
     private void showErrorMessage(String failure){
         tvErrorAPI.setVisibility(View.VISIBLE);
         tvErrorAPI.setText(failure);
@@ -303,6 +310,8 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         // wird dieser aus der Datenbank gelöscht
         if(!currentMotionPicture.markedAsSeen && !currentMotionPicture.markedAsFavorite){
             dbRepo.delete(currentMotionPicture);
+
+            delete = true;
         }
 
     }

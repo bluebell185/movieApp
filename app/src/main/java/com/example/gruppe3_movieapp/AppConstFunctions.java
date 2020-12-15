@@ -26,6 +26,7 @@ public class AppConstFunctions {
     static final String PREF_COLOR_DARK = "colorDark";
     static final String PREF_LAST_SEARCH_EXPRESSION = "lastSearchExpression";
     static String currentColorPreference;
+    static boolean delete = false;
 
 
     static BiMap<Integer, Integer> mapColorToMenuItem;

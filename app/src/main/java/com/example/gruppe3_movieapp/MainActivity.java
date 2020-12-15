@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private TabItem tabFavorites, tabSearch;
     public PagerAdapter pagerAdapter;
+    boolean firstOnResume = false;
 
     SubMenu colorPickItems;
 
@@ -65,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
                 else if (tab.getPosition() == 1){
                     pagerAdapter.notifyDataSetChanged();
                 }
-                else if (tab.getPosition() == 2);
             }
 
             @Override
@@ -86,6 +86,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         applyBackgroundColor(this, this, R.id.linLayout);
+
+        if (delete){
+            finish();
+            startActivity(getIntent());
+        }
+
+        delete = false;
     }
 
     /**
