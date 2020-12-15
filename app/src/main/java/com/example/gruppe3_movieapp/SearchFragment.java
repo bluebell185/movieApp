@@ -192,7 +192,6 @@ public class SearchFragment extends Fragment {
                     showErrorMessage(getString(R.string.outputApiObject));
                 }
                 else{
-                    tvOutputApiObject.setVisibility(View.INVISIBLE);
                     getfilteredMotionPictureTitle(etSearch.getText().toString());
                 }
                 return true;
