@@ -37,8 +37,10 @@
     <string name="color_lime">Limette</string>
     <string name="color_blue">Blau</string>
     <string name="color_cyan">Türkis</string>
-    <string name="color_dark_cyan">Dunkel Türkis</string>
+    <string name="color_dark_cyan">Dunkeltürkis</string>
     <string name="color_purple">Lila</string>
-    <string name="color_dark_blue">Dunkel Blau</string>
+    <string name="color_dark_blue">Dunkelblau</string>
+    <string name="color_light_grey">Hellgrau</string>
+    <string name="color_beige">Beige</string>
     <string name="menu_item_change_color">Hintergrundfarbe ändern...</string>
 </resources>

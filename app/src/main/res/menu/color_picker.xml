@@ -5,8 +5,10 @@
     <group android:id="@+id/group_light" android:checkableBehavior="single">
         <item android:id="@+id/item_default_light"
             android:title="@string/color_default" />
-        <item android:id="@+id/item_red"
-            android:title="@string/color_lime" />
+        <item android:id="@+id/item_beige"
+            android:title="Beige" />
+        <item android:id="@+id/item_light_grey"
+            android:title="Hellgrau" />
         <item android:id="@+id/item_blue"
             android:title="@string/color_blue" />
         <item android:id="@+id/item_cyan"

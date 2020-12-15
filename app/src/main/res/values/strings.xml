@@ -41,5 +41,7 @@
     <string name="color_dark_cyan">Dark Cyan</string>
     <string name="color_purple">Purple</string>
     <string name="color_dark_blue">Dark Blue</string>
+    <string name="color_light_grey">Light Grey</string>
+    <string name="color_beige">Beige</string>
     <string name="menu_item_change_color">Change background color...</string>
 </resources>
