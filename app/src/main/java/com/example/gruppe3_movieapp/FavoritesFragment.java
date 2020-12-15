@@ -27,11 +27,6 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link FavoritesFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-/**
  * @author Elena Ozsvald
  */
 public class FavoritesFragment extends Fragment {

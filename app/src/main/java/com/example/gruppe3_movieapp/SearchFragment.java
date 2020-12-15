@@ -30,11 +30,6 @@ import static com.example.gruppe3_movieapp.AppConstFunctions.PREF_LAST_SEARCH_EX
 import static com.example.gruppe3_movieapp.AppConstFunctions.sp;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link SearchFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-/**
  * @author Elena Ozsvald
  */
 public class SearchFragment extends Fragment {
