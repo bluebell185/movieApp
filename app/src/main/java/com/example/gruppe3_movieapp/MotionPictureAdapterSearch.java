@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * @author Kathrin Ulmer
  */
 public class MotionPictureAdapterSearch extends RecyclerView.Adapter<MotionPictureAdapterSearch.MotionPictureViewHolder> {
-    ArrayList<MotionPicture> motionPictureList = new ArrayList<>();
+    ArrayList<MotionPicture> motionPictureList;
 
     public MotionPictureAdapterSearch(ArrayList<MotionPicture> motionPictureList){
         this.motionPictureList = motionPictureList;
@@ -36,7 +36,7 @@ public class MotionPictureAdapterSearch extends RecyclerView.Adapter<MotionPictu
     public void onBindViewHolder(@NonNull MotionPictureAdapterSearch.MotionPictureViewHolder holder, int position) {
         MotionPicture p = motionPictureList.get(position);
         holder.tvTitleSearch.setText(p.getTitle());
-        holder.tvYearSearch.setText(String.valueOf(p.getYear().substring(0,4)));
+        holder.tvYearSearch.setText(p.getYear().substring(0, 4));
         if (p.getType().equals("movie")){
             holder.ivTypeSearch.setImageResource(R.drawable.ic_movie);
         }

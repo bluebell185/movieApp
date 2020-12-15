@@ -161,8 +161,8 @@ public class FavoritesFragment extends Fragment {
         });
 
         btnShowFavorites.setOnClickListener((View.OnClickListener) v -> {
+            // alle favorisierten Filme/Serien anzeigen, die noch nicht gesehen wurden
             motionPictureList.clear();
-             // alle favorisierten Filme/Serien anzeigen, die noch nicht gesehen wurden
             tvMain.setText(getString(R.string.tv_main_show_favorite));
             motionPictureList.addAll(dbRepo.getAll().stream().filter(c -> !c.isMarkedAsSeen() && c.isMarkedAsFavorite()).collect(Collectors.toList()));
             pa.notifyDataSetChanged();

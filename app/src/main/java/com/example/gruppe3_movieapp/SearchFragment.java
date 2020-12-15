@@ -145,116 +145,94 @@ public class SearchFragment extends Fragment {
         /**
          * @author Kathrin Ulmer
          */
-        btnSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String title = etSearch.getText().toString();
-                if (title.equals("")){
-                    //cursor soll aktiviert werden im Feld
-                    etSearch.requestFocus();
-                }
-                else{
-                    motionPictureList.clear();
-                    spe.putString(PREF_LAST_SEARCH_EXPRESSION, title);
-                    spe.apply();
-                    getfilteredMotionPictureTitle(title);
-                }
+        btnSearch.setOnClickListener(v -> {
+            String title = etSearch.getText().toString();
+            if (title.equals("")){
+                //cursor soll aktiviert werden im Feld
+                etSearch.requestFocus();
             }
-        });
-        btnSearch.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                makeToast(getText(R.string.search_title).toString());
-                return true;
-            }
-        });
-
-        btnFilterTypeMovie.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (btnFilterTypeMovie.isSelected()){
-                    motionPictureList.clear();
-                    motionPictureList.addAll(initialTitleSearchList);
-                    pa.notifyDataSetChanged();
-                    btnFilterTypeMovie.setSelected(false);
-                }
-                else {
-                    motionPictureList.clear();
-                    motionPictureList.addAll(initialTitleSearchList.stream().filter(c -> c.getType().equals("movie")).collect(Collectors.toList()));
-                    pa.notifyDataSetChanged();
-                    btnFilterTypeMovie.setSelected(true);
-                    btnFilterTypeSeries.setSelected(false);
-                }
-            }
-        });
-        btnFilterTypeMovie.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                makeToast(getText(R.string.filter_type_movie).toString());
-                return true;
-            }
-        });
-
-        btnFilterTypeSeries.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (btnFilterTypeSeries.isSelected()){
-                    motionPictureList.clear();
-                    motionPictureList.addAll(initialTitleSearchList);
-                    pa.notifyDataSetChanged();
-                    btnFilterTypeSeries.setSelected(false);
-                }
-                else{
-                    motionPictureList.clear();
-                    motionPictureList.addAll(initialTitleSearchList.stream().filter(c -> c.getType().equals("series")).collect(Collectors.toList()));
-                    pa.notifyDataSetChanged();
-                    btnFilterTypeSeries.setSelected(true);
-                    btnFilterTypeMovie.setSelected(false);
-                }
-
-            }
-        });
-        btnFilterTypeSeries.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                makeToast(getText(R.string.filter_type_series).toString());
-                return true;
-            }
-        });
-
-        btnSortYear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //sortiert Inhalte nach Jahr absteigend
-                ArrayList<MotionPicture> sortedList = (ArrayList<MotionPicture>) motionPictureList.stream().sorted((v1, v2)-> v2.getYear().compareTo(v1.getYear())).collect(Collectors.toList());
+            else{
                 motionPictureList.clear();
-                motionPictureList.addAll(sortedList);
-                pa.notifyDataSetChanged();
+                spe.putString(PREF_LAST_SEARCH_EXPRESSION, title);
+                spe.apply();
+                getfilteredMotionPictureTitle(title);
             }
         });
-        btnSortYear.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                makeToast(getText(R.string.sort_year).toString());
-                return true;
-            }
+        btnSearch.setOnLongClickListener(v -> {
+            makeToast(getText(R.string.search_title).toString());
+            return true;
         });
 
-        etSearch.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                // If the event is a key-down event on the "enter" button
-                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
-                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    // Perform action on key press
-                    motionPictureList.clear();
-                    spe.putString(PREF_LAST_SEARCH_EXPRESSION, etSearch.getText().toString());
-                    spe.apply();
-                    getfilteredMotionPictureTitle(etSearch.getText().toString());
-                    return true;
-                }
-                return false;
+        btnFilterTypeMovie.setOnClickListener(v -> {
+            if (btnFilterTypeMovie.isSelected()){
+                motionPictureList.clear();
+                motionPictureList.addAll(initialTitleSearchList);
+                pa.notifyDataSetChanged();
+                btnFilterTypeMovie.setSelected(false);
             }
+            else {
+                motionPictureList.clear();
+                motionPictureList.addAll(initialTitleSearchList.stream().filter(c -> c.getType().equals("movie")).collect(Collectors.toList()));
+                pa.notifyDataSetChanged();
+                btnFilterTypeMovie.setSelected(true);
+                btnFilterTypeSeries.setSelected(false);
+            }
+        });
+        btnFilterTypeMovie.setOnLongClickListener(v -> {
+            makeToast(getText(R.string.filter_type_movie).toString());
+            return true;
+        });
+
+        btnFilterTypeSeries.setOnClickListener(v -> {
+            if (btnFilterTypeSeries.isSelected()){
+                motionPictureList.clear();
+                motionPictureList.addAll(initialTitleSearchList);
+                pa.notifyDataSetChanged();
+                btnFilterTypeSeries.setSelected(false);
+            }
+            else{
+                motionPictureList.clear();
+                motionPictureList.addAll(initialTitleSearchList.stream().filter(c -> c.getType().equals("series")).collect(Collectors.toList()));
+                pa.notifyDataSetChanged();
+                btnFilterTypeSeries.setSelected(true);
+                btnFilterTypeMovie.setSelected(false);
+            }
+
+        });
+        btnFilterTypeSeries.setOnLongClickListener(v -> {
+            makeToast(getText(R.string.filter_type_series).toString());
+            return true;
+        });
+
+        btnSortYear.setOnClickListener(v -> {
+            //sortiert Inhalte nach Jahr absteigend
+            ArrayList<MotionPicture> sortedList = (ArrayList<MotionPicture>) motionPictureList.stream().sorted((v1, v2)-> v2.getYear().compareTo(v1.getYear())).collect(Collectors.toList());
+            motionPictureList.clear();
+            motionPictureList.addAll(sortedList);
+            pa.notifyDataSetChanged();
+        });
+        btnSortYear.setOnLongClickListener(v -> {
+            makeToast(getText(R.string.sort_year).toString());
+            return true;
+        });
+
+        etSearch.setOnKeyListener((v, keyCode, event) -> {
+            // wenn Enter gedrückt wird
+            if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                    (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                motionPictureList.clear();
+                spe.putString(PREF_LAST_SEARCH_EXPRESSION, etSearch.getText().toString());
+                spe.apply();
+                if (etSearch.getText().toString().equals("")){
+                    showErrorMessage(getString(R.string.outputApiObject));
+                }
+                else{
+                    tvOutputApiObject.setVisibility(View.INVISIBLE);
+                    getfilteredMotionPictureTitle(etSearch.getText().toString());
+                }
+                return true;
+            }
+            return false;
         });
 
         return view;

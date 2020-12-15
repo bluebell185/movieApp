@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * @author Kathrin Ulmer
  */
 public class MotionPictureAdapterMain extends RecyclerView.Adapter<MotionPictureAdapterMain.MotionPictureViewHolder> {
-    ArrayList<MotionPicture> motionPictureList = new ArrayList<>();
+    ArrayList<MotionPicture> motionPictureList;
 
     public MotionPictureAdapterMain(ArrayList<MotionPicture> motionPictureList){
         this.motionPictureList = motionPictureList;

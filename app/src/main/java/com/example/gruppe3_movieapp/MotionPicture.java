@@ -17,7 +17,7 @@ import java.util.List;
 
 
 /**
- * @author  Mohamed Ali El-Maoula
+ * @author Mohamed Ali El-Maoula
  * @author Kathrin Ulmer
  */
 //Table names in SQLite are case-insensitive!
