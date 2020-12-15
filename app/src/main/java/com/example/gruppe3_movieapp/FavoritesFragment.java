@@ -104,7 +104,6 @@ public class FavoritesFragment extends Fragment {
 
                     @Override
                     public void onLongItemClick(View view, int position) {
-                        // Kann man noch überlegen was sinnvolles einzufügen.
                     }
                 })
         );
