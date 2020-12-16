@@ -6,7 +6,7 @@
     android:background="#545455" >
 
     <ImageView
-        android:id="@+id/logo"
+        android:id="@+id/ivLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"

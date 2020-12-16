@@ -1,6 +1,7 @@
 package com.example.gruppe3_movieapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
@@ -160,8 +161,12 @@ public class MainActivity extends AppCompatActivity {
             applyBackgroundColor(this, this, R.id.linLayout);
         }
         else {
+            //Switch beibehalten, falls in Zukunft weitere Optionen hinzukommen...
             switch (item.getItemId()) {
-                //TODO: Option zur neuen Activity abfangen
+                case R.id.menu_item_about:
+                    Intent iAboutView = new Intent(getApplicationContext(), AboutActivity.class);
+                    startActivity(iAboutView);
+                    break;
                 default:
                     break;
             }

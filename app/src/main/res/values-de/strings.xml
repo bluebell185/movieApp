@@ -28,7 +28,7 @@
     <string name="tvYearSince">seit %1$s</string>
 
     <string name="motionPicture_error_on_failure"> Keine Netzwerkverbindung lade die App später neu!</string>
-    <string name="motionPicture_error_NOT_succsessfull"> API vorrübergehend nicht erreichbar oder falsche Antwort Lade die App später neu!</string>
+    <string name="motionPicture_error_NOT_succsessfull"> API vorübergehend nicht erreichbar oder falsche Antwort Lade die App später neu!</string>
     <string name="outputApiObject"> Keine Daten vorhanden!</string>
 
     <string name="color_default">Standard</string>
@@ -43,4 +43,10 @@
     <string name="color_light_grey">Hellgrau</string>
     <string name="color_beige">Beige</string>
     <string name="menu_item_change_color">Hintergrundfarbe ändern...</string>
+    <string name="menu_item_about">Info</string>
+    <string name="tvDescription">Die App um all deine Lieblingsfilme/-serien zu verwalten.</string>
+    <string name="tvLabelDirectedBy">Unter Leitung von:</string>
+    <string name="tvLabelDevelopers">Entwickler:</string>
+    <string name="tvLabelDatasource">Datenquelle:</string>
+    <string name="iv_about_logo_description">App Logo</string>
 </resources>
