@@ -1,4 +1,6 @@
-package com.example.gruppe3_movieapp;
+package com.example.gruppe3_movieapp.api;
+
+import com.example.gruppe3_movieapp.model.MotionPicture;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

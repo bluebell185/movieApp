@@ -9,7 +9,7 @@
     android:background="#FFFFFF"
     android:orientation="vertical"
     app:layout_constraintBottom_toTopOf="parent"
-    tools:context=".MainActivity">
+    tools:context=".view.MainActivity">
 
 
     <com.google.android.material.tabs.TabLayout

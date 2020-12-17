@@ -1,4 +1,4 @@
-package com.example.gruppe3_movieapp;
+package com.example.gruppe3_movieapp.model;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 

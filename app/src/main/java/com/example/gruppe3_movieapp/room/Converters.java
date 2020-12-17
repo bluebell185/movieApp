@@ -4,7 +4,7 @@ import android.text.TextUtils;
 
 import androidx.room.TypeConverter;
 
-import com.example.gruppe3_movieapp.Rating;
+import com.example.gruppe3_movieapp.model.Rating;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,8 +22,8 @@ public class Converters {
             return null;
         }
         else {
-            List<String> preResult = new ArrayList<String>();
-            List<Rating> result = new ArrayList<Rating>();
+            List<String> preResult;
+            List<Rating> result = new ArrayList<>();
 
             preResult = Arrays.asList(value.split(LINE_DELIMITER));
             for (String string : preResult) {
@@ -40,7 +40,7 @@ public class Converters {
             return null;
         }
         else {
-            List<String> preResult = new ArrayList<String>();
+            List<String> preResult = new ArrayList<>();
             //Idee: Aus Rating Objekten eine plain-text CSV machen:
             //bspw. R1 mit IMDB und 10/10, R2 mit IMDB und 7/10 wird zu:
             //IMDB;10/10

@@ -16,20 +16,20 @@ import com.google.common.collect.HashBiMap;
  * @author Mustafa
  */
 public class AppConstFunctions {
-    static MotionPictureDao dbRepo;
-    static AppDatabase db;
-    static SharedPreferences sp;
-    static final String APP_PREFERENCES = "appPreferences";
-    static final String PREF_COLOR_LIGHT = "colorLight";
-    static final int DEFAULT_COLOR_LIGHT = R.color.colorWhite;
-    static final int DEFAULT_COLOR_DARK = R.color.colorDarkGrey;
-    static final String PREF_COLOR_DARK = "colorDark";
-    static final String PREF_LAST_SEARCH_EXPRESSION = "lastSearchExpression";
-    static String currentColorPreference;
-    static boolean delete = false;
+    public static MotionPictureDao dbRepo;
+    public static AppDatabase db;
+    public static SharedPreferences sp;
+    public static final String APP_PREFERENCES = "appPreferences";
+    public static final String PREF_COLOR_LIGHT = "colorLight";
+    public static final int DEFAULT_COLOR_LIGHT = R.color.colorWhite;
+    public static final int DEFAULT_COLOR_DARK = R.color.colorDarkGrey;
+    public static final String PREF_COLOR_DARK = "colorDark";
+    public static final String PREF_LAST_SEARCH_EXPRESSION = "lastSearchExpression";
+    public static String currentColorPreference;
+    public static boolean delete = false;
 
 
-    static final BiMap<Integer, Integer> mapColorToMenuItem;
+    public static final BiMap<Integer, Integer> mapColorToMenuItem;
     static {
         //Bidirektionale Map um ColorID zu ItemID aufzulösen und vice versa
         mapColorToMenuItem = HashBiMap.create();
@@ -50,7 +50,7 @@ public class AppConstFunctions {
 
     }
 
-    static boolean isDarkmodeActive(Context context) {
+    public static boolean isDarkmodeActive(Context context) {
         //Code (angepasst) aus https://stackoverflow.com/questions/44170028/android-how-to-detect-if-night-mode-is-on-when-using-appcompatdelegate-mode-ni
         int nightModeFlags =
                 context.getResources().getConfiguration().uiMode &

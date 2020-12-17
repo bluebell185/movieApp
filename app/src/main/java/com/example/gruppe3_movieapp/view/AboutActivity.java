@@ -1,8 +1,10 @@
-package com.example.gruppe3_movieapp;
+package com.example.gruppe3_movieapp.view;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.gruppe3_movieapp.R;
 
 import static com.example.gruppe3_movieapp.AppConstFunctions.applyBackgroundColor;
 

@@ -1,4 +1,4 @@
-package com.example.gruppe3_movieapp;
+package com.example.gruppe3_movieapp.api;
 
 /*import okhttp3.Call;
 import okhttp3.OkHttpClient;
@@ -7,6 +7,8 @@ import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 */
+
+import com.example.gruppe3_movieapp.model.MotionPicture;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

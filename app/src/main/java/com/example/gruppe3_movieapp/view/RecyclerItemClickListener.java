@@ -1,4 +1,4 @@
-package com.example.gruppe3_movieapp;
+package com.example.gruppe3_movieapp.view;
 
 import android.content.Context;
 import android.view.GestureDetector;

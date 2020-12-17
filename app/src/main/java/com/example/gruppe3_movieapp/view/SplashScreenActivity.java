@@ -1,4 +1,4 @@
-package com.example.gruppe3_movieapp;
+package com.example.gruppe3_movieapp.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.os.Handler;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.gruppe3_movieapp.R;
 
 /**
  * @author Mustafa Soput

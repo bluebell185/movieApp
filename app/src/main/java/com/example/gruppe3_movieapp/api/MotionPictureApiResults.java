@@ -1,5 +1,6 @@
-package com.example.gruppe3_movieapp;
+package com.example.gruppe3_movieapp.api;
 
+import com.example.gruppe3_movieapp.model.MotionPicture;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;

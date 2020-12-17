@@ -1,4 +1,4 @@
-package com.example.gruppe3_movieapp;
+package com.example.gruppe3_movieapp.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,8 +14,8 @@ import androidx.room.Room;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.gruppe3_movieapp.R;
 import com.example.gruppe3_movieapp.room.AppDatabase;
-import com.example.gruppe3_movieapp.room.MotionPictureDao;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 

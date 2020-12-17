@@ -1,9 +1,8 @@
-package com.example.gruppe3_movieapp;
+package com.example.gruppe3_movieapp.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -20,6 +19,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.Group;
 
+import com.example.gruppe3_movieapp.api.MotionPictureRepo;
+import com.example.gruppe3_movieapp.R;
+import com.example.gruppe3_movieapp.model.MotionPicture;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
@@ -33,7 +35,6 @@ import retrofit2.Response;
 import static com.example.gruppe3_movieapp.AppConstFunctions.applyBackgroundColor;
 import static com.example.gruppe3_movieapp.AppConstFunctions.dbRepo;
 import static com.example.gruppe3_movieapp.AppConstFunctions.delete;
-import static com.example.gruppe3_movieapp.AppConstFunctions.sp;
 
 /**
  * @author Elena Ozsvald
@@ -107,14 +108,14 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
 
             // Überprüft ob der Film in der Favoritenliste ist
             // Je nach dem wird der Button gesetzt
-            if (currentMotionPicture.markedAsFavorite){
+            if (currentMotionPicture.isMarkedAsFavorite()){
                 ibtnFavorite.setImageResource(R.drawable.ic_star_favorite);
             }
             else {
                 ibtnFavorite.setImageResource(R.drawable.ic_star_set_favorite);
             }
 
-            if (currentMotionPicture.markedAsSeen){
+            if (currentMotionPicture.isMarkedAsSeen()){
                 ibtnWatched.setImageResource(R.drawable.ic_watched);
             }
             else {
@@ -132,34 +133,34 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
 
     public void setFields(){
         // Felder werden aus der Datenbank / API gesetz
-        if (!currentMotionPicture.cover.equals("N/A")){
-            Picasso.get().load(currentMotionPicture.cover).into(ivCover);
+        if (!currentMotionPicture.getCover().equals("N/A")){
+            Picasso.get().load(currentMotionPicture.getCover()).into(ivCover);
         }
         else {
             // Falls die API kein Filmcover besitzt wird ein Standardbild gesetzt
             Picasso.get().load(R.drawable.nomoviepicture).into(ivCover);
         }
 
-        tvTitle.setText(currentMotionPicture.title);
+        tvTitle.setText(currentMotionPicture.getTitle());
 
         // Falls kein Rating vorhanden wird ein anderer Text angezeigt
-        Float rating = currentMotionPicture.imdbRating;
+        Float rating = currentMotionPicture.getImdbRating();
             if (rating != null){
-                tvRating.setText(getString(R.string.tvMovieRating, currentMotionPicture.imdbRating));
+                tvRating.setText(getString(R.string.tvMovieRating, currentMotionPicture.getImdbRating()));
             }
             else {
                 tvRating.setText(getString(R.string.tvMovieRatingNull));
             }
 
-        tvRating.setText(getString(R.string.tvMovieRating, currentMotionPicture.imdbRating));
-        tvDescription.setText(currentMotionPicture.plot);
+        tvRating.setText(getString(R.string.tvMovieRating, currentMotionPicture.getImdbRating()));
+        tvDescription.setText(currentMotionPicture.getPlot());
         //tvActor.setText(getString(R.string.tvActor, currentMotionPicture.actors));
-        String actors = "<b>" + getString(R.string.tvActor) +"</b> " + currentMotionPicture.actors;
+        String actors = "<b>" + getString(R.string.tvActor) +"</b> " + currentMotionPicture.getActors();
         tvActor.setText(Html.fromHtml(actors,Html.FROM_HTML_MODE_LEGACY));
-        tvDuration.setText(currentMotionPicture.runtime);
-        tvGenre.setText(currentMotionPicture.genre);
+        tvDuration.setText(currentMotionPicture.getRuntime());
+        tvGenre.setText(currentMotionPicture.getGenre());
 
-        String year = currentMotionPicture.year;
+        String year = currentMotionPicture.getYear();
         // Überprüft ob der das letzte Zeichen – ist,
         // wenn ja wird der – gelöscht und es steht dran die Serie gibt es seit xxxx
         String last = year.substring(year.length()-1);
@@ -174,9 +175,9 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
 
         tvYear.setText(year);
 
-        if (currentMotionPicture.type.equals("series")){
+        if (currentMotionPicture.getType().equals("series")){
             tvSeasons.setVisibility(View.VISIBLE);
-            tvSeasons.setText(getString(R.string.tvSeasons, currentMotionPicture.total_Season));
+            tvSeasons.setText(getString(R.string.tvSeasons, currentMotionPicture.getTotal_Season()));
         }
         else{
             tvSeasons.setVisibility(View.INVISIBLE);
@@ -184,7 +185,7 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
     }
 
     public void setFavoriteMovie(){
-        if (!currentMotionPicture.markedAsFavorite){
+        if (!currentMotionPicture.isMarkedAsFavorite()){
             currentMotionPicture.setMarkedAsFavorite(true);
             dbRepo.insert(currentMotionPicture);
             ibtnFavorite.setImageResource(R.drawable.ic_star_favorite);
@@ -197,7 +198,7 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
 
         // Wenn der Film kein Favorite und nicht mehr als gesehen makiert ist
         // wird dieser aus der Datenbank gelöscht
-        if(!currentMotionPicture.markedAsSeen && !currentMotionPicture.markedAsFavorite){
+        if(!currentMotionPicture.isMarkedAsSeen() && !currentMotionPicture.isMarkedAsFavorite()){
             dbRepo.delete(currentMotionPicture);
 
             // Wenn diese Variable true ist wird die MainActivity beim aufrufen aktualisiert
@@ -210,7 +211,7 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         // Das Cover aus ivMovieImage wird gesendet
         BitmapDrawable bitmapDrawable = ((BitmapDrawable) ivCover.getDrawable());
         Bitmap bitmap = bitmapDrawable.getBitmap();
-        String bitmapPath = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, currentMotionPicture.title, "Cover from the Movie " + currentMotionPicture.title);
+        String bitmapPath = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, currentMotionPicture.getTitle(), "Cover from the Movie " + currentMotionPicture.getTitle());
         Uri bitmapUri = Uri.parse(bitmapPath);
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setAction(Intent.ACTION_SEND);
@@ -218,11 +219,11 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         // Übergeben des Bildes an das share Intent
         shareIntent.putExtra(Intent.EXTRA_STREAM, bitmapUri);
         // Zusätzlich kommt noch der Titel des Filmes als Text hinzu
-        if (currentMotionPicture.type.equals("movie")){
-            shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.shareMovie, currentMotionPicture.title));
+        if (currentMotionPicture.getType().equals("movie")){
+            shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.shareMovie, currentMotionPicture.getTitle()));
         }
         else {
-            shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.shareSeries, currentMotionPicture.title));
+            shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.shareSeries, currentMotionPicture.getTitle()));
         }
         startActivity(Intent.createChooser(shareIntent, "Share Movie"));
     }
@@ -275,9 +276,9 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         currentMotionPicture = motionPicture;
 
         // Wenn die API kein Cover zurückgibt, wird das Standardbild geladen
-        if (motionPicture.cover.equals("N/A")){
+        if (motionPicture.getCover().equals("N/A")){
             Uri pathNoMovieImage = Uri.parse("android.resource://"+ R.class.getPackage().getName()+"/" + R.drawable.nomoviepicture);
-            currentMotionPicture.cover = pathNoMovieImage.toString();
+            currentMotionPicture.setCover(pathNoMovieImage.toString());
         }
 
         // Methode um die Daten in die Views zuschreiben wird aufgerufen
@@ -296,7 +297,7 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
     }
 
     public void setWatched(){
-        if (!currentMotionPicture.markedAsSeen){
+        if (!currentMotionPicture.isMarkedAsSeen()){
             currentMotionPicture.setMarkedAsSeen(true);
             dbRepo.insert(currentMotionPicture);
             ibtnWatched.setImageResource(R.drawable.ic_watched);
@@ -309,7 +310,7 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
 
         // Wenn der Film kein Favorite und nicht mehr als gesehen makiert ist
         // wird dieser aus der Datenbank gelöscht
-        if(!currentMotionPicture.markedAsSeen && !currentMotionPicture.markedAsFavorite){
+        if(!currentMotionPicture.isMarkedAsSeen() && !currentMotionPicture.isMarkedAsFavorite()){
             dbRepo.delete(currentMotionPicture);
 
             delete = true;

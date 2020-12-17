@@ -1,4 +1,4 @@
-package com.example.gruppe3_movieapp;
+package com.example.gruppe3_movieapp.view;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +17,11 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.gruppe3_movieapp.api.MotionPictureApiResults;
+import com.example.gruppe3_movieapp.api.MotionPictureRepo;
+import com.example.gruppe3_movieapp.R;
+import com.example.gruppe3_movieapp.model.MotionPicture;
 
 import org.jetbrains.annotations.NotNull;
 

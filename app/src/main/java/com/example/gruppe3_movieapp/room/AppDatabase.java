@@ -4,7 +4,7 @@ import androidx.room.Database;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-import com.example.gruppe3_movieapp.MotionPicture;
+import com.example.gruppe3_movieapp.model.MotionPicture;
 
 /**
  * @author Mustafa

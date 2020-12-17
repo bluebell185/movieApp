@@ -1,6 +1,5 @@
 package com.example.gruppe3_movieapp.room;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -8,7 +7,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.gruppe3_movieapp.MotionPicture;
+import com.example.gruppe3_movieapp.model.MotionPicture;
 
 import java.util.List;
 

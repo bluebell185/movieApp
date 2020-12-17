@@ -1,4 +1,4 @@
-package com.example.gruppe3_movieapp;
+package com.example.gruppe3_movieapp.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -10,6 +10,8 @@ import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.annotation.ElementType;
 import java.util.ArrayList;
@@ -68,7 +70,7 @@ public class MotionPicture implements Parcelable {
     boolean markedAsSeen = false;       //Nicht in JSON
 
     @Ignore
-    public MotionPicture(String title, String cover, String imdbId, boolean markedAsSeen, boolean markedAsFavorite, String type) {
+    public MotionPicture(String title, String cover, @NotNull String imdbId, boolean markedAsSeen, boolean markedAsFavorite, String type) {
         //Für Testzwecke?
         this.title = title;
         this.cover = cover;
@@ -79,10 +81,10 @@ public class MotionPicture implements Parcelable {
     }
 
     @Ignore
-    public MotionPicture(String imdbId, String title, double duration, float imdbRating, String cover) {
+    public MotionPicture(@NotNull String imdbId, String title, String duration, float imdbRating, String cover) {
         this.imdbId = imdbId;
         this.title = title;
-        this.runtime = runtime;
+        this.runtime = duration;
         this.cover = cover;
         this.imdbRating = imdbRating;
         this.ratings = new ArrayList<>();
@@ -238,6 +240,14 @@ public class MotionPicture implements Parcelable {
         return total_Season;
     }
 
+    public float getImdbRating() {
+        return imdbRating;
+    }
+
+    public String getImdbVotes() {
+        return imdbVotes;
+    }
+
     public boolean isMarkedAsFavorite() {
         return markedAsFavorite;
     }
@@ -250,17 +260,11 @@ public class MotionPicture implements Parcelable {
         this.markedAsFavorite = markedAsFavorite;
     }
 
-
-
     public void setMarkedAsSeen(boolean markedAsSeen) {
         this.markedAsSeen = markedAsSeen;
     }
 
-    public float getImdbRating() {
-        return imdbRating;
-    }
-
-    public String getImdbVotes() {
-        return imdbVotes;
+    public void setCover(String cover) {
+        this.cover = cover;
     }
 }

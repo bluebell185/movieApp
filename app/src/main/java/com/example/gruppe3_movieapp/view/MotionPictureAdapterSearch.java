@@ -1,15 +1,16 @@
-package com.example.gruppe3_movieapp;
+package com.example.gruppe3_movieapp.view;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.gruppe3_movieapp.R;
+import com.example.gruppe3_movieapp.model.MotionPicture;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -72,6 +73,6 @@ public class MotionPictureAdapterSearch extends RecyclerView.Adapter<MotionPictu
     }
 
     public String getItem(int id){
-        return motionPictureList.get(id).imdbId;
+        return motionPictureList.get(id).getImdbId();
     }
 }
