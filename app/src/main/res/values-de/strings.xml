@@ -44,7 +44,7 @@
     <string name="color_beige">Beige</string>
     <string name="menu_item_change_color">Hintergrundfarbe ändern...</string>
     <string name="menu_item_about">Info</string>
-    <string name="tvDescription">Die App um all deine Lieblingsfilme/-serien zu verwalten.</string>
+    <string name="tvDescription">Die App um all deine (un)gesehenen Lieblingsfilme/-serien zu verwalten.</string>
     <string name="tvLabelDirectedBy">Unter Leitung von:</string>
     <string name="tvLabelDevelopers">Entwickler:</string>
     <string name="tvLabelDatasource">Datenquelle:</string>

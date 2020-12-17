@@ -45,7 +45,7 @@
     <string name="color_beige">Beige</string>
     <string name="menu_item_change_color">Change background color...</string>
     <string name="menu_item_about">About</string>
-    <string name="tvDescription">The app to search and manage all of your favorite movies &amp; TV shows.</string>
+    <string name="tvDescription">The app to search and manage all of your favorite and seen movies &amp; TV shows.</string>
     <string name="tvDevelopers" translatable="false">Mohamed Ali El-Maoula, \nElena Ozsvald, \nMustafa Soput, \nKathrin Ulmer</string>
     <string name="tvDirectedBy" translatable="false">F. Schütz</string>
     <string name="tvLabelDirectedBy">Directed by:</string>

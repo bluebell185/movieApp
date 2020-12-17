@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- @author Mustafa Soput-->
 <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/constrLayoutAbout"
     xmlns:android="http://schemas.android.com/apk/res/android"
